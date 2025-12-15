@@ -4,6 +4,10 @@
 #include <sstream>
 #include <vector>
 #include <map>
+#include <cstdlib>
+#include <cmath>
+#include <ctime>
+#include <algorithm>
 
 enum NeuronType {
     PERCEPTRON,
