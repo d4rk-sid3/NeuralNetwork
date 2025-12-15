@@ -95,7 +95,6 @@ vector<string> getDataSet(string filepath)
     return res;
 }
 
-
 int main(int ac, char **av)
 {
     vector<string> infosTab = getDataSet(av[1]);
