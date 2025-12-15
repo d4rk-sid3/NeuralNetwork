@@ -1,42 +1,4 @@
-using namespace std;
-
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <vector>
-#include <map>
-
-const map<char, int> values = 
-{
-    {'P', +1},
-    {'N', +2},
-    {'B', +3},
-    {'R', +4},
-    {'Q', +5},
-    {'K', +6},
-    {'p', -1},
-    {'n', -2},
-    {'b', -3},
-    {'r', -4},
-    {'q', -5},
-    {'k', -6}
-};
-
-const map<string, int> sideToMove =
-{
-    {"w", 1},
-    {"b", -1}
-}
-;
-const map<string, int> passeSquare;
-const map<string, int> labelMapping =
-{
-    {"CheckWhite",	1},
-    {"CheckBlack",	2},
-    {"CheckmateWhite",	3},
-    {"CheckmateBlack",	4},
-    {"Nothing",	0},
-};
+#include "convert.hpp"
 
 vector<int> getLineInfo(string & line)
 {
@@ -76,8 +38,8 @@ vector<int> getEnPassantInfo(string & line)
     if (line == "-")
         return tab;
 
-    tab.push_back(values.at(line[0] - 'a'));
-    tab.push_back(values.at(line[1] - '0'));
+    tab[0] = line[0] - 'a';
+    tab[1] = line[1] - '0';
 
     return tab;
 }
@@ -133,7 +95,6 @@ vector<vector<int>> parseDataSet(vector<string> & infosTab)
         }
 
         res.push_back(sideToMove.at(spaceTab[1]));
-    
 
         vector<int> rescastle = getCastlingInfo(spaceTab[2]);
 
@@ -155,6 +116,7 @@ vector<vector<int>> parseDataSet(vector<string> & infosTab)
         res.push_back(labelMapping.at(tmpLabel));
 
         allResults.push_back(res);
+        
     }
 
     return allResults;
@@ -165,7 +127,10 @@ vector<vector<int>> parseDataSet(vector<string> & infosTab)
 int main(int ac, char **av)
 {
     if (string(av[1]) == "--help") {
-        cout << "Usage: ./convert <input_file> <output_file>" << endl;
+        cout << "Usage: ./convert <input_file> [ <output_file> ]" << endl;
+        cout << "<input_file> : path to the input dataset file." << endl;
+        cout << "<output_file> : (optional) path to the output file to store results." << endl;
+        cout << "If output_file is not provided, results will be printed to standard output." << endl;
         return 0;
     }
 
@@ -173,5 +138,13 @@ int main(int ac, char **av)
 
     vector<vector<int>> allResults = parseDataSet(infosTab);
     
-    storeResult(allResults, av[2]);
+    if (ac == 3)
+        storeResult(allResults, av[2]);
+    else
+        for (auto & tmp : allResults) {
+            for (auto & th : tmp) {
+                cout << th << " ";
+            }
+            cout << endl;
+        }
 }
