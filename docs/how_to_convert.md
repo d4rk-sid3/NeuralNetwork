@@ -107,26 +107,32 @@ Encodes which player is to move.
 
 ### 66. Castling Rights (Aggregated)
 
-Single integer encoding of castling availability:
+4 digits encoding of castling availability:
 
-| Value | Meaning                       |
-| ----- | ----------------------------- |
-| 0     | No castling rights (`-`)      |
-| 1     | White can castle (K and/or Q) |
-| 2     | Black can castle (k and/or q) |
-| 3     | Both sides can castle         |
+| Value  | Meaning                       |
+| ------ | ----------------------------- |
+| 0      | No castling rights (`-`)      |
+| 6      | White can kingside (`K`)      |
+| 5      | White can queenside (`Q`)     |
+| -6     | Black can kingside (`k`)      |
+| -5     | Black can queenside (`q`)     |
 
 ---
 
 ### 67. En Passant Square
 
-Encodes the en-passant target square if it exists.
+2 digits encoding the en-passant target square if it exists.
 
-| Value | Meaning                                           |
-| ----- | ------------------------------------------------- |
-| 0     | No en passant possible (`-`)                      |
-| 1–8   | File of en passant square (`a`=1, `b`=2, … `h`=8) |
+| Value | Meaning                            |
+| ----- | ---------------------------------- |
+| 0     | No en passant possible (`-`)       |
+| x y   | Position of the en passant square  |
 
+Note : 
+```
+x € {a=1, b=2, … h=8}
+y € {1=1, 2=2, … 8=8}
+```
 ---
 
 ### 68. Halfmove Clock
@@ -149,11 +155,11 @@ Full move count from the FEN.
 
 ## Final Input Vector Size
 
-| Component         | Size          |   |
-| ----------------- | ------------- | - |
-| Board squares     | 64            |   |
-| Global parameters | 5             |   |
-| **TOTAL**         | **69 values** | . |
+| Component         | Size          |
+| ----------------- | ------------- |
+| Board squares     | 64            |
+| Global parameters | 5             |
+| **TOTAL**         | **69 values** |
 
 ---
 
