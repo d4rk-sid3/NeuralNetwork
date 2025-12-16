@@ -95,11 +95,20 @@ vector<string> getDataSet(string filepath)
     return res;
 }
 
-
-int main(int ac, char **av)
+void storeResult(vector<vector<int>> & res, string filepath)
 {
-    vector<string> infosTab = getDataSet(av[1]);
+    ofstream out(filepath, ios::app);
 
+    for (auto & tmp : res) {
+        for (auto & th : tmp) {
+            out << th << " ";
+        }
+        out << endl;
+    }
+}
+
+vector<vector<int>> parseDataSet(vector<string> & infosTab)
+{
     vector<vector<int>> allResults;
     
     for (auto & tmp : infosTab) {
@@ -148,10 +157,19 @@ int main(int ac, char **av)
         allResults.push_back(res);
     }
 
-    for (auto & tmp : allResults) {
-        for (auto & th : tmp) {
-            cout << th << " ";
-        }
-        cout << endl;
+}
+
+
+int main(int ac, char **av)
+{
+    if (string(av[1]) == "--help") {
+        cout << "Usage: ./convert <input_file> <output_file>" << endl;
+        return 0;
     }
+
+    vector<string> infosTab = getDataSet(av[1]);
+
+    vector<vector<int>> allResults = parseDataSet(infosTab);
+    
+    storeResult(allResults, av[2]);
 }
