@@ -7,7 +7,7 @@ class TANHActivationFunction : public IActivationFunction {
 
         TANHActivationFunction() = default;
 
-        float apply(const float z) override {
+        float apply(const float z) const override {
             return std::tanh(z);
         }
 
