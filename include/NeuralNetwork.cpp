@@ -40,3 +40,42 @@ std::vector<float> NeuralNetwork::feedforward(std::vector<float>& input)
 	return input;
 }
 
+void NeuralNetwork::SGD(
+    const std::vector<TrainingSample>& training_data,
+    int epochs,
+    int mini_batch_size,
+    float eta,
+    const std::vector<TrainingSample>* test_data
+) {
+    const size_t n = training_data.size();
+    const size_t n_test = test_data ? test_data->size() : 0;
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    for (int epoch = 0; epoch < epochs; epoch++) {
+
+        std::shuffle(training_data.begin(), training_data.end(), gen);
+
+        for (size_t k = 0; k < n; k += mini_batch_size) {
+
+            size_t end = std::min(k + mini_batch_size, n);
+
+            std::vector<TrainingSample> mini_batch(
+                training_data.begin() + k,
+                training_data.begin() + end
+            );
+
+            updateMiniBatch(mini_batch, eta);
+        }
+
+        if (test_data) {
+            int correct = evaluate(*test_data);
+            std::cout << "Epoch " << epoch
+                      << ": " << correct
+                      << " / " << n_test << std::endl;
+        } else {
+            std::cout << "Epoch " << epoch << " complete" << std::endl;
+        }
+    }
+}
