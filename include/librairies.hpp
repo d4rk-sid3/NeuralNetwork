@@ -18,6 +18,7 @@ enum NeuronType {
 };
 
 enum ActivationFunctionType {
+    STEP,
     SIGMOID,
     RELU,
     TANH
