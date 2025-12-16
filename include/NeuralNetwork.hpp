@@ -1,6 +1,5 @@
 #pragma once
 #include "librairies.hpp"
-#include "IArtificialNeuron.hpp"
 #include "Layer.hpp"
 
 using TrainingSample = std::pair<std::vector<float>, std::vector<float>>;

@@ -27,7 +27,7 @@ std::vector<float> NeuralNetwork::feedforward(std::vector<float>& input)
 		new_inputs.clear();
 		
 		// reference the layer neurons directly
-		std::vector<std::unique_ptr<IArtificialNeuron>>& layer_neurons = m_layers[i].getNeurons();
+		std::vector<std::unique_ptr<Neuron>>& layer_neurons = m_layers[i].getNeurons();
         
 		for (size_t n = 0; n < layer_neurons.size(); n++)
 		{

@@ -1,6 +1,6 @@
-#include "SigmoidNeuron.hpp"
+#include "Neuron.hpp"
 
-SigmoidNeuron::SigmoidNeuron(
+Neuron::Neuron(
     const IActivationFunction& activation,
     int n_weights,
     std::optional<std::vector<float>> weights = std::nullopt,
@@ -34,7 +34,7 @@ SigmoidNeuron::SigmoidNeuron(
     m_output = 0.f;
 }
 
-float SigmoidNeuron::compute_z(const std::vector<float>& inputs)
+float Neuron::compute_z(const std::vector<float>& inputs)
 {
     if (inputs.size() != m_weights.size()) {
         throw std::invalid_argument(
@@ -52,34 +52,34 @@ float SigmoidNeuron::compute_z(const std::vector<float>& inputs)
     return z;
 }
 
-float SigmoidNeuron::compute_activation()
+float Neuron::compute_activation()
 {
     m_activation = m_activationfunction.apply(m_z);
     m_output = m_activation;
     return m_output;
 }
 
-float SigmoidNeuron::get_output()
+float Neuron::get_output()
 {
     return m_output;
 }
 
-std::vector<float>& SigmoidNeuron::get_weights()
+std::vector<float>& Neuron::get_weights()
 {
     return m_weights;
 }
 
-float& SigmoidNeuron::get_bias()
+float& Neuron::get_bias()
 {
     return m_bias;
 }
 
-float& SigmoidNeuron::get_z()
+float& Neuron::get_z()
 {
     return m_z;
 }
 
-NeuronType SigmoidNeuron::getType() const
+NeuronType Neuron::getType() const
 {
     return NeuronType::SIGMOID;
 }

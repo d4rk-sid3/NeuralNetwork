@@ -1,13 +1,13 @@
 #include "Layer.hpp"
 
-explicit Layer::Layer(std::vector<std::unique_ptr<IArtificialNeuron>> neurons, LayerType type)
+explicit Layer::Layer(std::vector<std::unique_ptr<Neuron>> neurons, LayerType type)
     : m_neurons(std::move(neurons)),
         m_nNeurons(m_neurons.size()),
         m_type(type)
 {
 }
 
-std::vector<std::unique_ptr<IArtificialNeuron>>& Layer::getNeurons() { 
+std::vector<std::unique_ptr<Neuron>>& Layer::getNeurons() { 
     return m_neurons; 
 }
 

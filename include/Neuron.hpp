@@ -1,30 +1,29 @@
 #pragma once
 #include "librairies.hpp"
-#include "IArtificialNeuron.hpp"
 #include "IActivationFunction.hpp"
 
-class SigmoidNeuron : public IArtificialNeuron {
+class Neuron {
     public:
-        SigmoidNeuron(
+        Neuron(
             const IActivationFunction& activation,
             int n_weights,
             std::optional<std::vector<float>> weights = std::nullopt,
             std::optional<float> bias = std::nullopt
         );
 
-        float compute_z(const std::vector<float>& inputs) override;
+        float compute_z(const std::vector<float>& inputs);
     
-        float compute_activation() override;
+        float compute_activation();
     
-        float get_output() override;
+        float get_output();
     
-        std::vector<float>& get_weights() override;
+        std::vector<float>& get_weights();
     
-        float& get_bias() override;
+        float& get_bias();
 
-        float& get_z() override;
+        float& get_z();
     
-        NeuronType getType() const override;
+        NeuronType getType() const;
     private:
         size_t m_nWeights;
         std::vector<float> m_weights;
