@@ -3,8 +3,13 @@
 
 class SigmoidActivationFunction : public IActivationFunction {
     public:
-        ActivationFunctionType type = ActivationFunctionType::SIGMOID;
+        SigmoidActivationFunction() = default;
+
         float apply(const float z) override {
             return  1.0f / (1.0f + std::exp(-z));
+        }
+
+        ActivationFunctionType getType() const override {
+            return ActivationFunctionType::SIGMOID;
         }
 };

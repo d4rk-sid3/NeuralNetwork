@@ -3,8 +3,13 @@
 
 class RELUActivationFunction : public IActivationFunction {
     public:
-        ActivationFunctionType type = ActivationFunctionType::RELU;
+        RELUActivationFunction() = default;
+
         float apply(const float z) override {
             return std::max(0.0f, z);
+        }
+
+        ActivationFunctionType getType() const override {
+            return ActivationFunctionType::RELU;
         }
 };

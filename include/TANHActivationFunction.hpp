@@ -3,8 +3,14 @@
 
 class TANHActivationFunction : public IActivationFunction {
     public:
-        ActivationFunctionType type = ActivationFunctionType::TANH;
+
+        TANHActivationFunction() = default;
+
         float apply(const float z) override {
             return std::tanh(z);
+        }
+
+        ActivationFunctionType getType() const override {
+            return ActivationFunctionType::TANH;
         }
 };
