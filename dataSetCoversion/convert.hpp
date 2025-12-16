@@ -45,7 +45,7 @@ vector<int> parseDataSetLine(string & line);
 vector<int> getLineInfo(string & line);
 vector<int> getCastlingInfo(string & line);
 vector<int> getEnPassantInfo(string & line);
-void storeResult(vector<vector<int>> & res, const string & filename);
+void storeResult(vector<vector<int>> & res, string filepath);
 vector<string> getDataSet(string filepath);
 
 
