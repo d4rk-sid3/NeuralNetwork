@@ -109,8 +109,9 @@ vector<int> parseDataSetLine(string & newline)
     string tmpLabel = "";
     for (int i = 6; i < spaceTab.size(); i++)
         tmpLabel.insert(tmpLabel.end(), spaceTab[i].begin(), spaceTab[i].end());
-    res.push_back(labelMapping.at(tmpLabel));
 
+    auto a = labelMapping.at(tmpLabel);
+    res.insert(res.end(), a.begin(), a.end());
     return res;
 }
 

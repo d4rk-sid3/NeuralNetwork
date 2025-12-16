@@ -139,7 +139,7 @@ TEST(ParseDataSetLineTest, BasicTest) {
         6, 5, -6, -5,
         0, 0,
         0, 1,
-        1
+        1, 0, 0, 0, 0
     };
     vector<int> output = parseDataSetLine(input);
     EXPECT_EQ(output, expected_output);
@@ -165,7 +165,7 @@ TEST(ParseDataSetTest, BasicTest) {
             6, 5, -6, -5,
             0, 0,
             0, 1,
-            1
+            1, 0, 0, 0, 0
         },
         {
             -4, -2, -3, -5, -6, -3, -2, -4,
@@ -180,7 +180,7 @@ TEST(ParseDataSetTest, BasicTest) {
             6, 5, -6, -5,
             4, 3,
             0, 1,
-            2
+            0, 1, 0, 0, 0
         }
     };
     vector<vector<int>> output = parseDataSet(input);   

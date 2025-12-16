@@ -31,13 +31,13 @@ const map<string, int> sideToMove =
     {"b", -1}
 };
 
-const map<string, int> labelMapping =
+const map<string, vector<int>> labelMapping =
 {
-    {"CheckWhite",	1},
-    {"CheckBlack",	2},
-    {"CheckmateWhite",	3},
-    {"CheckmateBlack",	4},
-    {"Nothing",	0},
+    {"CheckWhite",	    {1, 0, 0, 0, 0}},
+    {"CheckBlack",	    {0, 1, 0, 0, 0}},
+    {"CheckmateWhite",	{0, 0, 1, 0, 0}},
+    {"CheckmateBlack",	{0, 0, 0, 1, 0}},
+    {"Nothing",	        {0, 0, 0, 0, 1}}
 };
 
 vector<vector<int>> parseDataSet(vector<string> & infosTab);
