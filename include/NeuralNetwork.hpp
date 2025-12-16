@@ -3,7 +3,7 @@
 #include "IArtificialNeuron.hpp"
 #include "Layer.hpp"
 
-using TrainingSample = std::pair<std::vector<float>, std::vector<float>>;
+using TrainingSample = std::pair<std::vector<float>, float>;
 
 class NeuralNetwork {
     public:
@@ -12,7 +12,6 @@ class NeuralNetwork {
         size_t getNumLayers() const;
     
         Layer& getLayer(size_t index);
-        const Layer& getLayer(size_t index) const;
     
         std::vector<float> feedforward(const std::vector<float>& input);
     
