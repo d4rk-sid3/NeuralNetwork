@@ -189,21 +189,20 @@ This produces a value in the range **[0, 1]**.
 
 ## 3. Output Label Encoding (Single Scalar)
 
-The output is encoded as **a single numerical value**, not a binary or one-hot vector.
+The output is encoded as **five scalar values**, where the correct class is marked with `1` and all other positions are `0`.
 
 ### Label Mapping
 
-| Game State      | Output Value |
-| --------------- | ------------ |
-| Check White     | 1            |
-| Check Black     | 2            |
-| Checkmate White | 3            |
-| Checkmate Black | 4            |
-| Nothing         | 0            |
+| Game State      | Output Vector (5 values)         |
+| --------------- | -------------------------------- |
+| Check White     | [1, 0, 0, 0, 0]                 |
+| Check Black     | [0, 1, 0, 0, 0]                 |
+| Checkmate White | [0, 0, 1, 0, 0]                 |
+| Checkmate Black | [0, 0, 0, 1, 0]                 |
+| Nothing         | [0, 0, 0, 0, 1]                 |
 
-This produces a **single output neuron** whose value represents the predicted class.
+This produces **five output neurons**, each representing one possible class. The network’s prediction sets `1` at the neuron corresponding to the predicted game state, and `0` elsewhere.
 
----
 
 ## Example (Simplified)
 
