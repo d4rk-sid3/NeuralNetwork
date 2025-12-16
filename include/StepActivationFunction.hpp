@@ -11,6 +11,6 @@ class StepActivationFunction : public IActivationFunction {
         }
 
         ActivationFunctionType getType() const override {
-            return ActivationFunctionType::RELU;
+            return ActivationFunctionType::STEP;
         }
 };
