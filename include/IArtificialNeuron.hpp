@@ -11,4 +11,5 @@ class IArtificialNeuron {
         */
         virtual std::vector<float>& get_weights(void) = 0;
         virtual float& get_bias() = 0;
+        virtual NeuronType getType() const = 0;
 };
