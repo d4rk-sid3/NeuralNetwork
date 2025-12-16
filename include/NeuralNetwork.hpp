@@ -13,7 +13,7 @@ class NeuralNetwork {
     
         Layer& getLayer(size_t index);
     
-        std::vector<float> feedforward(const std::vector<float>& input);
+        std::vector<float> feedforward(std::vector<float>& input);
     
         void SGD(const std::vector<TrainingSample>& training_data,
                  int epochs,
