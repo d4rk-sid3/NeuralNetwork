@@ -157,6 +157,8 @@ vector<vector<int>> parseDataSet(vector<string> & infosTab)
         allResults.push_back(res);
     }
 
+    return allResults;
+
 }
 
 
