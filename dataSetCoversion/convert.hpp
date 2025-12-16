@@ -41,5 +41,12 @@ const map<string, int> labelMapping =
 };
 
 vector<vector<int>> parseDataSet(vector<string> & infosTab);
+vector<int> parseDataSetLine(string & line);
+vector<int> getLineInfo(string & line);
+vector<int> getCastlingInfo(string & line);
+vector<int> getEnPassantInfo(string & line);
+void storeResult(vector<vector<int>> & res, const string & filename);
+vector<string> getDataSet(string filepath);
+
 
 #endif /* !CONVERT_HPP */
