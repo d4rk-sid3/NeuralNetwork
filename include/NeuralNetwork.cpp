@@ -46,7 +46,8 @@ void NeuralNetwork::SGD(
     int mini_batch_size,
     float eta,
     const std::vector<TrainingSample>* test_data
-) {
+)
+{
     const size_t n = training_data.size();
     const size_t n_test = test_data ? test_data->size() : 0;
 
@@ -79,3 +80,60 @@ void NeuralNetwork::SGD(
         }
     }
 }
+
+void NeuralNetwork::updateMiniBatch(
+    const std::vector<TrainingSample>& mini_batch,
+    float eta
+)
+{
+    std::vector<std::vector<std::vector<float>>> nabla_w;
+    std::vector<std::vector<float>> nabla_b;
+
+    // Initialization to zero
+    for (auto& layer : m_layers) {
+        std::vector<std::vector<float>> layer_w;
+        std::vector<float> layer_b;
+
+        for (const auto& neuron : layer.getNeurons()) {
+            layer_w.emplace_back(neuron->get_weights().size(), 0.0f);
+            layer_b.emplace_back(0.0f);
+        }
+
+        nabla_w.push_back(std::move(layer_w));
+        nabla_b.push_back(std::move(layer_b));
+    }
+
+    // Accumulation of gradients for each sample in the mini-batch
+    for (const auto& [x, y] : mini_batch) {
+        auto gradients = backprop(x, y);
+
+        for (size_t l = 0; l < nabla_w.size(); l++) {
+            for (size_t n = 0; n < nabla_w[l].size(); n++) {
+                nabla_b[l][n] += gradients.first[l][n];
+
+                for (size_t w = 0; w < nabla_w[l][n].size(); w++) {
+                    nabla_w[l][n][w] += gradients.second[l][n][w];
+                }
+            }
+        }
+    }
+
+    // Weights and biases update
+    const float lr = eta / static_cast<float>(mini_batch.size());
+
+    for (size_t l = 0; l < m_layers.size(); l++) {
+        auto& neurons = m_layers[l].getNeurons();
+
+        for (size_t n = 0; n < neurons.size(); n++) {
+            auto& weights = neurons[n]->get_weights();
+            auto& bias = neurons[n]->get_bias();
+
+            bias -= lr * nabla_b[l][n];
+
+            for (size_t w = 0; w < weights.size(); ++w) {
+                weights[w] -= lr * nabla_w[l][n][w];
+            }
+        }
+    }
+}
+
