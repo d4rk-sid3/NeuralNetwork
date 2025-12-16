@@ -22,3 +22,9 @@ enum ActivationFunctionType {
     RELU,
     TANH
 };
+
+enum LayerType {
+    INPUT,
+    HIDDEN,
+    OUTPUT
+};
