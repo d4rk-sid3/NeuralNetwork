@@ -8,6 +8,8 @@
 #include <cmath>
 #include <ctime>
 #include <algorithm>
+#include <optional>
+#include <random>
 
 enum NeuronType {
     PERCEPTRON,
