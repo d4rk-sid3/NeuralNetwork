@@ -4,14 +4,16 @@
 
 class Layer {
     public:
-        Layer(int n_neurons, int n_weights, LayerType type);
-        ~Layer();
+        explicit Layer(std::vector<std::unique_ptr<IArtificialNeuron>> neurons, LayerType type);
     
-        // return mutable reference to the neurons
-        std::vector<IArtificialNeuron>& get_neurons(void) { return m_neurons; };
+        std::vector<std::unique_ptr<IArtificialNeuron>>& getNeurons();
+    
+        size_t getNeuronCount() const;
+    
+        LayerType getType() const;
     
     private:
-        void initNeurons(int n_neurons, int n_weights);
-    
-        std::vector<IArtificialNeuron> m_neurons;
-};
+        std::vector<std::unique_ptr<IArtificialNeuron>> m_neurons;
+        size_t m_nNeurons;
+        LayerType m_type;
+    };
