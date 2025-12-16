@@ -6,7 +6,7 @@ class RELUActivationFunction : public IActivationFunction {
     public:
         RELUActivationFunction() = default;
 
-        float apply(const float z) override {
+        float apply(const float z) const override {
             return std::max(0.0f, z);
         }
 
