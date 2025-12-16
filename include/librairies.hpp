@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <optional>
 #include <random>
+#include <memory>
 
 enum NeuronType {
     PERCEPTRON,
