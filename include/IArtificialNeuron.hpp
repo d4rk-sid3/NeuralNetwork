@@ -1,3 +1,4 @@
+#pragma once
 #include "librairies.hpp"
 
 class IArtificialNeuron {

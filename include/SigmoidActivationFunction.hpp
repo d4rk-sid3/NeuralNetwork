@@ -1,3 +1,4 @@
+#pragma once
 #include "librairies.hpp"
 #include "IActivationFunction.hpp"
 

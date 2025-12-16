@@ -1,3 +1,4 @@
+#pragma once
 #include "librairies.hpp"
 #include "IArtificialNeuron.hpp"
 #include "IActivationFunction.hpp"
