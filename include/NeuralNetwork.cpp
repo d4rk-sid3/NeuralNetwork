@@ -232,3 +232,26 @@ NeuralNetwork::backprop(
 
     return {nabla_b, nabla_w};
 }
+
+size_t NeuralNetwork::evaluate(const std::vector<TrainingSample>& test_data)
+{
+    size_t correct = 0;
+
+    for (const auto& sample : test_data) {
+        const std::vector<float>& x = sample.first;
+        const std::vector<float>& y = sample.second;
+
+        std::vector<float> output = feedforward(x);
+
+        auto max_it_pred = std::max_element(output.begin(), output.end());
+        int predicted = std::distance(output.begin(), max_it_pred);
+
+        auto max_it_label = std::max_element(y.begin(), y.end());
+        int actual = std::distance(y.begin(), max_it_label);
+
+        if (predicted == actual) {
+            correct++;
+        }
+    }
+    return correct;
+}

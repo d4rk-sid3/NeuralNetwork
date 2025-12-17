@@ -25,10 +25,7 @@ class NeuralNetwork {
         std::pair<std::vector<std::vector<float>>, std::vector<std::vector<std::vector<float>>>>
             backprop(const std::vector<float>& x, const std::vector<float>& y);
     
-        int evaluate(const std::vector<TrainingSample>& test_data);
-    
-        std::vector<float> costDerivative(const std::vector<float>& output_activations,
-                                          const std::vector<float>& y);
+        size_t evaluate(const std::vector<TrainingSample>& test_data);
     
     private:
         std::vector<Layer> m_layers;
