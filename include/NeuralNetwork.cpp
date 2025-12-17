@@ -217,7 +217,7 @@ NeuralNetwork::backprop(
             }
 
             float z = zs[l - 1][i];
-            float sp = neurons[i].get_activation().derivative(z);
+            float sp = neurons[i]->get_activation().derivative(z);
 
             new_delta[i] = sum * sp;
             nabla_b[l][i] = new_delta[i];
