@@ -18,9 +18,10 @@ Layer& NeuralNetwork::getLayer(size_t index)
     return m_layers[index];
 }
 
-std::vector<float> NeuralNetwork::feedforward(std::vector<float>& input)
+std::vector<float> NeuralNetwork::feedforward(const std::vector<float>& input)
 {
     std::vector<float> new_inputs;
+    std::vector<float> inputs(input);
 
     for (size_t i = 0; i < m_numLayers; i++)
 	{
@@ -31,13 +32,13 @@ std::vector<float> NeuralNetwork::feedforward(std::vector<float>& input)
         
 		for (size_t n = 0; n < layer_neurons.size(); n++)
 		{
-			layer_neurons[n]->compute_z(input);
+			layer_neurons[n]->compute_z(inputs);
 			layer_neurons[n]->compute_activation();
 			new_inputs.push_back(layer_neurons[n]->get_output());
 		}
-		input = new_inputs;
+		inputs = new_inputs;
 	}
-	return input;
+	return inputs;
 }
 
 void NeuralNetwork::SGD(
