@@ -233,9 +233,13 @@ NeuralNetwork::backprop(
     return {nabla_b, nabla_w};
 }
 
-size_t NeuralNetwork::evaluate(const std::vector<TrainingSample>& test_data)
+EvalMetrics NeuralNetwork::evaluate(const std::vector<TrainingSample>& test_data)
 {
+    size_t num_classes = test_data[0].second.size();
     size_t correct = 0;
+    float total_loss = 0.f;
+
+    std::vector<std::vector<size_t>> confusion(num_classes, std::vector<size_t>(num_classes, 0));
 
     for (const auto& sample : test_data) {
         const std::vector<float>& x = sample.first;
@@ -244,14 +248,45 @@ size_t NeuralNetwork::evaluate(const std::vector<TrainingSample>& test_data)
         std::vector<float> output = feedforward(x);
 
         auto max_it_pred = std::max_element(output.begin(), output.end());
-        int predicted = std::distance(output.begin(), max_it_pred);
+        size_t predicted = std::distance(output.begin(), max_it_pred);
 
         auto max_it_label = std::max_element(y.begin(), y.end());
-        int actual = std::distance(y.begin(), max_it_label);
+        size_t actual = std::distance(y.begin(), max_it_label);
 
-        if (predicted == actual) {
+        if (predicted == actual)
             correct++;
+
+        confusion[actual][predicted]++;
+
+        for (size_t i = 0; i < num_classes; ++i) {
+            float o = std::max(std::min(output[i], 1.f - 1e-7f), 1e-7f);
+            total_loss += -y[i] * std::log(o);
         }
     }
-    return correct;
+
+    float accuracy = static_cast<float>(correct) / test_data.size();
+
+    float loss = total_loss / test_data.size();
+
+    std::vector<float> precisions(num_classes, 0.f);
+    std::vector<float> recalls(num_classes, 0.f);
+
+    for (size_t i = 0; i < num_classes; ++i) {
+        size_t TP = confusion[i][i];
+        size_t FP = 0, FN = 0;
+        for (size_t j = 0; j < num_classes; ++j) {
+            if (j != i) {
+                FP += confusion[j][i];
+                FN += confusion[i][j];
+            }
+        }
+        precisions[i] = (TP + FP > 0) ? static_cast<float>(TP) / (TP + FP) : 0.f;
+        recalls[i] = (TP + FN > 0) ? static_cast<float>(TP) / (TP + FN) : 0.f;
+    }
+
+    float precision = std::accumulate(precisions.begin(), precisions.end(), 0.f) / num_classes;
+    float recall = std::accumulate(recalls.begin(), recalls.end(), 0.f) / num_classes;
+    float f1_score = (precision + recall > 0.f) ? 2.f * (precision * recall) / (precision + recall) : 0.f;
+
+    return {accuracy, loss, precision, recall, f1_score};
 }
