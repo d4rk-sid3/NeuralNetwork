@@ -137,3 +137,98 @@ void NeuralNetwork::updateMiniBatch(
     }
 }
 
+std::pair<
+    std::vector<std::vector<float>>,
+    std::vector<std::vector<std::vector<float>>>
+>
+NeuralNetwork::backprop(
+    const std::vector<float>& x,
+    const std::vector<float>& y
+) {
+    const size_t num_layers = m_layers.size();
+
+    std::vector<std::vector<float>> nabla_b(num_layers);
+    std::vector<std::vector<std::vector<float>>> nabla_w(num_layers);
+
+    // Init gradients
+    for (size_t l = 0; l < num_layers; l++) {
+        auto& neurons = m_layers[l].getNeurons();
+        nabla_b[l].resize(neurons.size(), 0.f);
+        nabla_w[l].resize(neurons.size());
+
+        for (size_t n = 0; n < neurons.size(); n++) {
+            nabla_w[l][n].resize(neurons[n]->get_weights().size(), 0.f);
+        }
+    }
+
+    // Feedforward
+    std::vector<std::vector<float>> activations;
+    std::vector<std::vector<float>> zs;
+
+    activations.push_back(x);
+    std::vector<float> current_activation = x;
+
+    for (size_t l = 1; l < num_layers; l++) {
+        auto& neurons = m_layers[l].getNeurons();
+        std::vector<float> z_layer;
+        std::vector<float> a_layer;
+
+        for (auto& neuron : neurons) {
+            float z = neuron->compute_z(current_activation);
+            z_layer.push_back(z);
+            a_layer.push_back(neuron->compute_activation());
+        }
+
+        zs.push_back(z_layer);
+        activations.push_back(a_layer);
+        current_activation = a_layer;
+    }
+
+    // Output layer delta
+    size_t last = num_layers - 1;
+    auto& output_neurons = m_layers[last].getNeurons();
+    std::vector<float> delta(output_neurons.size());
+
+    for (size_t i = 0; i < output_neurons.size(); ++i) {
+        float a = activations[last][i];
+        float z = zs[last - 1][i];
+        float dC_da = a - y[i];
+        float da_dz = output_neurons[i]->get_activation().derivative(z);
+
+        delta[i] = dC_da * da_dz;
+        nabla_b[last][i] = delta[i];
+
+        for (size_t j = 0; j < activations[last - 1].size(); j++) {
+            nabla_w[last][i][j] = delta[i] * activations[last - 1][j];
+        }
+    }
+
+    // Hidden layers backprop
+    for (int l = static_cast<int>(last) - 1; l >= 1; l--) {
+        auto& neurons = m_layers[l].getNeurons();
+        auto& next_neurons = m_layers[l + 1].getNeurons();
+
+        std::vector<float> new_delta(neurons.size(), 0.f);
+
+        for (size_t i = 0; i < neurons.size(); i++) {
+            float sum = 0.f;
+            for (size_t k = 0; k < next_neurons.size(); k++) {
+                sum += next_neurons[k]->get_weights()[i] * delta[k];
+            }
+
+            float z = zs[l - 1][i];
+            float sp = neurons[i].get_activation().derivative(z);
+
+            new_delta[i] = sum * sp;
+            nabla_b[l][i] = new_delta[i];
+
+            for (size_t j = 0; j < activations[l - 1].size(); ++j) {
+                nabla_w[l][i][j] = new_delta[i] * activations[l - 1][j];
+            }
+        }
+
+        delta = new_delta;
+    }
+
+    return {nabla_b, nabla_w};
+}
