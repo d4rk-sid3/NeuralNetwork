@@ -72,7 +72,7 @@ void NeuralNetwork::SGD(
         }
 
         if (test_data) {
-            int correct = evaluate(*test_data);
+            int correct = evaluate(*test_data).accuracy;
             std::cout << "Epoch " << epoch
                       << ": " << correct
                       << " / " << n_test << std::endl;
