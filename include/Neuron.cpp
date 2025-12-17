@@ -83,3 +83,8 @@ NeuronType Neuron::getType() const
 {
     return NeuronType::SIGMOID;
 }
+
+const IActivationFunction& Neuron::get_activation() const
+{
+    return m_activationfunction;
+}

@@ -24,6 +24,9 @@ class Neuron {
         float& get_z();
     
         NeuronType getType() const;
+
+        const IActivationFunction& get_activation() const;
+        
     private:
         size_t m_nWeights;
         std::vector<float> m_weights;
