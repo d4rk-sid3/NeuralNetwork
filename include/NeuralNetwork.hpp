@@ -1,6 +1,7 @@
 #pragma once
 #include "librairies.hpp"
 #include "Layer.hpp"
+#include "EvalMetrics.hpp"
 
 using TrainingSample = std::pair<std::vector<float>, std::vector<float>>;
 
@@ -25,7 +26,7 @@ class NeuralNetwork {
         std::pair<std::vector<std::vector<float>>, std::vector<std::vector<std::vector<float>>>>
             backprop(const std::vector<float>& x, const std::vector<float>& y);
     
-        size_t evaluate(const std::vector<TrainingSample>& test_data);
+        EvalMetrics evaluate(const std::vector<TrainingSample>& test_data);
     
     private:
         std::vector<Layer> m_layers;
