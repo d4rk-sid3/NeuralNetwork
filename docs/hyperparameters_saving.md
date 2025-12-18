@@ -66,6 +66,7 @@ The configuration file stores all **non-numerical** information required to rebu
 * Layer ordering
 * Layer types (input / hidden / output)
 * Neuron activation functions per layer
+* Number of neurons per layer
 
 ### 3.2 JSON Structure
 
@@ -75,10 +76,9 @@ The configuration file stores all **non-numerical** information required to rebu
   "mini_batch_size": 32,
   "learning_rate": 0.01,
   "layers": [
-    { "index": 0, "layer_type": "INPUT" },
-    { "index": 1, "layer_type": "HIDDEN", "activation": "SIGMOID" },
-    { "index": 2, "layer_type": "HIDDEN", "activation": "RELU" },
-    { "index": 3, "layer_type": "OUTPUT", "activation": "TANH" }
+    { "index": 1, "layer_type": "HIDDEN", "activation": "SIGMOID", "number": 20 },
+    { "index": 2, "layer_type": "HIDDEN", "activation": "RELU", "number": 20 },
+    { "index": 3, "layer_type": "OUTPUT", "activation": "TANH", "number": 20 }
   ]
 }
 ```
@@ -94,6 +94,7 @@ The configuration file stores all **non-numerical** information required to rebu
 | `layers[index]`   | Index of the layer (order matters)                |
 | `layer_type`      | `INPUT`, `HIDDEN`, or `OUTPUT`                    |
 | `activation`      | Activation function used by neurons in that layer |
+| `number`      | Number of neurons on the layer |
 
 Supported activation types:
 
