@@ -193,3 +193,28 @@ void ExperimentRunner::train(
     network.SGD(training_data, epochs, mini_batch_size, eta);
     return;
 }
+
+void ExperimentRunner::evaluate(NeuralNetwork& network, const std::string& test_file)
+{
+    // Load the training dataset
+    std::vector<TrainingSample> test_data = DataLoader::loadData(test_file);
+
+    // Total number of samples
+    size_t n = test_data.size();
+
+    // Compute metrics
+    EvalMetrics metrics = network.evaluate(test_data);
+
+    // Displaying results
+
+    std::cout << "Evaluation Results:" << std::endl;
+    std::cout << "------------------" << std::endl;
+    std::cout << "Total samples: " << n << std::endl;
+    std::cout << "Accuracy: " << metrics.accuracy << std::endl;
+    std::cout << "Loss: " << metrics.loss << std::endl;
+    std::cout << "Precision: " << metrics.precision << std::endl;
+    std::cout << "Recall: " << metrics.recall << std::endl;
+    std::cout << "F1 Score: " << metrics.f1_score << std::endl;
+
+    return;
+}

@@ -14,4 +14,5 @@ class ExperimentRunner {
             const std::string& hyperparams_file,
             const std::string& training_data_file
         );
+        static void evaluate(NeuralNetwork& network, const std::string& test_file);
 };
