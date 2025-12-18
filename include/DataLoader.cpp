@@ -43,7 +43,7 @@ std::vector<TrainingSample> DataLoader::loadData(const std::string& filename)
 std::vector<std::vector<float>> DataLoader::load_weights(const std::string& path)
 {
     std::ifstream file(path, std::ios::binary);
-    
+
     if (!file.is_open()) {
         throw std::runtime_error("Cannot open weights file: " + path);
     }
@@ -78,4 +78,27 @@ std::vector<std::vector<float>> DataLoader::load_weights(const std::string& path
 
     file.close();
     return weights;
+}
+
+std::vector<float> DataLoader::load_biases(const std::string& path)
+{
+    std::ifstream file(path, std::ios::binary);
+    
+    if (!file.is_open()) {
+        throw std::runtime_error("Cannot open biases file: " + path);
+    }
+
+    std::vector<float> biases;
+    float bias;
+
+    while (file.read(reinterpret_cast<char*>(&bias), sizeof(float))) {
+        biases.push_back(bias);
+    }
+
+    if (!file.eof()) {
+        throw std::runtime_error("Corrupted biases file: " + path);
+    }
+
+    file.close();
+    return biases;
 }
