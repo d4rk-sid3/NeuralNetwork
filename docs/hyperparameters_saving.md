@@ -59,12 +59,14 @@ If files already exist, they are **overwritten or deleted** before saving new da
 
 The configuration file stores all **non-numerical** information required to rebuild the network structure and understand how it was trained.
 
+**Note : The informations about the input layer are not saved. This layer has no weights and bias and just basically forward the information received**
+
 ### 3.1 Stored Information
 
 * Training hyperparameters
 * Number of layers
 * Layer ordering
-* Layer types (input / hidden / output)
+* Layer types (hidden / output)
 * Neuron activation functions per layer
 * Number of neurons per layer
 
