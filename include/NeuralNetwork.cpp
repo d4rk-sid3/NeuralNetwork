@@ -371,9 +371,10 @@ void NeuralNetwork::save_weights(const std::string& name)
         fs::remove(p);
     }
 
-    for (size_t l = 0; l < m_layers.size(); l++) {
+    for (size_t l = 1; l < m_layers.size(); l++) {
         std::ofstream ofs(weights_path / ("weights-" + std::to_string(l) + ".bin"), std::ios::binary);
-        if (!ofs.is_open()) throw std::runtime_error("Cannot open weight file");
+        if (!ofs.is_open())
+            throw std::runtime_error("Cannot open weight file");
 
         auto& neurons = m_layers[l].getNeurons();
         for (auto& neuron : neurons) {
@@ -396,9 +397,10 @@ void NeuralNetwork::save_biases(const std::string& name)
         fs::remove(p);
     }
 
-    for (size_t l = 0; l < m_layers.size(); l++) {
+    for (size_t l = 1; l < m_layers.size(); l++) {
         std::ofstream ofs(biases_path / ("biases-" + std::to_string(l) + ".bin"), std::ios::binary);
-        if (!ofs.is_open()) throw std::runtime_error("Cannot open bias file");
+        if (!ofs.is_open())
+            throw std::runtime_error("Cannot open bias file");
 
         auto& neurons = m_layers[l].getNeurons();
         for (auto& neuron : neurons) {
