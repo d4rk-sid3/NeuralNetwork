@@ -28,18 +28,17 @@ NeuralNetwork ExperimentRunner::loadNetwork(const std::string& network_name)
     // Rebuild layers
     const auto& layers_json = j.at("layers");
 
-    for (size_t l = 0; l < layers_json.size(); ++l) {
+    // Creating an empty neurons vector
+    
+
+    for (size_t l = 0; l < layers_json.size(); l++) {
         const auto& layer = layers_json[l];
 
-        std::string layer_type = layer.at("type").get<std::string>();
-        size_t layer_size = layer.at("size").get<size_t>();
-        std::string neuron_type = layer.at("neuron_type").get<std::string>();
+        std::string layer_type = layer.at("layer_type").get<std::string>();
+        std::string activation_name = layer.at("activation").get<std::string>();
+        size_t number_neurons = layer.at("number").get<size_t>();
 
-        network.addLayer(
-            layer_type,
-            layer_size,
-            ActivationFactory::create(neuron_type)
-        );
+
     }
 
     // -----------------------

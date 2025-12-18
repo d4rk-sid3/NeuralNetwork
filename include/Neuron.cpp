@@ -88,3 +88,10 @@ const IActivationFunction& Neuron::get_activation() const
 {
     return m_activationfunction;
 }
+
+void Neuron::setWeights(const std::vector<float> weights)
+{
+    m_weights = weights;
+    m_nWeights = m_weights.size();
+    return;
+}
