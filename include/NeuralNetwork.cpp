@@ -297,3 +297,21 @@ EvalMetrics NeuralNetwork::evaluate(const std::vector<TrainingSample>& test_data
 
     return {accuracy, loss, precision, recall, f1_score};
 }
+
+void NeuralNetwork::save_config(const std::string& name)
+{
+    fs::path base_path = fs::path("Neural_Networks") / name;
+    fs::create_directories(base_path);
+
+    nlohmann::json j;
+    j["epochs"] = m_epochs;
+    j["mini_batch_size"] = m_mini_batch_size;
+    j["learning_rate"] = m_eta;
+
+    std::ofstream file(base_path / (name + ".json"));
+    if (!file.is_open()) {
+        throw std::runtime_error("Cannot open file to save config");
+    }
+    file << j.dump(4);
+    file.close();
+}

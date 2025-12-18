@@ -25,6 +25,8 @@ class NeuralNetwork {
             backprop(const std::vector<float>& x, const std::vector<float>& y);
     
         EvalMetrics evaluate(const std::vector<TrainingSample>& test_data);
+
+        void NeuralNetwork::save_config(const std::string& name);
     
     private:
         std::vector<Layer> m_layers;
