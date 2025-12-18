@@ -1,6 +1,6 @@
 #include "convert.hpp"
 
-vector<int> getLineInfo(string & line)
+vector<int> Convertor::getLineInfo(string & line)
 {
     vector<int> tab;
 
@@ -17,7 +17,7 @@ vector<int> getLineInfo(string & line)
     return tab;
 }
 
-vector<int> getCastlingInfo(string & line)
+vector<int> Convertor::getCastlingInfo(string & line)
 {
     vector<int> tab(4, 0);
 
@@ -38,9 +38,9 @@ vector<int> getCastlingInfo(string & line)
     return tab;
 }
 
-vector<int> getEnPassantInfo(string & line)
+vector<int> Convertor::getEnPassantInfo(string & line)
 {
-    vector<int> tab(2, 0);
+    vector<int> tab(2, -1);
 
     if (line == "-")
         return tab;
@@ -51,7 +51,7 @@ vector<int> getEnPassantInfo(string & line)
     return tab;
 }
 
-vector<string> getDataSet(string filepath)
+vector<string> Convertor::getDataSet(string filepath)
 {
     ifstream in(filepath);
     vector<string> res;
@@ -64,7 +64,7 @@ vector<string> getDataSet(string filepath)
     return res;
 }
 
-void storeResult(vector<vector<int>> & res, string filepath)
+void Convertor::storeResult(vector<vector<int>> & res, string filepath)
 {
     ofstream out(filepath, ios::app);
 
@@ -76,7 +76,7 @@ void storeResult(vector<vector<int>> & res, string filepath)
     }
 }
 
-vector<int> parseDataSetLine(string & newline)
+vector<int> Convertor::parseDataSetLine(string & newline)
 {
     stringstream stmp(newline);
     vector<string> spaceTab;
@@ -107,7 +107,7 @@ vector<int> parseDataSetLine(string & newline)
     res.push_back(stoi(spaceTab[5]));
 
     string tmpLabel = "";
-    for (int i = 6; i < spaceTab.size(); i++)
+    for (size_t i = 6; i < spaceTab.size(); i++)
         tmpLabel.insert(tmpLabel.end(), spaceTab[i].begin(), spaceTab[i].end());
 
     auto a = labelMapping.at(tmpLabel);
@@ -115,7 +115,7 @@ vector<int> parseDataSetLine(string & newline)
     return res;
 }
 
-vector<vector<int>> parseDataSet(vector<string> & infosTab)
+vector<vector<int>> Convertor::parseDataSet(vector<string> & infosTab)
 {
     vector<vector<int>> allResults;
     
@@ -124,5 +124,69 @@ vector<vector<int>> parseDataSet(vector<string> & infosTab)
     }
 
     return allResults;
+}
 
+void Convertor::convertToIntFIle(string inputFile, string outputFile)
+{
+    vector<string> infosTab = getDataSet(inputFile);
+
+    vector<vector<int>> allResults = parseDataSet(infosTab);
+
+    storeResult(allResults, outputFile);
+}
+
+void Convertor::retrieveBoardInfoTest(string inputFile, string outputFile)
+{
+    vector<string> infosTab = getDataSet(inputFile);
+    ofstream out(outputFile, ios::app);
+
+    for (auto & tmp : infosTab) {
+        stringstream stmp(tmp);
+        vector<string> spaceTab;
+        string ss;
+
+        while (std::getline(stmp, ss,  ' '))
+            spaceTab.push_back(ss);
+        
+        for (int i = 0; i < 5; i++)
+            out << spaceTab[i] << " ";
+        out << spaceTab[5] << " ";
+        out << endl;
+    }
+}
+
+vector<double> Convertor::retrieveBoardInfo(string line)
+{
+    stringstream stmp(line);
+    vector<string> spaceTab;
+    vector<double> tab;
+    string ss;
+
+    while (std::getline(stmp, ss,  ' ')) {
+        spaceTab.push_back(ss);
+    }
+        
+    stringstream  sboard(spaceTab[0]);
+    string l;
+
+    while (std::getline(sboard, l,  '/')) {
+        vector<int> resint = getLineInfo(l);
+        for (auto & val : resint)
+            tab.push_back(static_cast<double>(val));
+    }
+
+    tab.push_back(static_cast<double>(sideToMove.at(spaceTab[1])));
+
+    vector<int> rescastle = getCastlingInfo(spaceTab[2]);
+    for (auto & val : rescastle)
+        tab.push_back(static_cast<double>(val));
+
+    vector<int> enpassant = getEnPassantInfo(spaceTab[3]);
+    for (auto & val : enpassant)
+        tab.push_back(static_cast<double>(val));
+
+    tab.push_back(static_cast<double>(stoi(spaceTab[4])));
+    tab.push_back(static_cast<double>(stoi(spaceTab[5])));
+
+    return tab;
 }
