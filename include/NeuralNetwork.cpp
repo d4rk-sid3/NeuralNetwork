@@ -23,6 +23,12 @@ void NeuralNetwork::setMiniBatchSize(const int mini_batch_size)
     return;
 }
 
+void NeuralNetwork::setLearningRate(const float eta)
+{
+    m_eta = eta;
+    return;
+}
+
 Layer& NeuralNetwork::getLayer(size_t index)
 {
     if (index >= m_layers.size())
