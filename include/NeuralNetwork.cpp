@@ -79,6 +79,8 @@ void NeuralNetwork::SGD(
     std::random_device rd;
     std::mt19937 gen(rd());
 
+    std::cout << "Training started" << std::endl;
+
     for (int epoch = 0; epoch < epochs; epoch++) {
 
         std::shuffle(training_data.begin(), training_data.end(), gen);
@@ -93,6 +95,20 @@ void NeuralNetwork::SGD(
             );
 
             updateMiniBatch(mini_batch, eta);
+
+            // Progression displaying
+
+            size_t processed = end; // samples already processed
+            float progress = 100.f * processed / n;
+
+            std::cout << "\rEpoch " << epoch + 1 
+                    << "/" << epochs 
+                    << " - processed " << processed 
+                    << "/" << n 
+                    << " (" << progress << "%)" 
+                    << std::flush;
+
+            std::cout << std::endl; 
         }
 
         if (test_data) {
@@ -100,8 +116,6 @@ void NeuralNetwork::SGD(
             std::cout << "Epoch " << epoch
                       << ": " << correct
                       << " / " << n_test << std::endl;
-        } else {
-            std::cout << "Epoch " << epoch << " complete" << std::endl;
         }
     }
 }
