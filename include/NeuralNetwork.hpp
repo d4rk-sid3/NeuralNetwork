@@ -3,8 +3,6 @@
 #include "Layer.hpp"
 #include "EvalMetrics.hpp"
 
-using TrainingSample = std::pair<std::vector<float>, std::vector<float>>;
-
 class NeuralNetwork {
     public:
         explicit NeuralNetwork(std::vector<Layer> layers);

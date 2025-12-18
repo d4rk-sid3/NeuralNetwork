@@ -29,3 +29,5 @@ enum LayerType {
     HIDDEN,
     OUTPUT
 };
+
+using TrainingSample = std::pair<std::vector<float>, std::vector<float>>;
