@@ -297,8 +297,3 @@ EvalMetrics NeuralNetwork::evaluate(const std::vector<TrainingSample>& test_data
 
     return {accuracy, loss, precision, recall, f1_score};
 }
-
-finalement on va séparer le dataloader de ExperimentRunner j'ai donc laissé la méthode dans DataLoader...
-Avant ca j'ai d'abord un soucis ca concerne le saving de mon réseau de neurones. En gros je te décris le systeme... Il y aura une méthode dans ma classe Neural Network save_biases et une autre save_weights et une autre save_config et enfin une définitive save.. Chacune de ses méthodes va juste prendre en paramètre une chaine qui represente le nom du réseau de neurones...
-
-Comment mon système marche? Dans mon repertoire j'ai crée un dossier Neural_Networks. C'est dans ce dossier que va être stocké tous mes réseaux de neurones. Dans ce dossier je crée un nouveau dossier pour la config de chaque reseau. A l'intérieur du dossier pour le réseau on trouve un fichier de configuration générale du nom de <nom_du_reseau>.json. Voici son format : 
