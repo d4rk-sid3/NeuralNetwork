@@ -364,3 +364,9 @@ void NeuralNetwork::save_biases(const std::string& name)
     }
 }
 
+void NeuralNetwork::save(const std::string& name)
+{
+    save_config(name);
+    save_weights(name);
+    save_biases(name);
+}

@@ -31,6 +31,8 @@ class NeuralNetwork {
         void NeuralNetwork::save_weights(const std::string& name);
 
         void NeuralNetwork::save_biases(const std::string& name);
+
+        void NeuralNetwork::save(const std::string& name);
     
     private:
         std::vector<Layer> m_layers;
