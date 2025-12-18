@@ -12,3 +12,14 @@ namespace Activations {
     inline RELUActivationFunction relu;
     inline StepActivationFunction step;
 }
+
+static std::string activationToString(ActivationFunctionType type)
+{
+    switch (type) {
+        case ActivationFunctionType::SIGMOID:    return "SIGMOID";
+        case ActivationFunctionType::RELU:       return "RELU";
+        case ActivationFunctionType::TANH:       return "TANH";
+        case ActivationFunctionType::STEP:       return "PERCEPTRON";
+        default:                                 return "UNKNOWN";
+    }
+}
