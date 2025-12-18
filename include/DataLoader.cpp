@@ -39,3 +39,43 @@ std::vector<TrainingSample> DataLoader::loadData(const std::string& filename)
 
     return dataset;
 }
+
+std::vector<std::vector<float>> DataLoader::load_weights(const std::string& path)
+{
+    std::ifstream file(path, std::ios::binary);
+    
+    if (!file.is_open()) {
+        throw std::runtime_error("Cannot open weights file: " + path);
+    }
+
+    std::vector<std::vector<float>> weights;
+
+    while (true) {
+        int n_weights = 0;
+
+        // Read the weight of each neuron
+        file.read(reinterpret_cast<char*>(&n_weights), sizeof(int));
+
+        // Proper end file
+        if (file.eof()) {
+            break;
+        }
+
+        if (!file || n_weights <= 0) {
+            throw std::runtime_error("Corrupted weights file: " + path);
+        }
+
+        std::vector<float> neuron_weights(n_weights);
+        file.read(reinterpret_cast<char*>(neuron_weights.data()),
+                  n_weights * sizeof(float));
+
+        if (!file) {
+            throw std::runtime_error("Corrupted weights file (weights read): " + path);
+        }
+
+        weights.push_back(std::move(neuron_weights));
+    }
+
+    file.close();
+    return weights;
+}

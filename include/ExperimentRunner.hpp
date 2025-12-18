@@ -3,5 +3,4 @@
 
 class ExperimentRunner {
     public:
-        static std::vector<TrainingSample> loadData(const std::string& filename);
 };
