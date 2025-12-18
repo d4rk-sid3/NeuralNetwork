@@ -49,6 +49,12 @@ void NeuralNetwork::SGD(
     const std::vector<TrainingSample>* test_data
 )
 {
+    // Saving the parameters of the last training
+
+    m_epochs = epochs;
+    m_eta = eta;
+    m_mini_batch_size = mini_batch_size;
+    
     const size_t n = training_data.size();
     const size_t n_test = test_data ? test_data->size() : 0;
 
