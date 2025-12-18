@@ -23,22 +23,22 @@ std::vector<float> NeuralNetwork::feedforward(const std::vector<float>& input)
     std::vector<float> new_inputs;
     std::vector<float> inputs(input);
 
-    for (size_t i = 0; i < m_numLayers; i++)
-	{
-		new_inputs.clear();
-		
-		// reference the layer neurons directly
-		std::vector<std::unique_ptr<Neuron>>& layer_neurons = m_layers[i].getNeurons();
+    for (size_t i = 1; i < m_numLayers; i++)
+    {
+        new_inputs.clear();
         
-		for (size_t n = 0; n < layer_neurons.size(); n++)
-		{
-			layer_neurons[n]->compute_z(inputs);
-			layer_neurons[n]->compute_activation();
-			new_inputs.push_back(layer_neurons[n]->get_output());
-		}
-		inputs = new_inputs;
-	}
-	return inputs;
+        // reference the layer neurons directly
+        std::vector<std::unique_ptr<Neuron>>& layer_neurons = m_layers[i].getNeurons();
+        
+        for (size_t n = 0; n < layer_neurons.size(); n++)
+        {
+            layer_neurons[n]->compute_z(inputs);
+            layer_neurons[n]->compute_activation();
+            new_inputs.push_back(layer_neurons[n]->get_output());
+        }
+        inputs = new_inputs;
+    }
+    return inputs;
 }
 
 void NeuralNetwork::SGD(
@@ -54,7 +54,7 @@ void NeuralNetwork::SGD(
     m_epochs = epochs;
     m_eta = eta;
     m_mini_batch_size = mini_batch_size;
-    
+
     const size_t n = training_data.size();
     const size_t n_test = test_data ? test_data->size() : 0;
 
@@ -297,3 +297,8 @@ EvalMetrics NeuralNetwork::evaluate(const std::vector<TrainingSample>& test_data
 
     return {accuracy, loss, precision, recall, f1_score};
 }
+
+finalement on va séparer le dataloader de ExperimentRunner j'ai donc laissé la méthode dans DataLoader...
+Avant ca j'ai d'abord un soucis ca concerne le saving de mon réseau de neurones. En gros je te décris le systeme... Il y aura une méthode dans ma classe Neural Network save_biases et une autre save_weights et une autre save_config et enfin une définitive save.. Chacune de ses méthodes va juste prendre en paramètre une chaine qui represente le nom du réseau de neurones...
+
+Comment mon système marche? Dans mon repertoire j'ai crée un dossier Neural_Networks. C'est dans ce dossier que va être stocké tous mes réseaux de neurones. Dans ce dossier je crée un nouveau dossier pour la config de chaque reseau. A l'intérieur du dossier pour le réseau on trouve un fichier de configuration générale du nom de <nom_du_reseau>.json. Voici son format : 
