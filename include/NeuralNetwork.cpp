@@ -278,10 +278,10 @@ EvalMetrics NeuralNetwork::evaluate(const std::vector<TrainingSample>& test_data
     std::vector<float> precisions(num_classes, 0.f);
     std::vector<float> recalls(num_classes, 0.f);
 
-    for (size_t i = 0; i < num_classes; ++i) {
+    for (size_t i = 0; i < num_classes; i++) {
         size_t TP = confusion[i][i];
         size_t FP = 0, FN = 0;
-        for (size_t j = 0; j < num_classes; ++j) {
+        for (size_t j = 0; j < num_classes; j++) {
             if (j != i) {
                 FP += confusion[j][i];
                 FN += confusion[i][j];
@@ -320,7 +320,7 @@ void NeuralNetwork::save_config(const std::string& name)
         layer_json["index"] = i;
 
         // All neurons on the same layer have the same activation
-        
+
         if (!layer.getNeurons().empty()) {
             const auto& neuron = layer.getNeurons().front();
             layer_json["activation"] =
