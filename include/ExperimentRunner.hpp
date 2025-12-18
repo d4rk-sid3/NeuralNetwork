@@ -2,6 +2,7 @@
 #include "librairies.hpp"
 #include "NeuralNetwork.hpp"
 #include "DataLoader.hpp"
+#include "NeuronFactory.hpp"
 
 class ExperimentRunner {
     public:

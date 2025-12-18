@@ -13,6 +13,8 @@ class Layer {
         LayerType getType() const;
 
         static std::string layerTypeToString(LayerType type);
+
+        static LayerType StringToLayerType(const std::string& type);
     
     private:
         std::vector<std::unique_ptr<Neuron>> m_neurons;
