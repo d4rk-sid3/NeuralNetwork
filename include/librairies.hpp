@@ -11,6 +11,7 @@
 #include <optional>
 #include <random>
 #include <memory>
+#include <nlohmann/json.hpp>
 
 enum NeuronType {
     PERCEPTRON,
