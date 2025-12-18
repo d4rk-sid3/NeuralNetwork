@@ -6,6 +6,6 @@
 
 class ExperimentRunner {
     public:
+        static void saveNetwork(NeuralNetwork &network, const std::string &name);
         static NeuralNetwork loadNetwork(const std::string& network_name);
-        static void saveNetwork(const NeuralNetwork &network, const std::string &name);
 };

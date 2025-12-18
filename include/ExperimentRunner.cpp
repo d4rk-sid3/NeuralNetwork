@@ -94,3 +94,10 @@ NeuralNetwork ExperimentRunner::loadNetwork(const std::string& network_name)
 
     return net;
 }
+
+void ExperimentRunner::saveNetwork(NeuralNetwork &network, const std::string &name)
+{
+    network.save(name);
+    return;
+}
+
