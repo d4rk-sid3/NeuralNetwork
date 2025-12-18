@@ -340,3 +340,27 @@ void NeuralNetwork::save_weights(const std::string& name)
         ofs.close();
     }
 }
+
+void NeuralNetwork::save_biases(const std::string& name)
+{
+    fs::path biases_path = fs::path("Neural_Networks") / name / "biases";
+    fs::create_directories(biases_path);
+
+    // Delete old files
+    for (auto& p : fs::directory_iterator(biases_path)) {
+        fs::remove(p);
+    }
+
+    for (size_t l = 0; l < m_layers.size(); l++) {
+        std::ofstream ofs(biases_path / ("biases-" + std::to_string(l) + ".bin"), std::ios::binary);
+        if (!ofs.is_open()) throw std::runtime_error("Cannot open bias file");
+
+        auto& neurons = m_layers[l].getNeurons();
+        for (auto& neuron : neurons) {
+            float b = neuron->get_bias();
+            ofs.write(reinterpret_cast<char*>(&b), sizeof(float));
+        }
+        ofs.close();
+    }
+}
+
