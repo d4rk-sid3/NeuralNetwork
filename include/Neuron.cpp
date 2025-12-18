@@ -95,3 +95,9 @@ void Neuron::setWeights(const std::vector<float> weights)
     m_nWeights = m_weights.size();
     return;
 }
+
+void Neuron::setBias(const float bias)
+{
+    m_bias = bias;
+    return;
+}

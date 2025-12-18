@@ -28,6 +28,8 @@ class Neuron {
         const IActivationFunction& get_activation() const;
 
         void setWeights(const std::vector<float> weights);
+
+        void setBias(const float bias);
         
     private:
         size_t m_nWeights;
