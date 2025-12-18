@@ -32,3 +32,4 @@ enum LayerType {
 };
 
 using TrainingSample = std::pair<std::vector<float>, std::vector<float>>;
+namespace fs = std::filesystem;
