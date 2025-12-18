@@ -1,4 +1,4 @@
-#include "NeuralNetwork.hpp"
+#include "include/NeuralNetwork.hpp"
 
 explicit NeuralNetwork::NeuralNetwork(std::vector<Layer> layers)
     : m_layers(std::move(layers)),

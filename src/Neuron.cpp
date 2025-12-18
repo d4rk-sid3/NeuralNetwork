@@ -1,4 +1,4 @@
-#include "Neuron.hpp"
+#include "include/Neuron.hpp"
 
 Neuron::Neuron(
     const IActivationFunction& activation,
