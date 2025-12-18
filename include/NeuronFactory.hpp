@@ -1,6 +1,7 @@
 #pragma once
 #include "librairies.hpp"
 #include "Neuron.hpp"
+#include "Activations.hpp"
 
 class NeuronFactory {
     public:
