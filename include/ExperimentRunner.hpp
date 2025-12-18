@@ -7,4 +7,5 @@
 class ExperimentRunner {
     public:
         static NeuralNetwork loadNetwork(const std::string& network_name);
+        static void saveNetwork(const NeuralNetwork &network, const std::string &name);
 };

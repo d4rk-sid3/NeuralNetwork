@@ -58,7 +58,7 @@ NeuralNetwork ExperimentRunner::loadNetwork(const std::string& network_name)
         std::string activation_name = layer_json.at("activation").get<std::string>();
         size_t number_neurons       = layer_json.at("number").get<size_t>();
 
-        LayerType layer_type = StringToLayerType(layer_type_str);
+        LayerType layer_type = Layer::StringToLayerType(layer_type_str);
 
         std::vector<std::unique_ptr<Neuron>> neurons_vector;
 
@@ -88,7 +88,9 @@ NeuralNetwork ExperimentRunner::loadNetwork(const std::string& network_name)
     }
 
     NeuralNetwork net(std::move(layers_vector));
-    net.setTrainingParams(epochs, mini_batch_size, learning_rate);
+    net.setEpochs(epochs);
+    net.setMiniBatchSize(mini_batch_size);
+    net.setLearningRate(learning_rate);
 
     return net;
 }
