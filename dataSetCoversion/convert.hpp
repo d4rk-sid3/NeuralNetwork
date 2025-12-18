@@ -58,7 +58,7 @@ public:
 
     void convertToIntFIle(string inputFile, string outputFile = "dataSetInt.txt");
     void retrieveBoardInfoTest(string inputFile, string outputFile = "boardTest.txt");
-    vector<double> retrieveBoardInfo(string line);
+    vector<float> retrieveBoardInfo(string line);
     
 };
 

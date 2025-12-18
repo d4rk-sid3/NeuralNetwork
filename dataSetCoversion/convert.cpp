@@ -155,11 +155,11 @@ void Convertor::retrieveBoardInfoTest(string inputFile, string outputFile)
     }
 }
 
-vector<double> Convertor::retrieveBoardInfo(string line)
+vector<float> Convertor::retrieveBoardInfo(string line)
 {
     stringstream stmp(line);
     vector<string> spaceTab;
-    vector<double> tab;
+    vector<float> tab;
     string ss;
 
     while (std::getline(stmp, ss,  ' ')) {
@@ -172,21 +172,21 @@ vector<double> Convertor::retrieveBoardInfo(string line)
     while (std::getline(sboard, l,  '/')) {
         vector<int> resint = getLineInfo(l);
         for (auto & val : resint)
-            tab.push_back(static_cast<double>(val));
+            tab.push_back(static_cast<float>(val));
     }
 
-    tab.push_back(static_cast<double>(sideToMove.at(spaceTab[1])));
+    tab.push_back(static_cast<float>(sideToMove.at(spaceTab[1])));
 
     vector<int> rescastle = getCastlingInfo(spaceTab[2]);
     for (auto & val : rescastle)
-        tab.push_back(static_cast<double>(val));
+        tab.push_back(static_cast<float>(val));
 
     vector<int> enpassant = getEnPassantInfo(spaceTab[3]);
     for (auto & val : enpassant)
-        tab.push_back(static_cast<double>(val));
+        tab.push_back(static_cast<float>(val));
 
-    tab.push_back(static_cast<double>(stoi(spaceTab[4])));
-    tab.push_back(static_cast<double>(stoi(spaceTab[5])));
+    tab.push_back(static_cast<float>(stoi(spaceTab[4])));
+    tab.push_back(static_cast<float>(stoi(spaceTab[5])));
 
     return tab;
 }
