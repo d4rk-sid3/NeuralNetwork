@@ -18,3 +18,13 @@ size_t Layer::getNeuronCount() const {
 LayerType Layer::getType() const {
     return m_type;
 }
+
+std::string Layer::layerTypeToString(LayerType type)
+{
+    switch (type) {
+        case LayerType::INPUT:                   return "INPUT";
+        case LayerType::HIDDEN:                  return "HIDDEN";
+        case LayerType::OUTPUT:                  return "OUTPUT";
+        default:                                 return "UNKNOWN";
+    }
+}

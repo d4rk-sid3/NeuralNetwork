@@ -11,9 +11,12 @@ class Layer {
         size_t getNeuronCount() const;
     
         LayerType getType() const;
+
+        static std::string layerTypeToString(LayerType type);
     
     private:
         std::vector<std::unique_ptr<Neuron>> m_neurons;
         size_t m_nNeurons;
         LayerType m_type;
     };
+
