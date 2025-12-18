@@ -11,6 +11,12 @@ size_t NeuralNetwork::getNumLayers() const
     return m_numLayers;
 }
 
+void NeuralNetwork::setEpochs(const int epochs)
+{
+    m_epochs = epochs;
+    return;
+}
+
 Layer& NeuralNetwork::getLayer(size_t index)
 {
     if (index >= m_layers.size())

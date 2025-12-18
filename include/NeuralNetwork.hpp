@@ -34,6 +34,12 @@ class NeuralNetwork {
         void NeuralNetwork::save_biases(const std::string& name);
 
         void NeuralNetwork::save(const std::string& name);
+
+        void setEpochs(const int epochs);
+
+        void setMiniBatchSize(const int mini_batch_size);
+
+        void setLearningRate(const float eta);
     
     private:
         std::vector<Layer> m_layers;
