@@ -70,7 +70,7 @@ void ExperimentRunner::saveNetwork(NeuralNetwork &network, const std::string &na
     return;
 }
 
-NeuralNetwork ExperimentRunner::loadNetwork(const std::string& network_name)
+NeuralNetwork& ExperimentRunner::loadNetwork(const std::string& network_name)
 {
     fs::path base_path = fs::path("Neural_Networks") / network_name;
     fs::path config_path = base_path / (network_name + ".json");
@@ -163,4 +163,33 @@ NeuralNetwork ExperimentRunner::loadNetwork(const std::string& network_name)
     net.setLearningRate(learning_rate);
 
     return net;
+}
+
+void ExperimentRunner::train(
+    NeuralNetwork& network,
+    const std::string& hyperparams_file,
+    const std::string& training_data_file
+)
+{
+    // Load hyperparameters from JSON
+    nlohmann::json j;
+    {
+        std::ifstream file(hyperparams_file);
+        if (!file.is_open()) {
+            throw std::runtime_error("Cannot open hyperparameters file: " + hyperparams_file);
+        }
+        file >> j;
+    }
+
+    int epochs = j.at("epochs").get<int>();
+    int mini_batch_size = j.at("mini_batch_size").get<int>();
+    float eta = j.at("eta").get<float>();
+
+    // Load training data
+    DataLoader loader;
+    std::vector<TrainingSample> training_data = loader.loadData(training_data_file);
+
+    // Train the model
+    network.SGD(training_data, epochs, mini_batch_size, eta);
+    return;
 }
