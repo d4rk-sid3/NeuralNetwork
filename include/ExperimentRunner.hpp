@@ -1,6 +1,7 @@
 #pragma once
 #include "librairies.hpp"
 #include "NeuralNetwork.hpp"
+#include "DataLoader.hpp"
 
 class ExperimentRunner {
     public:

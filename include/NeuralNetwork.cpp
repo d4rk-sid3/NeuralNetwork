@@ -344,8 +344,8 @@ void NeuralNetwork::save_config(const std::string& name)
             const auto& neuron = layer.getNeurons().front();
             layer_json["activation"] =
                 activationToString(neuron->get_activation().getType());
+            layer_json["number"] = layer.getNeuronCount();
         }
-        layer_json["number"] = layer.getNeuronCount();
         layers_json.push_back(layer_json);
     }
 
