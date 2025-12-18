@@ -29,4 +29,7 @@ class NeuralNetwork {
     private:
         std::vector<Layer> m_layers;
         size_t m_numLayers;
+        int m_epochs;
+        int m_mini_batch_size;
+        float m_eta;
     };
