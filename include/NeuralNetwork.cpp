@@ -315,3 +315,28 @@ void NeuralNetwork::save_config(const std::string& name)
     file << j.dump(4);
     file.close();
 }
+
+void NeuralNetwork::save_weights(const std::string& name)
+{
+    fs::path weights_path = fs::path("Neural_Networks") / name / "weights";
+    fs::create_directories(weights_path);
+
+    // Delete old files
+    for (auto& p : fs::directory_iterator(weights_path)) {
+        fs::remove(p);
+    }
+
+    for (size_t l = 0; l < m_layers.size(); l++) {
+        std::ofstream ofs(weights_path / ("weights-" + std::to_string(l) + ".bin"), std::ios::binary);
+        if (!ofs.is_open()) throw std::runtime_error("Cannot open weight file");
+
+        auto& neurons = m_layers[l].getNeurons();
+        for (auto& neuron : neurons) {
+            auto& w = neuron->get_weights();
+            int n_weights = static_cast<int>(w.size());
+            ofs.write(reinterpret_cast<char*>(&n_weights), sizeof(int));
+            ofs.write(reinterpret_cast<char*>(w.data()), n_weights * sizeof(float));
+        }
+        ofs.close();
+    }
+}
