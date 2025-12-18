@@ -14,4 +14,9 @@ class TANHActivationFunction : public IActivationFunction {
         ActivationFunctionType getType() const override {
             return ActivationFunctionType::TANH;
         }
+
+        float derivative(float z) const override {
+            float t = std::tanh(z);
+            return 1.f - t * t;
+        }
 };

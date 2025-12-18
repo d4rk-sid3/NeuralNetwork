@@ -13,4 +13,9 @@ class SigmoidActivationFunction : public IActivationFunction {
         ActivationFunctionType getType() const override {
             return ActivationFunctionType::SIGMOID;
         }
+
+        float derivative(float z) const override {
+            float s = apply(z);
+            return s * (1.f - s);
+        }
 };

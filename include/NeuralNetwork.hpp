@@ -1,8 +1,8 @@
 #pragma once
 #include "librairies.hpp"
 #include "Layer.hpp"
-
-using TrainingSample = std::pair<std::vector<float>, std::vector<float>>;
+#include "EvalMetrics.hpp"
+#include "Activations.hpp"
 
 class NeuralNetwork {
     public:
@@ -12,7 +12,7 @@ class NeuralNetwork {
     
         Layer& getLayer(size_t index);
     
-        std::vector<float> feedforward(std::vector<float>& input);
+        std::vector<float> feedforward(const std::vector<float>& input);
     
         void SGD(const std::vector<TrainingSample>& training_data,
                  int epochs,
@@ -25,12 +25,26 @@ class NeuralNetwork {
         std::pair<std::vector<std::vector<float>>, std::vector<std::vector<std::vector<float>>>>
             backprop(const std::vector<float>& x, const std::vector<float>& y);
     
-        int evaluate(const std::vector<TrainingSample>& test_data);
-    
-        std::vector<float> costDerivative(const std::vector<float>& output_activations,
-                                          const std::vector<float>& y);
+        EvalMetrics evaluate(const std::vector<TrainingSample>& test_data);
+
+        void NeuralNetwork::save_config(const std::string& name);
+
+        void NeuralNetwork::save_weights(const std::string& name);
+
+        void NeuralNetwork::save_biases(const std::string& name);
+
+        void NeuralNetwork::save(const std::string& name);
+
+        void setEpochs(const int epochs);
+
+        void setMiniBatchSize(const int mini_batch_size);
+
+        void setLearningRate(const float eta);
     
     private:
         std::vector<Layer> m_layers;
         size_t m_numLayers;
+        int m_epochs = 32;
+        int m_mini_batch_size = 100;
+        float m_eta = 3.0;
     };

@@ -83,3 +83,21 @@ NeuronType Neuron::getType() const
 {
     return NeuronType::SIGMOID;
 }
+
+const IActivationFunction& Neuron::get_activation() const
+{
+    return m_activationfunction;
+}
+
+void Neuron::setWeights(const std::vector<float> weights)
+{
+    m_weights = weights;
+    m_nWeights = m_weights.size();
+    return;
+}
+
+void Neuron::setBias(const float bias)
+{
+    m_bias = bias;
+    return;
+}

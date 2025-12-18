@@ -11,6 +11,7 @@
 #include <optional>
 #include <random>
 #include <memory>
+#include <nlohmann/json.hpp>
 
 enum NeuronType {
     PERCEPTRON,
@@ -29,3 +30,6 @@ enum LayerType {
     HIDDEN,
     OUTPUT
 };
+
+using TrainingSample = std::pair<std::vector<float>, std::vector<float>>;
+namespace fs = std::filesystem;
