@@ -304,17 +304,42 @@ void NeuralNetwork::save_config(const std::string& name)
     fs::create_directories(base_path);
 
     nlohmann::json j;
+
+    // Training parameters
     j["epochs"] = m_epochs;
     j["mini_batch_size"] = m_mini_batch_size;
     j["learning_rate"] = m_eta;
+
+    // Layers description
+    nlohmann::json layers_json = nlohmann::json::array();
+
+    for (size_t i = 0; i < m_layers.size(); i++) {
+        Layer& layer = m_layers[i];
+
+        nlohmann::json layer_json;
+        layer_json["index"] = i;
+
+        // All neurons on the same layer have the same activation
+        
+        if (!layer.getNeurons().empty()) {
+            const auto& neuron = layer.getNeurons().front();
+            layer_json["activation"] =
+                activationToString(neuron->get_activation().getType());
+        }
+        layers_json.push_back(layer_json);
+    }
+
+    j["layers"] = layers_json;
 
     std::ofstream file(base_path / (name + ".json"));
     if (!file.is_open()) {
         throw std::runtime_error("Cannot open file to save config");
     }
+
     file << j.dump(4);
     file.close();
 }
+
 
 void NeuralNetwork::save_weights(const std::string& name)
 {

@@ -2,6 +2,7 @@
 #include "librairies.hpp"
 #include "Layer.hpp"
 #include "EvalMetrics.hpp"
+#include "Activations.hpp"
 
 class NeuralNetwork {
     public:
