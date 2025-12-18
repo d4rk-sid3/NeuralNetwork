@@ -22,11 +22,12 @@ std::vector<TrainingSample> ExperimentRunner::loadData(const std::string& filena
             values.push_back(v);
         }
 
-            if (values.size() < 5) {
-                throw std::runtime_error("Invalid data line: not enough values");
-            }
+        // Check the validity of the line
+        if (values.size() != 78) {
+            throw std::runtime_error("Invalid data line: not enough values. Expected number of values : 78");
+        }
 
-        // Séparation input / output
+        // Input / output separation
         const size_t output_size = 5;
         const size_t input_size = values.size() - output_size;
 
