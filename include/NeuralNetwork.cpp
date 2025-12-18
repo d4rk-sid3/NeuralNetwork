@@ -318,6 +318,7 @@ void NeuralNetwork::save_config(const std::string& name)
 
         nlohmann::json layer_json;
         layer_json["index"] = i;
+        layer_json["layer_type"] = layerTypeToString(layer.getType());
 
         // All neurons on the same layer have the same activation
 
