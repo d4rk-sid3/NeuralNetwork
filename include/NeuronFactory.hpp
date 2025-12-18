@@ -8,7 +8,7 @@ class NeuronFactory {
         static std::unique_ptr<Neuron> create(
             const std::string& activation,
             size_t n_weights,
-            const std::vector<float>& weights,
-            float bias
+            std::optional<std::vector<float>> weights = std::nullopt,
+            std::optional<float> bias = std::nullopt
         );
 };

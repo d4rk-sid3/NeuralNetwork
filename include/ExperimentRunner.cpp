@@ -1,5 +1,75 @@
 #include "ExperimentRunner.hpp"
 
+NeuralNetwork ExperimentRunner::generate(const std::string& config_file)
+{
+    // Read the JSON
+    nlohmann::json j;
+    {
+        std::ifstream file(config_file);
+        if (!file.is_open()) {
+            throw std::runtime_error("Cannot open config file: " + config_file);
+        }
+        file >> j;
+    }
+
+    const auto& layers_json = j.at("layers");
+    std::vector<Layer> layers_vector;
+
+    // --- Step 1: Create dummy input layer ---
+    std::vector<std::unique_ptr<Neuron>> input_neurons;
+    input_neurons.push_back(
+        std::make_unique<Neuron>(
+            StepActivationFunction{},
+            1,
+            std::vector<float>{1.0f},
+            0.0f
+        )
+    );
+    layers_vector.push_back(Layer(std::move(input_neurons), LayerType::INPUT));
+
+    size_t previous_size = 65;
+
+    // --- Create hidden layers ---
+    for (size_t l = 0; l < layers_json.size() - 1; l++) {
+        const auto& layer = layers_json[l];
+
+        std::string layer_type = layer.at("type").get<std::string>();
+        std::string neuron_type = layer.at("neuron_type").get<std::string>();
+        size_t layer_size = layer.at("size").get<size_t>();
+
+        std::vector<std::unique_ptr<Neuron>> neurons_vector;
+        for (size_t n = 0; n < layer_size; n++) {
+            neurons_vector.push_back(
+                NeuronFactory::create(neuron_type, previous_size)
+            );
+        }
+
+        previous_size = layer_size;
+        layers_vector.push_back(Layer(std::move(neurons_vector), LayerType::HIDDEN));
+    }
+
+    // --- Create output layer with 5 neurons ---
+    const auto& layer = layers_json.back(); // output layer
+    std::string neuron_type = layer.at("neuron_type").get<std::string>();
+    size_t output_size = 5;
+
+    std::vector<std::unique_ptr<Neuron>> output_neurons;
+    for (size_t n = 0; n < output_size; ++n) {
+        output_neurons.push_back(
+            NeuronFactory::create(neuron_type, previous_size)
+        );
+    }
+
+    layers_vector.push_back(Layer(std::move(output_neurons), LayerType::OUTPUT));
+    return NeuralNetwork(std::move(layers_vector));
+}
+
+void ExperimentRunner::saveNetwork(NeuralNetwork &network, const std::string &name)
+{
+    network.save(name);
+    return;
+}
+
 NeuralNetwork ExperimentRunner::loadNetwork(const std::string& network_name)
 {
     fs::path base_path = fs::path("Neural_Networks") / network_name;
@@ -94,10 +164,3 @@ NeuralNetwork ExperimentRunner::loadNetwork(const std::string& network_name)
 
     return net;
 }
-
-void ExperimentRunner::saveNetwork(NeuralNetwork &network, const std::string &name)
-{
-    network.save(name);
-    return;
-}
-
