@@ -360,7 +360,6 @@ void NeuralNetwork::save_config(const std::string& name)
     file.close();
 }
 
-
 void NeuralNetwork::save_weights(const std::string& name)
 {
     fs::path weights_path = fs::path("Neural_Networks") / name / "weights";

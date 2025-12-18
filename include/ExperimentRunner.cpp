@@ -19,66 +19,76 @@ NeuralNetwork ExperimentRunner::loadNetwork(const std::string& network_name)
         file >> j;
     }
 
-    // Retrieve last training parameters
-
     int epochs = j.at("epochs").get<int>();
     int mini_batch_size = j.at("mini_batch_size").get<int>();
     float learning_rate = j.at("learning_rate").get<float>();
 
-    // Rebuild layers
     const auto& layers_json = j.at("layers");
 
-    // Creating an empty neurons vector
-
-    // Creating an empty layers vector
-
-    // Path to weights and biases
     fs::path weights_dir = base_path / "weights";
     fs::path biases_dir  = base_path / "biases";
 
+    std::vector<Layer> layers_vector;
 
-    for (size_t l = 0; l < layers_json.size(); l++) {
+    // ----------------------------
+    // Create input layer automatically
+    // ----------------------------
+    size_t input_size = 1;
 
-        // Empty the neuronal vector
+    std::vector<std::unique_ptr<Neuron>> input_neurons;
+    for (size_t n = 0; n < input_size; n++) {
+        input_neurons.push_back(
+            NeuronFactory::create(
+                "PERCEPTRON",
+                1,
+                std::vector<float>{1.f},
+                0.f
+            )
+        );
+    }
+    layers_vector.emplace_back(std::move(input_neurons), LayerType::INPUT);
 
-        const auto& layer = layers_json[l];
+    // ----------------------------
+    // Rebuild hidden and output layers from JSON
+    // ----------------------------
+    for (size_t idx = 0; idx < layers_json.size(); idx++) {
+        const auto& layer_json = layers_json[idx];
 
-        // Retrieve parameters
+        std::string layer_type_str  = layer_json.at("layer_type").get<std::string>();
+        std::string activation_name = layer_json.at("activation").get<std::string>();
+        size_t number_neurons       = layer_json.at("number").get<size_t>();
 
-        std::string layer_type = layer.at("layer_type").get<std::string>();
-        std::string activation_name = layer.at("activation").get<std::string>();
-        size_t number_neurons = layer.at("number").get<size_t>();
+        LayerType layer_type = StringToLayerType(layer_type_str);
 
-        fs::path w_file = weights_dir / ("weights-" + std::to_string(l + 1) + ".bin");
-        fs::path b_file = biases_dir  / ("biases-"  + std::to_string(l + 1) + ".bin");
+        std::vector<std::unique_ptr<Neuron>> neurons_vector;
 
-        // Load weights and biases
+        fs::path w_file = weights_dir / ("weights-" + std::to_string(idx + 1) + ".bin");
+        fs::path b_file = biases_dir  / ("biases-"  + std::to_string(idx + 1) + ".bin");
 
         auto weights = DataLoader::load_weights(w_file.string());
         auto biases  = DataLoader::load_biases(b_file.string());
 
-        if (number_neurons != weights.size() ||
-            number_neurons != biases.size()) {
-            throw std::runtime_error("Weights/Biases size mismatch in layer " + std::to_string(l));
+        if (weights.size() != number_neurons ||
+            biases.size()  != number_neurons) {
+            throw std::runtime_error("Weights/Biases size mismatch in layer " + std::to_string(idx));
         }
-
-        size_t nb_weights = weights[0].size();
 
         for (size_t n = 0; n < number_neurons; n++) {
-            std::optional<std::vector<float>> neuron_weights = std::make_optional(weights[n]);
-            std::optional<float> neuron_bias = std::make_optional(biases[n]);
             neurons_vector.push_back(
-                std::move(NeuronFactory::create(
-                    activation_name, 
-                    nb_weights, 
-                    neuron_weights, 
-                    neuron_bias))
+                NeuronFactory::create(
+                    activation_name,
+                    weights[n].size(),
+                    weights[n],
+                    biases[n]
+                )
             );
         }
-        layers_vector.push_back(std::move(
-            Layer(neurons_vector, 
-                StringtoLayerType(layer_type))));
+
+        layers_vector.emplace_back(std::move(neurons_vector), layer_type);
     }
 
-    return NeuralNetwork(layers_vector);
+    NeuralNetwork net(std::move(layers_vector));
+    net.setTrainingParams(epochs, mini_batch_size, learning_rate);
+
+    return net;
 }
