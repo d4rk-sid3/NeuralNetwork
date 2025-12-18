@@ -17,6 +17,12 @@ void NeuralNetwork::setEpochs(const int epochs)
     return;
 }
 
+void NeuralNetwork::setMiniBatchSize(const int mini_batch_size)
+{
+    m_mini_batch_size = mini_batch_size;
+    return;
+}
+
 Layer& NeuralNetwork::getLayer(size_t index)
 {
     if (index >= m_layers.size())
