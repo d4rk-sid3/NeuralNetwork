@@ -14,7 +14,7 @@ private:
     std::unique_ptr<DLLoader<NeuralNetwork>> nnLoader;
     std::unique_ptr<DLLoader<ExperimentRunner>> runnerLoader;
 
-    NeuralNetwork* currentNN;
+    NeuralNetwork *currentNN;
     ExperimentRunner* runner;
 
     // Utils
