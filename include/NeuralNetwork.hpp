@@ -14,7 +14,7 @@ class NeuralNetwork {
     
         std::vector<float> feedforward(const std::vector<float>& input);
     
-        void SGD(const std::vector<TrainingSample>& training_data,
+        void SGD(std::vector<TrainingSample>& training_data,
                  int epochs,
                  int mini_batch_size,
                  float eta,
@@ -27,13 +27,13 @@ class NeuralNetwork {
     
         EvalMetrics evaluate(const std::vector<TrainingSample>& test_data);
 
-        void NeuralNetwork::save_config(const std::string& name);
+        void save_config(const std::string& name);
 
-        void NeuralNetwork::save_weights(const std::string& name);
+        void save_weights(const std::string& name);
 
-        void NeuralNetwork::save_biases(const std::string& name);
+        void save_biases(const std::string& name);
 
-        void NeuralNetwork::save(const std::string& name);
+        void save(const std::string& name);
 
         void setEpochs(const int epochs);
 
