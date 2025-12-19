@@ -3,7 +3,7 @@
 #include "NeuralNetwork.hpp"
 #include "DataLoader.hpp"
 #include "NeuronFactory.hpp"
-#include "../dataSetConversion/convert.hpp"
+#include "../src/dataSetConversion/convert.hpp"
 
 class ExperimentRunner {
     public:

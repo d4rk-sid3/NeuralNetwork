@@ -6,7 +6,6 @@ CXX := g++
 CXXFLAGS := -std=c++17 -O2 -Wall -Wextra -fPIC
 INCLUDES := -Iinclude
 
-
 # =========================
 # Project structure
 # =========================
@@ -22,17 +21,19 @@ BIN_DIR := bin
 
 # NeuralNetwork library
 NN_SRCS := $(shell find $(SRC_DIR)/neural_network -name "*.cpp")
-NN_OBJS := $(patsubst $(SRC_DIR)/neural_network/%.cpp,$(OBJ_DIR)/neural_network/%.o,$(NN_SRCS))
+NN_OBJS := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(NN_SRCS))
 NN_LIB := $(LIB_DIR)/libNeuralNetwork.so
 
 # ExperimentRunner library
-ER_SRCS := $(shell find $(SRC_DIR)/experiment_runner -name "*.cpp")
-ER_OBJS := $(patsubst $(SRC_DIR)/experiment_runner/%.cpp,$(OBJ_DIR)/experiment_runner/%.o,$(ER_SRCS))
+ER_SRCS := $(shell find $(SRC_DIR)/experiment_runner -name "*.cpp") \
+           $(shell find $(SRC_DIR)/dataSetConversion/convert.cpp)
+ER_OBJS := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(ER_SRCS))
+
 ER_LIB := $(LIB_DIR)/libExperimentRunner.so
 
 # Shell
 SHELL_SRCS := $(shell find $(SRC_DIR)/shell -name "*.cpp")
-SHELL_OBJS := $(patsubst $(SRC_DIR)/shell/%.cpp,$(OBJ_DIR)/shell/%.o,$(SHELL_SRCS))
+SHELL_OBJS := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SHELL_SRCS))
 SHELL_BIN := $(BIN_DIR)/shell
 
 # =========================
@@ -41,7 +42,6 @@ SHELL_BIN := $(BIN_DIR)/shell
 
 .PHONY: all neural_network experiment_runner shell clean re debug
 
-# Default target
 all: neural_network experiment_runner shell
 
 # -------------------------
@@ -71,9 +71,11 @@ $(SHELL_BIN): $(SHELL_OBJS) $(NN_LIB) $(ER_LIB)
 	@mkdir -p $(BIN_DIR)
 	$(CXX) -o $@ $^ -ldl -Wl,-rpath,'\$ORIGIN/../librairies'
 
-# -------------------------
+# =========================
 # Compile object files
-# -------------------------
+# =========================
+
+# Rule for compiling any cpp under src/
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
