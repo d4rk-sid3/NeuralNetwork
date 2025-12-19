@@ -157,6 +157,29 @@ void Convertor::retrieveBoardInfoTest(string inputFile, string outputFile)
 
 vector<float> Convertor::retrieveBoardInfo(string line)
 {
+
+    const map<char, int> values = 
+    {
+        {'P', +1},
+        {'N', +2},
+        {'B', +3},
+        {'R', +4},
+        {'Q', +5},
+        {'K', +6},
+        {'p', -1},
+        {'n', -2},
+        {'b', -3},
+        {'r', -4},
+        {'q', -5},
+        {'k', -6}
+    };
+
+    const map<string, int> sideToMove =
+    {
+        {"w", 1},
+        {"b", -1}
+    };
+
     stringstream stmp(line);
     vector<string> spaceTab;
     vector<float> tab;
@@ -165,25 +188,72 @@ vector<float> Convertor::retrieveBoardInfo(string line)
     while (std::getline(stmp, ss,  ' ')) {
         spaceTab.push_back(ss);
     }
+
+    auto getLInfo = [&](string & l) {
+        vector<float> res;
+        for (char pos : l) {
+            if (pos >= '0' && pos <= '9') {
+                int a = pos - '0';
+
+                for (int i = 0; i < a; i++) {
+                    res.push_back(0.0f);
+                }
+            } else
+                res.push_back(static_cast<float>(values.at(pos)));
+        }
+        return res;
+    };
+
+    auto getCInfo = [&](string & l) {
+        vector<float> res(4, 0.0f);
+
+        if (l == "-")
+            return res;
+
+        for (char pos : l) {
+            if (pos == 'K')
+                res[0] = static_cast<float>(values.at('K'));
+            else if (pos == 'Q')
+                res[1] = static_cast<float>(values.at('Q'));
+            else if (pos == 'k')
+                res[2] = static_cast<float>(values.at('k'));
+            else if (pos == 'q')
+                res[3] = static_cast<float>(values.at('q'));
+        }
+
+        return res;
+    };
+
+    auto getEInfo = [&](string & l) {
+        vector<float> res(2, -1.0f);
+
+        if (l == "-")
+            return res;
+
+        res[0] = static_cast<float>(l[0] - 'a');
+        res[1] = static_cast<float>(l[1] - '0');
+
+        return res;
+    };
         
     stringstream  sboard(spaceTab[0]);
     string l;
 
     while (std::getline(sboard, l,  '/')) {
-        vector<int> resint = getLineInfo(l);
-        for (auto & val : resint)
-            tab.push_back(static_cast<float>(val));
+        vector<float> resfloat = getLInfo(l);
+        for (auto & val : resfloat)
+            tab.push_back(val);
     }
 
     tab.push_back(static_cast<float>(sideToMove.at(spaceTab[1])));
 
-    vector<int> rescastle = getCastlingInfo(spaceTab[2]);
+    vector<float> rescastle = getCInfo(spaceTab[2]);
     for (auto & val : rescastle)
-        tab.push_back(static_cast<float>(val));
+        tab.push_back(val);
 
-    vector<int> enpassant = getEnPassantInfo(spaceTab[3]);
+    vector<float> enpassant = getEInfo(spaceTab[3]);
     for (auto & val : enpassant)
-        tab.push_back(static_cast<float>(val));
+        tab.push_back(val);
 
     tab.push_back(static_cast<float>(stoi(spaceTab[4])));
     tab.push_back(static_cast<float>(stoi(spaceTab[5])));
