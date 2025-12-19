@@ -153,27 +153,6 @@ Full move count from the FEN.
 
 ---
 
-## Final Input Vector Size
-
-| Component         | Size          |
-| ----------------- | ------------- |
-| Board squares     | 64            |
-| Global parameters | 5             |
-| **TOTAL**         | **69 values** |
-
----
-
-### 70. Halfmove Clock (Normalized)
-
-Encode the halfmove clock (5th FEN field) as:
-
-```
-halfmove / 50.0
-```
-
-This produces a value in the range **[0, 1]**.
-
----
 
 ## Final Input Vector Size
 
@@ -182,8 +161,10 @@ This produces a value in the range **[0, 1]**.
 | Board squares   | 64            |
 | Side to move    | 1             |
 | Castling rights | 4             |
+| En passant square | 2             |
 | Halfmove clock  | 1             |
-| **TOTAL**       | **69 values** |
+| Fullmove number  | 1             |
+| **TOTAL**       | **73 values** |
 
 ---
 
@@ -215,17 +196,15 @@ Input:
 Output (structure):
 
 ```
-[64 board values] 0 0 0 0 0 0.14 | 1 0 0 0 0
+[64 board values] [parameters] -1 0 0 0 0 0 0 3 41 [output] 1 0 0 0 0 
 ```
-
-(Note: `7 / 50 = 0.14`)
 
 ---
 
 ## Summary
 
 * One input line → one output file
-* 69 numerical input values
+* 73 numerical input values
 * 5 one-hot encoded output values
 * Deterministic, stateless conversion
 * Ready for direct ingestion by a neural network

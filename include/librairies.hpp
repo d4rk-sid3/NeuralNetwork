@@ -11,21 +11,28 @@
 #include <optional>
 #include <random>
 #include <memory>
+#include <nlohmann/json.hpp>
+#include <dlfcn.h>
+#include <stdexcept>
+#include <string>
 
-enum NeuronType {
+enum class NeuronType {
     PERCEPTRON,
     SIGMOID,
 };
 
-enum ActivationFunctionType {
+enum class ActivationFunctionType {
     STEP,
     SIGMOID,
     RELU,
     TANH
 };
 
-enum LayerType {
+enum class LayerType {
     INPUT,
     HIDDEN,
     OUTPUT
 };
+
+using TrainingSample = std::pair<std::vector<float>, std::vector<float>>;
+namespace fs = std::filesystem;

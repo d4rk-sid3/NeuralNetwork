@@ -342,7 +342,7 @@ const MetricCard = ({ label, value, format = 'percent', trend }) => {
   );
 };
 
-// Component: Performance chart
+// Component: Performance chart with interactive data points
 const PerformanceChart = ({ data, onDataPointClick, activeMetrics }) => {
   const colors = {
     accuracy: '#f59e0b',
@@ -358,28 +358,45 @@ const PerformanceChart = ({ data, onDataPointClick, activeMetrics }) => {
   };
 
   const CustomDot = (props) => {
-    const { cx, cy, payload } = props;
+    const { cx, cy, payload, dataKey } = props;
+    
     return (
       <circle
         cx={cx}
         cy={cy}
         r={6}
-        fill={colors.accuracy}
+        fill={colors[dataKey?.split('.')[1]] || colors.accuracy}
         stroke="#1c1917"
         strokeWidth={2}
         className="cursor-pointer hover:r-8 transition-all"
         onClick={() => onDataPointClick(payload)}
+        style={{ cursor: 'pointer' }}
       />
     );
   };
 
+  const handleChartClick = (e) => {
+    if (e && e.activePayload && e.activePayload.length > 0) {
+      onDataPointClick(e.activePayload[0].payload);
+    }
+  };
+
   return (
     <div className="bg-stone-900 p-6 border-2 border-stone-800">
-      <h3 className="text-xs font-medium tracking-wider uppercase text-stone-500 mb-6">
-        Performance Evolution
-      </h3>
+      <div className="flex items-center justify-between mb-6">
+        <h3 className="text-xs font-medium tracking-wider uppercase text-stone-500">
+          Performance Evolution
+        </h3>
+        <div className="text-xs text-stone-500 font-mono">
+          Click any data point to inspect configuration
+        </div>
+      </div>
       <ResponsiveContainer width="100%" height={400}>
-        <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+        <LineChart 
+          data={data} 
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          onClick={handleChartClick}
+        >
           <CartesianGrid strokeDasharray="3 3" stroke="#44403c" />
           <XAxis 
             dataKey="date" 
@@ -416,7 +433,7 @@ const PerformanceChart = ({ data, onDataPointClick, activeMetrics }) => {
               strokeWidth={3}
               name="Accuracy"
               dot={<CustomDot />}
-              activeDot={{ r: 8 }}
+              activeDot={{ r: 8, onClick: (e, payload) => onDataPointClick(payload.payload) }}
             />
           )}
           {activeMetrics.loss && (
@@ -426,7 +443,8 @@ const PerformanceChart = ({ data, onDataPointClick, activeMetrics }) => {
               stroke={colors.loss}
               strokeWidth={3}
               name="Loss"
-              dot={{ r: 5, fill: colors.loss, stroke: '#1c1917', strokeWidth: 2 }}
+              dot={<CustomDot />}
+              activeDot={{ r: 8, onClick: (e, payload) => onDataPointClick(payload.payload) }}
             />
           )}
           {activeMetrics.precision && (
@@ -436,7 +454,8 @@ const PerformanceChart = ({ data, onDataPointClick, activeMetrics }) => {
               stroke={colors.precision}
               strokeWidth={2}
               name="Precision"
-              dot={{ r: 4 }}
+              dot={<CustomDot />}
+              activeDot={{ r: 8, onClick: (e, payload) => onDataPointClick(payload.payload) }}
             />
           )}
           {activeMetrics.recall && (
@@ -446,7 +465,8 @@ const PerformanceChart = ({ data, onDataPointClick, activeMetrics }) => {
               stroke={colors.recall}
               strokeWidth={2}
               name="Recall"
-              dot={{ r: 4 }}
+              dot={<CustomDot />}
+              activeDot={{ r: 8, onClick: (e, payload) => onDataPointClick(payload.payload) }}
             />
           )}
           {activeMetrics.f1_score && (
@@ -456,7 +476,8 @@ const PerformanceChart = ({ data, onDataPointClick, activeMetrics }) => {
               stroke={colors.f1_score}
               strokeWidth={2}
               name="F1 Score"
-              dot={{ r: 4 }}
+              dot={<CustomDot />}
+              activeDot={{ r: 8, onClick: (e, payload) => onDataPointClick(payload.payload) }}
             />
           )}
         </LineChart>
@@ -497,62 +518,132 @@ const MetricToggle = ({ metrics, activeMetrics, onToggle }) => {
   );
 };
 
-// Component: Epoch detail modal
-const EpochDetailModal = ({ epoch, onClose }) => {
+// Component: Enhanced hyperparameter detail modal
+const HyperparameterDetailModal = ({ epoch, onClose }) => {
   if (!epoch) return null;
+
+  const hiddenLayers = epoch.network_config.layers.filter(layer => layer.type === 'hidden');
+  const outputLayer = epoch.network_config.layers.find(layer => layer.type === 'output');
 
   return (
     <div 
-      className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4"
+      className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4 animate-fade-in"
       onClick={onClose}
     >
       <div 
-        className="bg-stone-900 border-4 border-amber-500 max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+        className="bg-stone-900 border-4 border-amber-500 max-w-5xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="sticky top-0 bg-stone-900 border-b-2 border-stone-800 p-6 flex justify-between items-center">
-          <h2 className="text-xl font-bold text-stone-100 font-mono tracking-tight">
-            Epoch Details
-          </h2>
+        <div className="sticky top-0 bg-stone-900 border-b-4 border-amber-500 p-6 flex justify-between items-center z-10">
+          <div>
+            <h2 className="text-2xl font-bold text-amber-400 font-mono tracking-tight mb-1">
+              Model Configuration Inspector
+            </h2>
+            <div className="text-sm text-stone-400 font-mono">
+              {epoch.experiment_id} | {new Date(epoch.date).toLocaleString()}
+            </div>
+          </div>
           <button
             onClick={onClose}
-            className="text-stone-400 hover:text-stone-100 transition-colors text-2xl leading-none"
+            className="text-stone-400 hover:text-amber-400 transition-colors text-3xl leading-none font-bold px-3"
           >
             ×
           </button>
         </div>
 
         <div className="p-6 space-y-6">
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <div className="text-xs font-medium tracking-wider uppercase text-stone-500 mb-1">
-                Experiment ID
+          {/* Hyperparameters Section - Prominent Display */}
+          <div className="bg-stone-950 border-2 border-amber-500 p-6">
+            <h3 className="text-sm font-bold tracking-wider uppercase text-amber-400 mb-4 flex items-center">
+              <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z"/>
+              </svg>
+              Hyperparameters
+            </h3>
+            <div className="grid grid-cols-2 gap-6">
+              <div className="bg-stone-900 border-l-4 border-amber-500 p-4">
+                <div className="text-xs text-stone-500 uppercase tracking-wider mb-1">Learning Rate</div>
+                <div className="text-3xl font-mono font-bold text-amber-400">
+                  {epoch.network_config.learning_rate}
+                </div>
               </div>
-              <div className="text-lg font-mono text-amber-400">
-                {epoch.experiment_id}
-              </div>
-            </div>
-            <div>
-              <div className="text-xs font-medium tracking-wider uppercase text-stone-500 mb-1">
-                Date
-              </div>
-              <div className="text-lg font-mono text-stone-100">
-                {new Date(epoch.date).toLocaleString()}
+              <div className="bg-stone-900 border-l-4 border-amber-500 p-4">
+                <div className="text-xs text-stone-500 uppercase tracking-wider mb-1">Batch Size</div>
+                <div className="text-3xl font-mono font-bold text-amber-400">
+                  {epoch.network_config.batch_size}
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="border-t-2 border-stone-800 pt-6">
-            <h3 className="text-xs font-medium tracking-wider uppercase text-stone-500 mb-4">
+          {/* Network Architecture Section */}
+          <div className="bg-stone-950 border-2 border-stone-700 p-6">
+            <h3 className="text-sm font-bold tracking-wider uppercase text-stone-400 mb-4 flex items-center">
+              <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+              </svg>
+              Network Architecture
+            </h3>
+            
+            {/* Hidden Layers */}
+            <div className="mb-6">
+              <div className="text-xs text-stone-500 uppercase tracking-wider mb-3">
+                Hidden Layers ({hiddenLayers.length})
+              </div>
+              <div className="space-y-3">
+                {hiddenLayers.map((layer, idx) => (
+                  <div key={idx} className="bg-stone-900 border-l-4 border-blue-500 p-4 flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                      <div className="text-blue-400 font-mono font-bold text-lg">
+                        Layer {idx + 1}
+                      </div>
+                      <div className="text-stone-400 text-sm">|</div>
+                      <div className="text-stone-200 font-mono uppercase text-sm font-bold">
+                        {layer.neuron_type}
+                      </div>
+                    </div>
+                    <div className="text-stone-100 font-mono text-xl font-bold">
+                      {layer.size} units
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Output Layer */}
+            <div>
+              <div className="text-xs text-stone-500 uppercase tracking-wider mb-3">
+                Output Layer
+              </div>
+              <div className="bg-stone-900 border-l-4 border-green-500 p-4 flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <div className="text-green-400 font-mono font-bold text-lg">
+                    Output
+                  </div>
+                  <div className="text-stone-400 text-sm">|</div>
+                  <div className="text-stone-200 font-mono uppercase text-sm font-bold">
+                    {outputLayer.neuron_type}
+                  </div>
+                </div>
+                <div className="text-stone-100 font-mono text-xl font-bold">
+                  {outputLayer.size} units
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Performance Metrics Section */}
+          <div className="bg-stone-950 border-2 border-stone-700 p-6">
+            <h3 className="text-sm font-bold tracking-wider uppercase text-stone-400 mb-4">
               Performance Metrics
             </h3>
             <div className="grid grid-cols-3 gap-4">
               {Object.entries(epoch.performance).map(([key, value]) => (
-                <div key={key} className="bg-stone-800 p-4">
-                  <div className="text-xs text-stone-400 mb-1 capitalize">
+                <div key={key} className="bg-stone-900 p-4 border-b-2 border-stone-700">
+                  <div className="text-xs text-stone-500 mb-1 capitalize">
                     {key.replace('_', ' ')}
                   </div>
-                  <div className="text-xl font-mono text-stone-100">
+                  <div className="text-lg font-mono text-stone-100 font-bold">
                     {typeof value === 'number' && value < 1 && value > 0
                       ? `${(value * 100).toFixed(1)}%`
                       : typeof value === 'boolean'
@@ -564,56 +655,46 @@ const EpochDetailModal = ({ epoch, onClose }) => {
             </div>
           </div>
 
-          <div className="border-t-2 border-stone-800 pt-6">
-            <h3 className="text-xs font-medium tracking-wider uppercase text-stone-500 mb-4">
-              Network Configuration
-            </h3>
-            <div className="bg-stone-800 p-4 space-y-3">
-              <div className="grid grid-cols-3 gap-4">
-                <div>
-                  <div className="text-xs text-stone-400">Layers</div>
-                  <div className="text-lg font-mono text-stone-100">
-                    {epoch.network_config.num_layers}
-                  </div>
-                </div>
-                <div>
-                  <div className="text-xs text-stone-400">Learning Rate</div>
-                  <div className="text-lg font-mono text-stone-100">
-                    {epoch.network_config.learning_rate}
-                  </div>
-                </div>
-                <div>
-                  <div className="text-xs text-stone-400">Batch Size</div>
-                  <div className="text-lg font-mono text-stone-100">
-                    {epoch.network_config.batch_size}
-                  </div>
-                </div>
+          {/* Additional Details */}
+          <div className="grid grid-cols-2 gap-6">
+            <div className="bg-stone-950 border-2 border-stone-700 p-4">
+              <div className="text-xs text-stone-500 uppercase tracking-wider mb-2">
+                Training Data Size
               </div>
-              <div className="pt-3 border-t border-stone-700">
-                <div className="text-xs text-stone-400 mb-2">Layer Architecture</div>
-                <div className="space-y-2">
-                  {epoch.network_config.layers.map((layer, idx) => (
-                    <div key={idx} className="flex items-center text-sm font-mono text-stone-300">
-                      <span className="text-amber-500 w-20">{layer.type}</span>
-                      <span className="text-stone-100 w-24">{layer.size} units</span>
-                      <span className="text-stone-400">{layer.neuron_type}</span>
-                    </div>
-                  ))}
-                </div>
+              <div className="text-2xl font-mono text-stone-100 font-bold">
+                {epoch.training_data_size.toLocaleString()}
+              </div>
+            </div>
+            <div className="bg-stone-950 border-2 border-stone-700 p-4">
+              <div className="text-xs text-stone-500 uppercase tracking-wider mb-2">
+                Total Layers
+              </div>
+              <div className="text-2xl font-mono text-stone-100 font-bold">
+                {epoch.network_config.num_layers}
               </div>
             </div>
           </div>
 
           {epoch.notes && (
-            <div className="border-t-2 border-stone-800 pt-6">
-              <h3 className="text-xs font-medium tracking-wider uppercase text-stone-500 mb-2">
+            <div className="bg-stone-950 border-2 border-stone-700 p-6">
+              <h3 className="text-xs font-medium tracking-wider uppercase text-stone-500 mb-3">
                 Notes
               </h3>
-              <div className="bg-stone-800 p-4 text-stone-300 font-mono text-sm">
+              <div className="text-stone-300 font-mono text-sm leading-relaxed">
                 {epoch.notes}
               </div>
             </div>
           )}
+        </div>
+
+        <div className="sticky bottom-0 bg-stone-900 border-t-2 border-stone-800 p-4">
+          <button
+            onClick={onClose}
+            className="w-full bg-amber-500 hover:bg-amber-600 text-stone-950 font-bold py-3 px-6 
+                       transition-colors duration-200 font-mono tracking-wide uppercase text-sm"
+          >
+            Close Inspector
+          </button>
         </div>
       </div>
     </div>
@@ -634,7 +715,6 @@ const NeuralBenchmarkDashboard = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  // Simulate loading data from JSON file
   const loadBenchmarkData = () => {
     setIsLoading(true);
     setTimeout(() => {
@@ -643,17 +723,14 @@ const NeuralBenchmarkDashboard = () => {
     }, 500);
   };
 
-  // Load data on mount
   useEffect(() => {
     loadBenchmarkData();
   }, []);
 
-  // Extract unique experiment IDs
   const experimentIds = useMemo(() => {
     return [...new Set(benchmarkData.map(item => item.experiment_id))].sort();
   }, [benchmarkData]);
 
-  // Filter and sort data for selected experiment
   const experimentData = useMemo(() => {
     if (!selectedExperiment) return [];
     return benchmarkData
@@ -661,7 +738,6 @@ const NeuralBenchmarkDashboard = () => {
       .sort((a, b) => new Date(a.date) - new Date(b.date));
   }, [benchmarkData, selectedExperiment]);
 
-  // Calculate current metrics and trends
   const currentMetrics = useMemo(() => {
     if (experimentData.length === 0) return null;
     
@@ -689,6 +765,10 @@ const NeuralBenchmarkDashboard = () => {
     loadBenchmarkData();
   };
 
+  const handleDataPointClick = (epochData) => {
+    setSelectedEpoch(epochData);
+  };
+
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100">
       <div className="max-w-[1800px] mx-auto p-8">
@@ -698,7 +778,7 @@ const NeuralBenchmarkDashboard = () => {
               Neural Network Benchmark
             </h1>
             <p className="text-stone-400 text-lg font-mono">
-              Performance tracking and analysis dashboard
+              Performance tracking and hyperparameter analysis dashboard
             </p>
           </div>
 
@@ -749,7 +829,7 @@ const NeuralBenchmarkDashboard = () => {
               <div className="lg:col-span-3">
                 <PerformanceChart
                   data={experimentData}
-                  onDataPointClick={setSelectedEpoch}
+                  onDataPointClick={handleDataPointClick}
                   activeMetrics={activeMetrics}
                 />
               </div>
@@ -804,7 +884,7 @@ const NeuralBenchmarkDashboard = () => {
       </div>
 
       {selectedEpoch && (
-        <EpochDetailModal
+        <HyperparameterDetailModal
           epoch={selectedEpoch}
           onClose={() => setSelectedEpoch(null)}
         />

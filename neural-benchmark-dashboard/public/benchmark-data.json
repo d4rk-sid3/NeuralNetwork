@@ -255,7 +255,6 @@
     "network_config": {
       "num_layers": 3,
       "layers": [
-        { "type": "input", "size": 784, "neuron_type": "perceptron" },
         { "type": "hidden", "size": 512, "neuron_type": "tanh" },
         { "type": "output", "size": 10, "neuron_type": "softmax" }
       ],

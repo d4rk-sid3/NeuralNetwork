@@ -32,7 +32,7 @@ features:
     link: /Build/BUILD_GUIDE
 ---
 
-<img src="index_image.png" alt="MY_TOUCH" style="width: 1200px; height: auto; margin-top: 40px; margin-bottom: 80px" />
+<img src="/index_image.png" alt="MY_TOUCH" style="width: 1200px; height: auto; margin-top: 40px; margin-bottom: 80px" />
 
 # MyTorch – Chess Neural Network Analyzer
 
