@@ -45,7 +45,7 @@ std::vector<float> NeuralNetwork::feedforward(const std::vector<float>& input)
 
     for (size_t i = 1; i < m_numLayers; i++)
     {
-        std::cout << "Number of neurons : " << m_layers[i].getNeuronCount() << std::endl;
+        std::cout << "urons : " << m_layers[i].getNeuronCount() << std::endl;
         new_inputs.clear();
         
         // reference the layer neurons directly
