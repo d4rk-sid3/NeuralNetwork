@@ -1,3 +1,16 @@
 #include "../include/RobotShell.hpp"
 
-int main(int argc, char **argv)
+int main() {
+    try {
+        RobotShell shell(
+            "./banners/shell_banner.txt",
+            "./librairies/neural_network.so",
+            "./librairies/neural_network.so"
+        );
+        shell.run();
+    } catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << "\n";
+        return 1;
+    }
+    return 0;
+}
