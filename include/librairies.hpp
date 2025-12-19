@@ -12,6 +12,9 @@
 #include <random>
 #include <memory>
 #include <nlohmann/json.hpp>
+#include <dlfcn.h>
+#include <stdexcept>
+#include <string>
 
 enum class NeuronType {
     PERCEPTRON,

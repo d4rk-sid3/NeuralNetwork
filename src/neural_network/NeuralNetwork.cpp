@@ -1,4 +1,4 @@
-#include "../include/NeuralNetwork.hpp"
+#include "../../include/NeuralNetwork.hpp"
 
 NeuralNetwork::NeuralNetwork(std::vector<Layer> layers)
     : m_layers(std::move(layers)),
@@ -429,4 +429,8 @@ void NeuralNetwork::save(const std::string& name)
     save_config(name);
     save_weights(name);
     save_biases(name);
+}
+
+extern "C" NeuralNetwork* createInstance() {
+    return new NeuralNetwork();
 }

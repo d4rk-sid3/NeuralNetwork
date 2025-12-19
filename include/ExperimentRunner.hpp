@@ -6,6 +6,7 @@
 
 class ExperimentRunner {
     public:
+        ExperimentRunner() {};
         static NeuralNetwork generate(const std::string& config_file);
         static void saveNetwork(NeuralNetwork &network, const std::string &name);
         static NeuralNetwork loadNetwork(const std::string& network_name);
