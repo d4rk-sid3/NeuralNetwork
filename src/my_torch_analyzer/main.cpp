@@ -6,6 +6,10 @@ int main(int argc, char **argv) {
             MyTorchAnalyzer::display_help();
             return 84;
         }
+        if (argc == 2 && strcmp(argv[1], "--help")) {
+            MyTorchAnalyzer::display_help();
+            return 0;
+        }
         MyTorchAnalyzer analyzer(
             "./librairies/libNeuralNetwork.so",
             "./librairies/libExperimentRunner.so"
