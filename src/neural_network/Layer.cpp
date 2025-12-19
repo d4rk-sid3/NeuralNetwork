@@ -31,9 +31,9 @@ std::string Layer::layerTypeToString(LayerType type)
 
 LayerType Layer::StringToLayerType(const std::string& type)
 {
-    if (type == "input")  return LayerType::INPUT;
-    if (type == "hidden") return LayerType::HIDDEN;
-    if (type == "output") return LayerType::OUTPUT;
+    if (type == "INPUT")  return LayerType::INPUT;
+    if (type == "HIDDEN") return LayerType::HIDDEN;
+    if (type == "OUTPUT") return LayerType::OUTPUT;
 
     throw std::runtime_error("Unknown layer type: " + type);
 }

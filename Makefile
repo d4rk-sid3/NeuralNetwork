@@ -6,6 +6,7 @@ CXX := g++
 CXXFLAGS := -std=c++17 -O2 -Wall -Wextra -fPIC
 INCLUDES := -Iinclude
 
+
 # =========================
 # Project structure
 # =========================
