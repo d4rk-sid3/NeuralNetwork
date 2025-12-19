@@ -13,4 +13,8 @@ class StepActivationFunction : public IActivationFunction {
         ActivationFunctionType getType() const override {
             return ActivationFunctionType::STEP;
         }
+
+        float derivative(float) const override {
+            return 0.f; // no gradient learning
+        }
 };

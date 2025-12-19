@@ -1,10 +1,10 @@
-#include "Neuron.hpp"
+#include "../../include/Neuron.hpp"
 
 Neuron::Neuron(
     const IActivationFunction& activation,
     int n_weights,
-    std::optional<std::vector<float>> weights = std::nullopt,
-    std::optional<float> bias = std::nullopt
+    std::optional<std::vector<float>> weights,
+    std::optional<float> bias
 ) : m_activationfunction(activation)
 {
     m_nWeights = n_weights;
@@ -82,4 +82,22 @@ float& Neuron::get_z()
 NeuronType Neuron::getType() const
 {
     return NeuronType::SIGMOID;
+}
+
+const IActivationFunction& Neuron::get_activation() const
+{
+    return m_activationfunction;
+}
+
+void Neuron::setWeights(const std::vector<float> weights)
+{
+    m_weights = weights;
+    m_nWeights = m_weights.size();
+    return;
+}
+
+void Neuron::setBias(const float bias)
+{
+    m_bias = bias;
+    return;
 }
