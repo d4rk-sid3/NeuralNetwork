@@ -83,26 +83,46 @@ void RobotShell::handleCommand(const std::vector<std::string>& tokens)
             std::cout << "EVALUATE <dataset>\nPREDICT <input>\nEXIT or QUIT\n";
         } 
         else if (cmd == "GENERATE") {
+            if (tokens.size() < 2) {
+                std::cout << "Usage: GENERATE <param>\n";
+                return;
+            }
             delete currentNN;
             currentNN = new NeuralNetwork(runner->generate(tokens[1]));
             std::cout << "Neural Network generated.\n";
         } 
         else if (cmd == "SAVE") {
+            if (tokens.size() < 2) {
+                std::cout << "Usage: SAVE <filename>\n";
+                return;
+            }
             if (!currentNN) { std::cout << "No NN to save.\nCreate or load one first.\n"; return; }
             runner->saveNetwork(*currentNN, tokens[1]);
             std::cout << "Saved to " << tokens[1] << "\n";
         } 
         else if (cmd == "LOAD") {
+            if (tokens.size() < 2) {
+                std::cout << "Usage: LOAD <filename>\n";
+                return;
+            }
             delete currentNN;
             currentNN = new NeuralNetwork(runner->loadNetwork(tokens[1]));
             std::cout << "Loaded from " << tokens[1] << "\n";
         } 
         else if (cmd == "TRAIN") {
+            if (tokens.size() < 3) {
+                std::cout << "Usage: TRAIN <param_file> <training_file>\n";
+                return;
+            }
             if (!currentNN) { std::cout << "No NN to train.\nCreate or load one first.\n"; return; }
             runner->train(*currentNN, tokens[1], tokens[2]);
             std::cout << "Training complete.\n";
         } 
         else if (cmd == "EVALUATE") {
+            if (tokens.size() < 2) {
+                std::cout << "Usage: EVALUATE <test_file>\n";
+                return;
+            }
             if (!currentNN) { std::cout << "No NN to evaluate.\nCreate or load one first.\n"; return; }
             runner->evaluate(*currentNN, tokens[1]);
         } 
