@@ -224,6 +224,7 @@ void ExperimentRunner::predict(NeuralNetwork& network, const std::string& test_f
 {
     std::ifstream file(test_file);
     if (!file.is_open()) {
+        exit(84);
         throw std::runtime_error("Unable to open test file: " + test_file);
     }
 

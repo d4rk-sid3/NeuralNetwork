@@ -19,5 +19,5 @@ class MyTorchAnalyzer {
         ~MyTorchAnalyzer();
     
         void predict(const std::string &filepath);
-        void display_help();
+        static void display_help();
 };
