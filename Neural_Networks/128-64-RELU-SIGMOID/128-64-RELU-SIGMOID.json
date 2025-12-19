@@ -20,6 +20,6 @@
             "number": 5
         }
     ],
-    "learning_rate": 0.009999999776482582,
-    "mini_batch_size": 64
+    "learning_rate": 0.20000000298023224,
+    "mini_batch_size": 32
 }
