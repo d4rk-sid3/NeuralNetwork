@@ -54,17 +54,23 @@ def main():
     # Ask user for output file path
     while True:
         filename = input("\nPath to save the JSON file: ")
-        dir_path = os.path.dirname(os.path.abspath(filename))
+        script_path = os.path.abspath(__file__)
+        current_dir = os.path.dirname(script_path)
+        parent_dir = os.path.dirname(current_dir)
+        dir_path = os.path.join(parent_dir, "NN_Config")
+        filepath = os.path.join(dir_path, filename)
+
+        
         if not os.path.exists(dir_path):
             print("Directory does not exist. Please enter a valid path.")
         else:
             break
 
     # Save JSON
-    with open(filename, "w") as f:
+    with open(filepath, "w") as f:
         json.dump(network, f, indent=2)
 
-    print(f"\nFile '{filename}' successfully generated!")
+    print(f"\nFile '{filepath}' successfully generated!")
     print(json.dumps(network, indent=2))
 
 if __name__ == "__main__":
