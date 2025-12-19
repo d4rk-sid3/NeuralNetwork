@@ -158,6 +158,7 @@ NeuralNetwork ExperimentRunner::loadNetwork(const std::string& network_name)
     }
 
     NeuralNetwork net(std::move(layers_vector));
+    
     net.setEpochs(epochs);
     net.setMiniBatchSize(mini_batch_size);
     net.setLearningRate(learning_rate);

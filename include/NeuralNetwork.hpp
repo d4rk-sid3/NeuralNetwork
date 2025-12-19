@@ -44,8 +44,8 @@ class NeuralNetwork {
         void setLearningRate(const float eta);
     
     private:
-        std::vector<Layer> m_layers;
         size_t m_numLayers;
+        std::vector<Layer> m_layers;
         int m_epochs = 32;
         int m_mini_batch_size = 100;
         float m_eta = 3.0;

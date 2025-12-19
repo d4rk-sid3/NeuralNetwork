@@ -1,8 +1,8 @@
 #include "../../include/NeuralNetwork.hpp"
 
 NeuralNetwork::NeuralNetwork(std::vector<Layer> layers)
-    : m_layers(std::move(layers)),
-        m_numLayers(layers.size())
+    : m_numLayers(layers.size()),
+        m_layers(std::move(layers))
 {
 }
 
@@ -41,8 +41,11 @@ std::vector<float> NeuralNetwork::feedforward(const std::vector<float>& input)
     std::vector<float> new_inputs;
     std::vector<float> inputs(input);
 
+    //std::cout << "Layers : " << m_numLayers << std::endl;
+
     for (size_t i = 1; i < m_numLayers; i++)
     {
+        std::cout << "Number of neurons : " << m_layers[i].getNeuronCount() << std::endl;
         new_inputs.clear();
         
         // reference the layer neurons directly

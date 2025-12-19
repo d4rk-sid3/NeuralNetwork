@@ -4,3 +4,5 @@ datasets
 a.out
 raw_datasets
 raw_datasets/
+training_data/
+testing_data/
