@@ -7,12 +7,10 @@
 #include <vector>
 #include <map>
 
-using namespace std;
-
 class Convertor
 {
 private:
-    const map<char, int> values = 
+    const std::map<char, int> values = 
     {
         {'P', +1},
         {'N', +2},
@@ -28,13 +26,13 @@ private:
         {'k', -6}
     };
 
-    const map<string, int> sideToMove =
+    const std::map<std::string, int> sideToMove =
     {
         {"w", 1},
         {"b", -1}
     };
 
-    const map<string, vector<int>> labelMapping =
+    const std::map<std::string, std::vector<int>> labelMapping =
     {
         {"CheckWhite",	    {1, 0, 0, 0, 0}},
         {"CheckBlack",	    {0, 1, 0, 0, 0}},
@@ -47,18 +45,18 @@ public:
     Convertor() = default;
     ~Convertor() = default;
 
-    vector<int> parseDataSetLine(string & line);
-    vector<int> getLineInfo(string & line);
-    vector<int> getCastlingInfo(string & line);
-    vector<int> getEnPassantInfo(string & line);
+    std::vector<int> parseDataSetLine(std::string & line);
+    std::vector<int> getLineInfo(std::string & line);
+    std::vector<int> getCastlingInfo(std::string & line);
+    std::vector<int> getEnPassantInfo(std::string & line);
     
-    void storeResult(vector<vector<int>> & res, string filepath);
-    vector<string> getDataSet(string filepath);
-    vector<vector<int>> parseDataSet(vector<string> & infosTab);
+    void storeResult(std::vector<std::vector<int>> & res, std::string filepath);
+    std::vector<std::string> getDataSet(std::string filepath);
+    std::vector<std::vector<int>> parseDataSet(std::vector<std::string> & infosTab);
 
-    void convertToIntFIle(string inputFile, string outputFile = "dataSetInt.txt");
-    void retrieveBoardInfoTest(string inputFile, string outputFile = "boardTest.txt");
-    static vector<float> retrieveBoardInfo(string line);
+    void convertToIntFIle(std::string inputFile, std::string outputFile = "dataSetInt.txt");
+    void retrieveBoardInfoTest(std::string inputFile, std::string outputFile = "boardTest.txt");
+    static std::vector<float> retrieveBoardInfo(std::string line);
     
 };
 

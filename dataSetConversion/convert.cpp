@@ -1,8 +1,8 @@
 #include "convert.hpp"
 
-vector<int> Convertor::getLineInfo(string & line)
+std::vector<int> Convertor::getLineInfo(std::string & line)
 {
-    vector<int> tab;
+    std::vector<int> tab;
 
     for (char pos : line) {
         if (pos >= '0' && pos <= '9') {
@@ -17,9 +17,9 @@ vector<int> Convertor::getLineInfo(string & line)
     return tab;
 }
 
-vector<int> Convertor::getCastlingInfo(string & line)
+std::vector<int> Convertor::getCastlingInfo(std::string & line)
 {
-    vector<int> tab(4, 0);
+    std::vector<int> tab(4, 0);
 
     if (line == "-")
         return tab;
@@ -38,9 +38,9 @@ vector<int> Convertor::getCastlingInfo(string & line)
     return tab;
 }
 
-vector<int> Convertor::getEnPassantInfo(string & line)
+std::vector<int> Convertor::getEnPassantInfo(std::string & line)
 {
-    vector<int> tab(2, -1);
+    std::vector<int> tab(2, -1);
 
     if (line == "-")
         return tab;
@@ -51,11 +51,11 @@ vector<int> Convertor::getEnPassantInfo(string & line)
     return tab;
 }
 
-vector<string> Convertor::getDataSet(string filepath)
+std::vector<std::string> Convertor::getDataSet(std::string filepath)
 {
-    ifstream in(filepath);
-    vector<string> res;
-    string line;
+    std::ifstream in(filepath);
+    std::vector<std::string> res;
+    std::string line;
 
     while (getline(in, line, '\n')) {
         res.push_back(line);
@@ -64,49 +64,49 @@ vector<string> Convertor::getDataSet(string filepath)
     return res;
 }
 
-void Convertor::storeResult(vector<vector<int>> & res, string filepath)
+void Convertor::storeResult(std::vector<std::vector<int>> & res, std::string filepath)
 {
-    ofstream out(filepath, ios::app);
+    std::ofstream out(filepath, std::ios::app);
 
     for (auto & tmp : res) {
         for (auto & th : tmp) {
             out << th << " ";
         }
-        out << endl;
+        out << std::endl;
     }
 }
 
-vector<int> Convertor::parseDataSetLine(string & newline)
+std::vector<int> Convertor::parseDataSetLine(std::string & newline)
 {
-    stringstream stmp(newline);
-    vector<string> spaceTab;
-    vector<int> res;
-    string ss;
+    std::stringstream stmp(newline);
+    std::vector<std::string> spaceTab;
+    std::vector<int> res;
+    std::string ss;
 
     while (std::getline(stmp, ss,  ' ')) {
         spaceTab.push_back(ss);
     }
         
-    stringstream  sboard(spaceTab[0]);
-    string line;
+    std::stringstream  sboard(spaceTab[0]);
+    std::string line;
 
     while (std::getline(sboard, line,  '/')) {
-        vector<int> resint = getLineInfo(line);
+        std::vector<int> resint = getLineInfo(line);
         res.insert(res.end(), resint.begin(), resint.end());
     }
 
     res.push_back(sideToMove.at(spaceTab[1]));
 
-    vector<int> rescastle = getCastlingInfo(spaceTab[2]);
+    std::vector<int> rescastle = getCastlingInfo(spaceTab[2]);
     res.insert(res.end(), rescastle.begin(), rescastle.end());
 
-    vector<int> enpassant = getEnPassantInfo(spaceTab[3]);
+    std::vector<int> enpassant = getEnPassantInfo(spaceTab[3]);
     res.insert(res.end(), enpassant.begin(), enpassant.end());
 
     res.push_back(stoi(spaceTab[4]));
     res.push_back(stoi(spaceTab[5]));
 
-    string tmpLabel = "";
+    std::string tmpLabel = "";
     for (size_t i = 6; i < spaceTab.size(); i++)
         tmpLabel.insert(tmpLabel.end(), spaceTab[i].begin(), spaceTab[i].end());
 
@@ -115,9 +115,9 @@ vector<int> Convertor::parseDataSetLine(string & newline)
     return res;
 }
 
-vector<vector<int>> Convertor::parseDataSet(vector<string> & infosTab)
+std::vector<std::vector<int>> Convertor::parseDataSet(std::vector<std::string> & infosTab)
 {
-    vector<vector<int>> allResults;
+    std::vector<std::vector<int>> allResults;
     
     for (auto & tmp : infosTab) {
         allResults.push_back(parseDataSetLine(tmp));
@@ -126,24 +126,24 @@ vector<vector<int>> Convertor::parseDataSet(vector<string> & infosTab)
     return allResults;
 }
 
-void Convertor::convertToIntFIle(string inputFile, string outputFile)
+void Convertor::convertToIntFIle(std::string inputFile, std::string outputFile)
 {
-    vector<string> infosTab = getDataSet(inputFile);
+    std::vector<std::string> infosTab = getDataSet(inputFile);
 
-    vector<vector<int>> allResults = parseDataSet(infosTab);
+    std::vector<std::vector<int>> allResults = parseDataSet(infosTab);
 
     storeResult(allResults, outputFile);
 }
 
-void Convertor::retrieveBoardInfoTest(string inputFile, string outputFile)
+void Convertor::retrieveBoardInfoTest(std::string inputFile, std::string outputFile)
 {
-    vector<string> infosTab = getDataSet(inputFile);
-    ofstream out(outputFile, ios::app);
+    std::vector<std::string> infosTab = getDataSet(inputFile);
+    std::ofstream out(outputFile, std::ios::app);
 
     for (auto & tmp : infosTab) {
-        stringstream stmp(tmp);
-        vector<string> spaceTab;
-        string ss;
+        std::stringstream stmp(tmp);
+        std::vector<std::string> spaceTab;
+        std::string ss;
 
         while (std::getline(stmp, ss,  ' '))
             spaceTab.push_back(ss);
@@ -151,14 +151,14 @@ void Convertor::retrieveBoardInfoTest(string inputFile, string outputFile)
         for (int i = 0; i < 5; i++)
             out << spaceTab[i] << " ";
         out << spaceTab[5] << " ";
-        out << endl;
+        out << std::endl;
     }
 }
 
-vector<float> Convertor::retrieveBoardInfo(string line)
+std::vector<float> Convertor::retrieveBoardInfo(std::string line)
 {
 
-    const map<char, int> values = 
+    const std::map<char, int> values = 
     {
         {'P', +1},
         {'N', +2},
@@ -174,23 +174,23 @@ vector<float> Convertor::retrieveBoardInfo(string line)
         {'k', -6}
     };
 
-    const map<string, int> sideToMove =
+    const std::map<std::string, int> sideToMove =
     {
         {"w", 1},
         {"b", -1}
     };
 
-    stringstream stmp(line);
-    vector<string> spaceTab;
-    vector<float> tab;
-    string ss;
+    std::stringstream stmp(line);
+    std::vector<std::string> spaceTab;
+    std::vector<float> tab;
+    std::string ss;
 
     while (std::getline(stmp, ss,  ' ')) {
         spaceTab.push_back(ss);
     }
 
-    auto getLInfo = [&](string & l) {
-        vector<float> res;
+    auto getLInfo = [&](std::string & l) {
+        std::vector<float> res;
         for (char pos : l) {
             if (pos >= '0' && pos <= '9') {
                 int a = pos - '0';
@@ -204,8 +204,8 @@ vector<float> Convertor::retrieveBoardInfo(string line)
         return res;
     };
 
-    auto getCInfo = [&](string & l) {
-        vector<float> res(4, 0.0f);
+    auto getCInfo = [&](std::string & l) {
+        std::vector<float> res(4, 0.0f);
 
         if (l == "-")
             return res;
@@ -224,8 +224,8 @@ vector<float> Convertor::retrieveBoardInfo(string line)
         return res;
     };
 
-    auto getEInfo = [&](string & l) {
-        vector<float> res(2, -1.0f);
+    auto getEInfo = [&](std::string & l) {
+        std::vector<float> res(2, -1.0f);
 
         if (l == "-")
             return res;
@@ -236,22 +236,22 @@ vector<float> Convertor::retrieveBoardInfo(string line)
         return res;
     };
         
-    stringstream  sboard(spaceTab[0]);
-    string l;
+    std::stringstream  sboard(spaceTab[0]);
+    std::string l;
 
     while (std::getline(sboard, l,  '/')) {
-        vector<float> resfloat = getLInfo(l);
+        std::vector<float> resfloat = getLInfo(l);
         for (auto & val : resfloat)
             tab.push_back(val);
     }
 
     tab.push_back(static_cast<float>(sideToMove.at(spaceTab[1])));
 
-    vector<float> rescastle = getCInfo(spaceTab[2]);
+    std::vector<float> rescastle = getCInfo(spaceTab[2]);
     for (auto & val : rescastle)
         tab.push_back(val);
 
-    vector<float> enpassant = getEInfo(spaceTab[3]);
+    std::vector<float> enpassant = getEInfo(spaceTab[3]);
     for (auto & val : enpassant)
         tab.push_back(val);
 
