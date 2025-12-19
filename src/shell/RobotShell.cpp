@@ -124,9 +124,12 @@ void RobotShell::handleCommand(const std::vector<std::string>& tokens)
             runner->evaluate(*currentNN, tokens[1]);
         } 
         else if (cmd == "PREDICT") {
+            if (tokens.size() < 2) {
+                std::cout << "Usage: PREDICT <file>\n";
+                return;
+            }
             if (!currentNN) { std::cout << "No NN to predict.\n"; return; }
-            // auto output = runner->predict(currentNN, tokens);
-            // std::cout << "Prediction: " << output << "\n";
+            runner->predict(*currentNN, tokens[1]);
         } 
         else {
             // fallback system command

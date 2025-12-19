@@ -220,6 +220,60 @@ void ExperimentRunner::evaluate(NeuralNetwork& network, const std::string& test_
     return;
 }
 
+void ExperimentRunner::predict(NeuralNetwork& network, const std::string& test_file)
+{
+    std::ifstream file(test_file);
+    if (!file.is_open()) {
+        throw std::runtime_error("Unable to open test file: " + test_file);
+    }
+
+    constexpr size_t INPUT_SIZE = 65;
+
+    // Map output index -> game state string
+    std::map<int, std::string> outputMap = {
+        {0, "Check White"},
+        {1, "Check Black"},
+        {2, "Checkmate White"},
+        {3, "Checkmate Black"},
+        {4, "Nothing"}
+    };
+
+    std::string line;
+    while (std::getline(file, line)) {
+        if (line.empty())
+            continue;
+
+        // Retrieve all 73 values
+        std::vector<float> values = Convertor::retrieveBoardInfo(line);
+        if (values.size() < INPUT_SIZE) {
+            std::cerr << "Warning: line skipped, expected at least 65 values, got "
+                      << values.size() << "\n";
+            continue;
+        }
+
+        // Take first 65 values as input
+        std::vector<float> input(values.begin(), values.begin() + INPUT_SIZE);
+
+        // Feedforward
+        std::vector<float> output = network.feedforward(input);
+
+        // Find max index
+        int maxIndex = 0;
+        float maxVal = output[0];
+        for (size_t i = 1; i < output.size(); i++) {
+            if (output[i] > maxVal) {
+                maxVal = output[i];
+                maxIndex = static_cast<int>(i);
+            }
+        }
+        // Display predicted game state
+        std::cout << (outputMap.count(maxIndex) ? outputMap[maxIndex] : "UNKNOWN")
+                  << "\n";
+    }
+
+    file.close();
+}
+
 extern "C" ExperimentRunner* createInstance() {
     return new ExperimentRunner();
 }

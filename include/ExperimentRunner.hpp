@@ -3,6 +3,7 @@
 #include "NeuralNetwork.hpp"
 #include "DataLoader.hpp"
 #include "NeuronFactory.hpp"
+#include "../src/dataSetConversion/convert.hpp"
 
 class ExperimentRunner {
     public:
@@ -16,4 +17,5 @@ class ExperimentRunner {
             const std::string& training_data_file
         );
         static void evaluate(NeuralNetwork& network, const std::string& test_file);
+        static void predict(NeuralNetwork& network, const std::string& test_file);
 };
