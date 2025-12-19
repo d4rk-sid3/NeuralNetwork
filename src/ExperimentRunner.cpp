@@ -1,4 +1,4 @@
-#include "ExperimentRunner.hpp"
+#include "../include/ExperimentRunner.hpp"
 
 NeuralNetwork ExperimentRunner::generate(const std::string& config_file)
 {
@@ -70,7 +70,7 @@ void ExperimentRunner::saveNetwork(NeuralNetwork &network, const std::string &na
     return;
 }
 
-NeuralNetwork& ExperimentRunner::loadNetwork(const std::string& network_name)
+NeuralNetwork ExperimentRunner::loadNetwork(const std::string& network_name)
 {
     fs::path base_path = fs::path("Neural_Networks") / network_name;
     fs::path config_path = base_path / (network_name + ".json");

@@ -1,10 +1,10 @@
-#include "NeuronFactory.hpp"
+#include "../include/NeuronFactory.hpp"
 
 std::unique_ptr<Neuron> NeuronFactory::create(
     const std::string& activation,
     size_t n_weights,
-    std::optional<std::vector<float>> weights = std::nullopt,
-    std::optional<float> bias = std::nullopt
+    std::optional<std::vector<float>> weights,
+    std::optional<float> bias
 )
 {
     const IActivationFunction* act_ptr = nullptr;

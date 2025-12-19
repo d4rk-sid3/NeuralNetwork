@@ -1,10 +1,10 @@
-#include "Neuron.hpp"
+#include "../include/Neuron.hpp"
 
 Neuron::Neuron(
     const IActivationFunction& activation,
     int n_weights,
-    std::optional<std::vector<float>> weights = std::nullopt,
-    std::optional<float> bias = std::nullopt
+    std::optional<std::vector<float>> weights,
+    std::optional<float> bias
 ) : m_activationfunction(activation)
 {
     m_nWeights = n_weights;

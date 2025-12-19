@@ -1,6 +1,6 @@
-#include "NeuralNetwork.hpp"
+#include "../include/NeuralNetwork.hpp"
 
-explicit NeuralNetwork::NeuralNetwork(std::vector<Layer> layers)
+NeuralNetwork::NeuralNetwork(std::vector<Layer> layers)
     : m_layers(std::move(layers)),
         m_numLayers(layers.size())
 {
@@ -60,7 +60,7 @@ std::vector<float> NeuralNetwork::feedforward(const std::vector<float>& input)
 }
 
 void NeuralNetwork::SGD(
-    const std::vector<TrainingSample>& training_data,
+    std::vector<TrainingSample>& training_data,
     int epochs,
     int mini_batch_size,
     float eta,

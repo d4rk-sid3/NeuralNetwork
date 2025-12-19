@@ -13,7 +13,7 @@ namespace Activations {
     inline StepActivationFunction step;
 }
 
-static std::string activationToString(ActivationFunctionType type)
+inline std::string activationToString(ActivationFunctionType type)
 {
     switch (type) {
         case ActivationFunctionType::SIGMOID:    return "SIGMOID";

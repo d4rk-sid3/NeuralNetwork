@@ -13,19 +13,19 @@
 #include <memory>
 #include <nlohmann/json.hpp>
 
-enum NeuronType {
+enum class NeuronType {
     PERCEPTRON,
     SIGMOID,
 };
 
-enum ActivationFunctionType {
+enum class ActivationFunctionType {
     STEP,
     SIGMOID,
     RELU,
     TANH
 };
 
-enum LayerType {
+enum class LayerType {
     INPUT,
     HIDDEN,
     OUTPUT
