@@ -7,6 +7,8 @@
 class NeuralNetwork {
     public:
         explicit NeuralNetwork(std::vector<Layer> layers);
+
+        NeuralNetwork() {}
     
         size_t getNumLayers() const;
     

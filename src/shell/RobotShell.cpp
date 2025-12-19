@@ -1,9 +1,4 @@
-#include "../include/RobotShell.hpp"
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <algorithm>
-#include <cstdlib>
+#include "../../include/RobotShell.hpp"
 
 RobotShell::RobotShell(const std::string& bannerPath,
                        const std::string& nnLibraryPath,
@@ -54,7 +49,9 @@ void RobotShell::printBanner() const
 {
     std::cout << bannerText << "\n";
     std::cout << "Welcome to RobotAI Shell!\n";
-    std::cout << "Custom commands: GENERATE, SAVE, LOAD, TRAIN, EVALUATE, PREDICT, HELP\n\n";
+    std::cout << "Here, we allow you to get a feel for the foundations of artificial intelligence.\n";
+    std::cout << "Create, train, and save your own neural network to master chess game.\n";
+    std::cout << "Type HELP for more informations...\n\n";
 }
 
 void RobotShell::printPrompt() const
@@ -133,8 +130,10 @@ void RobotShell::handleCommand(const std::vector<std::string>& tokens)
         } 
         else {
             // fallback system command
-            system(std::accumulate(tokens.begin(), tokens.end(), std::string(),
-                                   [](std::string a, std::string b){ return a + " " + b; }).c_str());
+            int ret = system(std::accumulate(tokens.begin(), tokens.end(), std::string(),
+                                  [](std::string a, std::string b){ return a + " " + b; }).c_str());
+            if (ret != 0)
+                std::cerr << "Command exited with code " << ret << std::endl;
         }
     } 
     catch (const std::exception& e) {

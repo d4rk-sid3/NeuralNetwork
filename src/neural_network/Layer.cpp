@@ -1,4 +1,4 @@
-#include "../include/Layer.hpp"
+#include "../../include/Layer.hpp"
 
 Layer::Layer(std::vector<std::unique_ptr<Neuron>> neurons, LayerType type)
     : m_neurons(std::move(neurons)),

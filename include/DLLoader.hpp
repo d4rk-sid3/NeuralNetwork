@@ -13,7 +13,8 @@ public:
     explicit DLLoader(const std::string& libraryPath) {
         handle = dlopen(libraryPath.c_str(), RTLD_NOW | RTLD_LOCAL);
         if (!handle) {
-            throw std::runtime_error(dlerror());
+            std::cout << "dlopen failed for " << libraryPath << ": " << dlerror() << std::endl;
+            exit(1);
         }
 
         dlerror(); // clear
@@ -23,12 +24,14 @@ public:
 
         const char* error = dlerror();
         if (error) {
+            std::cout << "dlopen failed for " << libraryPath << ": " << dlerror() << std::endl;
             dlclose(handle);
             throw std::runtime_error(error);
         }
 
         instance = createInstance();
         if (!instance) {
+            std::cout << "dlopen failed for " << libraryPath << ": " << dlerror() << std::endl;
             dlclose(handle);
             throw std::runtime_error("createInstance returned null");
         }

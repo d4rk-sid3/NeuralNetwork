@@ -1,4 +1,4 @@
-#include "../include/NeuronFactory.hpp"
+#include "../../include/NeuronFactory.hpp"
 
 std::unique_ptr<Neuron> NeuronFactory::create(
     const std::string& activation,

@@ -1,4 +1,4 @@
-#include "../include/ExperimentRunner.hpp"
+#include "../../include/ExperimentRunner.hpp"
 
 NeuralNetwork ExperimentRunner::generate(const std::string& config_file)
 {
@@ -217,4 +217,8 @@ void ExperimentRunner::evaluate(NeuralNetwork& network, const std::string& test_
     std::cout << "F1 Score: " << metrics.f1_score << std::endl;
 
     return;
+}
+
+extern "C" ExperimentRunner* createInstance() {
+    return new ExperimentRunner();
 }

@@ -1,11 +1,11 @@
-#include "../include/RobotShell.hpp"
+#include "../../include/RobotShell.hpp"
 
 int main() {
     try {
         RobotShell shell(
             "./banners/shell_banner.txt",
-            "./librairies/neural_network.so",
-            "./librairies/neural_network.so"
+            "./librairies/libNeuralNetwork.so",
+            "./librairies/libExperimentRunner.so"
         );
         shell.run();
     } catch (const std::exception& e) {
