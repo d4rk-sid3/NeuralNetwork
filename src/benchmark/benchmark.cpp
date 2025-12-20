@@ -109,7 +109,7 @@ void process_data() {
         }
 
         json new_experiment;
-        new_experiment["experiment_id"] = "exp_" + std::to_string(final_data_array.size() + 1);
+        new_experiment["experiment_id"] = entry.neural_network;
         new_experiment["date"] = entry.start_time;
         
         new_experiment["network_config"]["num_layers"] = config_json["layers"].size();
