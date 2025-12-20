@@ -1,0 +1,44 @@
+[
+    {
+        "date": "2025-12-20T02:08:27Z",
+        "experiment_id": "exp_1",
+        "network_config": {
+            "batch_size": 100,
+            "layers": [
+                {
+                    "neuron_type": "RELU",
+                    "size": 64,
+                    "type": "hidden"
+                },
+                {
+                    "neuron_type": "RELU",
+                    "size": 32,
+                    "type": "hidden"
+                },
+                {
+                    "neuron_type": "SIGMOID",
+                    "size": 5,
+                    "type": "output"
+                }
+            ],
+            "learning_rate": 0.01,
+            "num_layers": 3
+        },
+        "notes": "Automated benchmark import",
+        "performance": {
+            "accuracy": 0.382,
+            "f1_score": 0.1956,
+            "loss": 15.3014,
+            "multithreaded": false,
+            "precision": 0.1915,
+            "recall": 0.1999,
+            "threads_used": 1,
+            "training_duration_sec": 69
+        },
+        "timestamps": {
+            "end_time": "2025-12-20T02:09:36Z",
+            "start_time": "2025-12-20T02:08:27Z"
+        },
+        "training_data_size": 55072
+    }
+]
