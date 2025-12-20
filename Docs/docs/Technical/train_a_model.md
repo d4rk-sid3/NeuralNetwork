@@ -1,5 +1,5 @@
 Comment créez et entrainer votre réseau de neurones...?
-Allez à la racine du répertoire, faites make...
+Allez à la racine du répertoire, faites
 Ensuite allez dans le dossier scripts : vous y trouverez deux binaires : 
 generate_NN_config.py et generate_training_config.py
 Faites : python3 generate_NN_config.py

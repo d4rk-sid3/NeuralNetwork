@@ -104,6 +104,7 @@ void RobotShell::handleCommand(const std::vector<std::string>& tokens)
             }
             delete currentNN;
             currentNN = new NeuralNetwork(runner->loadNetwork(tokens[1]));
+            _nn = tokens[1];
             std::cout << "Loaded from " << tokens[1] << "\n";
         } 
         else if (cmd == "TRAIN") {
@@ -112,7 +113,11 @@ void RobotShell::handleCommand(const std::vector<std::string>& tokens)
                 return;
             }
             if (!currentNN) { std::cout << "No NN to train.\nCreate or load one first.\n"; return; }
+            _utils.getISOCurrentTime();
             runner->train(*currentNN, tokens[1], tokens[2]);
+            _utils.getISOCurrentTime();
+            _utils._training_cofig = tokens[1];
+            _utils.writeStartDate(_nn);
             std::cout << "Training complete.\n";
         } 
         else if (cmd == "EVALUATE") {

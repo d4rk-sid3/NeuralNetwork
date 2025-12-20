@@ -1,281 +1,44 @@
 [
-  {
-    "experiment_id": "exp_001",
-    "date": "2025-12-15T10:00:00Z",
-    "network_config": {
-      "num_layers": 4,
-      "layers": [
-        { "type": "input", "size": 784, "neuron_type": "perceptron" },
-        { "type": "hidden", "size": 128, "neuron_type": "relu" },
-        { "type": "hidden", "size": 64, "neuron_type": "sigmoid" },
-        { "type": "output", "size": 10, "neuron_type": "sigmoid" }
-      ],
-      "learning_rate": 0.01,
-      "batch_size": 32
-    },
-    "training_data_size": 60000,
-    "performance": {
-      "accuracy": 0.845,
-      "loss": 0.45,
-      "precision": 0.83,
-      "recall": 0.82,
-      "f1_score": 0.825,
-      "training_duration_sec": 125.4,
-      "multithreaded": true,
-      "threads_used": 8
-    },
-    "timestamps": {
-      "start_time": "2025-12-15T10:00:00Z",
-      "end_time": "2025-12-15T10:02:05Z"
-    },
-    "notes": "Initial baseline run"
-  },
-  {
-    "experiment_id": "exp_001",
-    "date": "2025-12-15T11:00:00Z",
-    "network_config": {
-      "num_layers": 4,
-      "layers": [
-        { "type": "input", "size": 784, "neuron_type": "perceptron" },
-        { "type": "hidden", "size": 128, "neuron_type": "relu" },
-        { "type": "hidden", "size": 64, "neuron_type": "sigmoid" },
-        { "type": "output", "size": 10, "neuron_type": "sigmoid" }
-      ],
-      "learning_rate": 0.01,
-      "batch_size": 32
-    },
-    "training_data_size": 60000,
-    "performance": {
-      "accuracy": 0.895,
-      "loss": 0.32,
-      "precision": 0.88,
-      "recall": 0.87,
-      "f1_score": 0.875,
-      "training_duration_sec": 123.1,
-      "multithreaded": true,
-      "threads_used": 8
-    },
-    "timestamps": {
-      "start_time": "2025-12-15T11:00:00Z",
-      "end_time": "2025-12-15T11:02:03Z"
-    },
-    "notes": "Second epoch showing improvement"
-  },
-  {
-    "experiment_id": "exp_001",
-    "date": "2025-12-15T12:00:00Z",
-    "network_config": {
-      "num_layers": 4,
-      "layers": [
-        { "type": "input", "size": 784, "neuron_type": "perceptron" },
-        { "type": "hidden", "size": 128, "neuron_type": "relu" },
-        { "type": "hidden", "size": 64, "neuron_type": "sigmoid" },
-        { "type": "output", "size": 10, "neuron_type": "sigmoid" }
-      ],
-      "learning_rate": 0.01,
-      "batch_size": 32
-    },
-    "training_data_size": 60000,
-    "performance": {
-      "accuracy": 0.925,
-      "loss": 0.25,
-      "precision": 0.92,
-      "recall": 0.91,
-      "f1_score": 0.915,
-      "training_duration_sec": 121.8,
-      "multithreaded": true,
-      "threads_used": 8
-    },
-    "timestamps": {
-      "start_time": "2025-12-15T12:00:00Z",
-      "end_time": "2025-12-15T12:02:02Z"
-    },
-    "notes": "Convergence approaching"
-  },
-  {
-    "experiment_id": "exp_001",
-    "date": "2025-12-16T14:35:00Z",
-    "network_config": {
-      "num_layers": 4,
-      "layers": [
-        { "type": "input", "size": 784, "neuron_type": "perceptron" },
-        { "type": "hidden", "size": 128, "neuron_type": "relu" },
-        { "type": "hidden", "size": 64, "neuron_type": "sigmoid" },
-        { "type": "output", "size": 10, "neuron_type": "sigmoid" }
-      ],
-      "learning_rate": 0.01,
-      "batch_size": 32
-    },
-    "training_data_size": 60000,
-    "performance": {
-      "accuracy": 0.945,
-      "loss": 0.21,
-      "precision": 0.93,
-      "recall": 0.92,
-      "f1_score": 0.925,
-      "training_duration_sec": 125.4,
-      "multithreaded": true,
-      "threads_used": 8
-    },
-    "timestamps": {
-      "start_time": "2025-12-16T14:35:00Z",
-      "end_time": "2025-12-16T14:37:05Z"
-    },
-    "notes": "Peak performance achieved"
-  },
-  {
-    "experiment_id": "exp_002",
-    "date": "2025-12-15T13:00:00Z",
-    "network_config": {
-      "num_layers": 5,
-      "layers": [
-        { "type": "input", "size": 784, "neuron_type": "perceptron" },
-        { "type": "hidden", "size": 256, "neuron_type": "relu" },
-        { "type": "hidden", "size": 128, "neuron_type": "relu" },
-        { "type": "hidden", "size": 64, "neuron_type": "relu" },
-        { "type": "output", "size": 10, "neuron_type": "softmax" }
-      ],
-      "learning_rate": 0.005,
-      "batch_size": 64
-    },
-    "training_data_size": 60000,
-    "performance": {
-      "accuracy": 0.875,
-      "loss": 0.38,
-      "precision": 0.86,
-      "recall": 0.85,
-      "f1_score": 0.855,
-      "training_duration_sec": 245.2,
-      "multithreaded": true,
-      "threads_used": 8
-    },
-    "timestamps": {
-      "start_time": "2025-12-15T13:00:00Z",
-      "end_time": "2025-12-15T13:04:05Z"
-    },
-    "notes": "Deeper architecture test"
-  },
-  {
-    "experiment_id": "exp_002",
-    "date": "2025-12-15T14:00:00Z",
-    "network_config": {
-      "num_layers": 5,
-      "layers": [
-        { "type": "input", "size": 784, "neuron_type": "perceptron" },
-        { "type": "hidden", "size": 256, "neuron_type": "relu" },
-        { "type": "hidden", "size": 128, "neuron_type": "relu" },
-        { "type": "hidden", "size": 64, "neuron_type": "relu" },
-        { "type": "output", "size": 10, "neuron_type": "softmax" }
-      ],
-      "learning_rate": 0.005,
-      "batch_size": 64
-    },
-    "training_data_size": 60000,
-    "performance": {
-      "accuracy": 0.915,
-      "loss": 0.28,
-      "precision": 0.90,
-      "recall": 0.89,
-      "f1_score": 0.895,
-      "training_duration_sec": 242.8,
-      "multithreaded": true,
-      "threads_used": 8
-    },
-    "timestamps": {
-      "start_time": "2025-12-15T14:00:00Z",
-      "end_time": "2025-12-15T14:04:03Z"
-    },
-    "notes": "Improved after second epoch"
-  },
-  {
-    "experiment_id": "exp_002",
-    "date": "2025-12-16T09:00:00Z",
-    "network_config": {
-      "num_layers": 5,
-      "layers": [
-        { "type": "input", "size": 784, "neuron_type": "perceptron" },
-        { "type": "hidden", "size": 256, "neuron_type": "relu" },
-        { "type": "hidden", "size": 128, "neuron_type": "relu" },
-        { "type": "hidden", "size": 64, "neuron_type": "relu" },
-        { "type": "output", "size": 10, "neuron_type": "softmax" }
-      ],
-      "learning_rate": 0.005,
-      "batch_size": 64
-    },
-    "training_data_size": 60000,
-    "performance": {
-      "accuracy": 0.935,
-      "loss": 0.22,
-      "precision": 0.93,
-      "recall": 0.92,
-      "f1_score": 0.925,
-      "training_duration_sec": 240.1,
-      "multithreaded": true,
-      "threads_used": 8
-    },
-    "timestamps": {
-      "start_time": "2025-12-16T09:00:00Z",
-      "end_time": "2025-12-16T09:04:00Z"
-    },
-    "notes": "Near-optimal performance"
-  },
-  {
-    "experiment_id": "exp_003",
-    "date": "2025-12-16T15:00:00Z",
-    "network_config": {
-      "num_layers": 3,
-      "layers": [
-        { "type": "input", "size": 784, "neuron_type": "perceptron" },
-        { "type": "hidden", "size": 512, "neuron_type": "tanh" },
-        { "type": "output", "size": 10, "neuron_type": "softmax" }
-      ],
-      "learning_rate": 0.02,
-      "batch_size": 16
-    },
-    "training_data_size": 60000,
-    "performance": {
-      "accuracy": 0.815,
-      "loss": 0.52,
-      "precision": 0.80,
-      "recall": 0.79,
-      "f1_score": 0.795,
-      "training_duration_sec": 98.5,
-      "multithreaded": false,
-      "threads_used": 1
-    },
-    "timestamps": {
-      "start_time": "2025-12-16T15:00:00Z",
-      "end_time": "2025-12-16T15:01:38Z"
-    },
-    "notes": "Lightweight architecture benchmark"
-  },
-  {
-    "experiment_id": "exp_003",
-    "date": "2025-12-16T16:00:00Z",
-    "network_config": {
-      "num_layers": 3,
-      "layers": [
-        { "type": "hidden", "size": 512, "neuron_type": "tanh" },
-        { "type": "output", "size": 10, "neuron_type": "softmax" }
-      ],
-      "learning_rate": 0.02,
-      "batch_size": 16
-    },
-    "training_data_size": 60000,
-    "performance": {
-      "accuracy": 0.865,
-      "loss": 0.41,
-      "precision": 0.85,
-      "recall": 0.84,
-      "f1_score": 0.845,
-      "training_duration_sec": 96.2,
-      "multithreaded": false,
-      "threads_used": 1
-    },
-    "timestamps": {
-      "start_time": "2025-12-16T16:00:00Z",
-      "end_time": "2025-12-16T16:01:36Z"
-    },
-    "notes": "Second epoch improvement"
-  }
+    {
+        "date": "2025-12-20T02:08:27Z",
+        "experiment_id": "exp_1",
+        "network_config": {
+            "batch_size": 100,
+            "layers": [
+                {
+                    "neuron_type": "RELU",
+                    "size": 64,
+                    "type": "hidden"
+                },
+                {
+                    "neuron_type": "RELU",
+                    "size": 32,
+                    "type": "hidden"
+                },
+                {
+                    "neuron_type": "SIGMOID",
+                    "size": 5,
+                    "type": "output"
+                }
+            ],
+            "learning_rate": 0.01,
+            "num_layers": 3
+        },
+        "notes": "Automated benchmark import",
+        "performance": {
+            "accuracy": 0.382,
+            "f1_score": 0.1956,
+            "loss": 15.3014,
+            "multithreaded": false,
+            "precision": 0.1915,
+            "recall": 0.1999,
+            "threads_used": 1,
+            "training_duration_sec": 69
+        },
+        "timestamps": {
+            "end_time": "2025-12-20T02:09:36Z",
+            "start_time": "2025-12-20T02:08:27Z"
+        },
+        "training_data_size": 55072
+    }
 ]
