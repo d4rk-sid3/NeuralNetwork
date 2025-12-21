@@ -356,11 +356,16 @@
         "training_data_size": 55072
     },
     {
-        "date": "2025-12-21T06:19:54Z",
-        "experiment_id": "128-64-RELU-SOFTMAX",
+        "date": "2025-12-20T17:47:05Z",
+        "experiment_id": "256-128-64-RELU-SIGMOID",
         "network_config": {
             "batch_size": 32,
             "layers": [
+                {
+                    "neuron_type": "RELU",
+                    "size": 256,
+                    "type": "hidden"
+                },
                 {
                     "neuron_type": "RELU",
                     "size": 128,
@@ -436,6 +441,53 @@
         "timestamps": {
             "end_time": "2025-12-21T12:24:05Z",
             "start_time": "2025-12-21T06:19:54Z"
+        },
+        "training_data_size": 55072
+    },
+    {
+        "date": "2025-12-21T12:44:16Z",
+        "experiment_id": "256-128-64-RELU-SOFTMAX",
+        "network_config": {
+            "batch_size": 50,
+            "layers": [
+                {
+                    "neuron_type": "RELU",
+                    "size": 256,
+                    "type": "hidden"
+                },
+                {
+                    "neuron_type": "RELU",
+                     "size": 128,
+                    "type": "hidden"
+                },
+                {
+                    "neuron_type": "RELU",
+                    "size": 64,
+                    "type": "hidden"
+                },
+                {
+                    "neuron_type": "SOFTMAX",
+                    "size": 5,
+                    "type": "output"
+                }
+            ],
+            "learning_rate": 0.01,
+            "num_layers": 4
+        },
+        "notes": "Automated benchmark import",
+        "performance": {
+            "accuracy": 0.6123,
+            "f1_score": 0.6078,
+            "loss": 0.767,
+            "multithreaded": false,
+            "precision": 0.706,
+            "recall": 0.5336,
+            "threads_used": 1,
+            "training_duration_sec": 8522
+        },
+        "timestamps": {
+            "end_time": "2025-12-21T15:06:19Z",
+            "start_time": "2025-12-21T12:44:16Z"
         },
         "training_data_size": 55072
     },
@@ -630,31 +682,36 @@
                 }
             ],
             "learning_rate": 0.01,
-            "num_layers": 3
+            "num_layers": 4
         },
         "notes": "Automated benchmark import",
         "performance": {
-            "accuracy": 0.4636,
-            "f1_score": 0.588,
-            "loss": 1.3667,
+            "accuracy": 0.6167,
+            "f1_score": 0.6113,
+            "loss": 0.7454,
             "multithreaded": false,
-            "precision": 0.5298,
-            "recall": 0.6605,
+            "precision": 0.685,
+            "recall": 0.552,
             "threads_used": 1,
-            "training_duration_sec": 35300
+            "training_duration_sec": 28613
         },
         "timestamps": {
-            "end_time": "2025-12-21T16:08:14Z",
-            "start_time": "2025-12-21T06:19:54Z"
+            "end_time": "2025-12-21T20:41:09Z",
+            "start_time": "2025-12-21T12:44:16Z"
         },
-        "training_data_size": 55072
+        "training_data_size": 55071
     },
     {
-        "date": "2025-12-21T16:34:04Z",
-        "experiment_id": "128-64-RELU-SOFTMAX",
+        "date": "2025-12-21T20:46:08Z",
+        "experiment_id": "256-128-64-RELU-SOFTMAX",
         "network_config": {
-            "batch_size": 32,
+            "batch_size": 100,
             "layers": [
+                {
+                    "neuron_type": "RELU",
+                    "size": 256,
+                    "type": "hidden"
+                },
                 {
                     "neuron_type": "RELU",
                     "size": 128,
@@ -671,32 +728,37 @@
                     "type": "output"
                 }
             ],
-            "learning_rate": 0.01,
-            "num_layers": 3
+            "learning_rate": 0.1,
+            "num_layers": 4
         },
         "notes": "Automated benchmark import",
         "performance": {
-            "accuracy": 0.4281,
-            "f1_score": 0.5263,
-            "loss": 1.6755,
+            "accuracy": 0.6908,
+            "f1_score": 0.6806,
+            "loss": 0.7191,
             "multithreaded": false,
-            "precision": 0.5083,
-            "recall": 0.5457,
+            "precision": 0.695,
+            "recall": 0.6668,
             "threads_used": 1,
-            "training_duration_sec": 1327
+            "training_duration_sec": 1080
         },
         "timestamps": {
-            "end_time": "2025-12-21T16:56:11Z",
-            "start_time": "2025-12-21T16:34:04Z"
+            "end_time": "2025-12-21T21:04:09Z",
+            "start_time": "2025-12-21T20:46:08Z"
         },
-        "training_data_size": 55072
+        "training_data_size": 55071
     },
     {
-        "date": "2025-12-21T17:08:00Z",
-        "experiment_id": "128-64-RELU-SOFTMAX",
+        "date": "2025-12-21T20:46:08Z",
+        "experiment_id": "256-128-64-RELU-SOFTMAX",
         "network_config": {
-            "batch_size": 32,
+            "batch_size": 100,
             "layers": [
+                {
+                    "neuron_type": "RELU",
+                    "size": 256,
+                    "type": "hidden"
+                },
                 {
                     "neuron_type": "RELU",
                     "size": 128,
@@ -713,192 +775,24 @@
                     "type": "output"
                 }
             ],
-            "learning_rate": 0.01,
-            "num_layers": 3
+            "learning_rate": 0.1,
+            "num_layers": 4
         },
         "notes": "Automated benchmark import",
         "performance": {
-            "accuracy": 0.5968,
-            "f1_score": 0.3829,
-            "loss": 3.7193,
+            "accuracy": 0.7291,
+            "f1_score": 0.7058,
+            "loss": 0.5414,
             "multithreaded": false,
-            "precision": 0.3353,
-            "recall": 0.4463,
+            "precision": 0.726,
+            "recall": 0.6866,
             "threads_used": 1,
-            "training_duration_sec": 900
+            "training_duration_sec": 3141
         },
         "timestamps": {
-            "end_time": "2025-12-21T17:23:00Z",
-            "start_time": "2025-12-21T17:08:00Z"
+            "end_time": "2025-12-21T21:38:30Z",
+            "start_time": "2025-12-21T20:46:08Z"
         },
-        "training_data_size": 55072
-    },
-    {
-        "date": "2025-12-21T17:08:00Z",
-        "experiment_id": "128-64-RELU-SOFTMAX",
-        "network_config": {
-            "batch_size": 32,
-            "layers": [
-                {
-                    "neuron_type": "RELU",
-                    "size": 128,
-                    "type": "hidden"
-                },
-                {
-                    "neuron_type": "RELU",
-                    "size": 64,
-                    "type": "hidden"
-                },
-                {
-                    "neuron_type": "SOFTMAX",
-                    "size": 5,
-                    "type": "output"
-                }
-            ],
-            "learning_rate": 0.01,
-            "num_layers": 3
-        },
-        "notes": "Automated benchmark import",
-        "performance": {
-            "accuracy": 0.457,
-            "f1_score": 0.2372,
-            "loss": 8.7472,
-            "multithreaded": false,
-            "precision": 0.2914,
-            "recall": 0.2,
-            "threads_used": 1,
-            "training_duration_sec": 1640
-        },
-        "timestamps": {
-            "end_time": "2025-12-21T17:35:21Z",
-            "start_time": "2025-12-21T17:08:00Z"
-        },
-        "training_data_size": 55072
-    },
-    {
-        "date": "2025-12-21T17:08:00Z",
-        "experiment_id": "128-64-RELU-SOFTMAX",
-        "network_config": {
-            "batch_size": 32,
-            "layers": [
-                {
-                    "neuron_type": "RELU",
-                    "size": 128,
-                    "type": "hidden"
-                },
-                {
-                    "neuron_type": "RELU",
-                    "size": 64,
-                    "type": "hidden"
-                },
-                {
-                    "neuron_type": "SOFTMAX",
-                    "size": 5,
-                    "type": "output"
-                }
-            ],
-            "learning_rate": 0.005,
-            "num_layers": 3
-        },
-        "notes": "Automated benchmark import",
-        "performance": {
-            "accuracy": 0.4865,
-            "f1_score": 0.5298,
-            "loss": 3.4911,
-            "multithreaded": false,
-            "precision": 0.4958,
-            "recall": 0.5688,
-            "threads_used": 1,
-            "training_duration_sec": 3417
-        },
-        "timestamps": {
-            "end_time": "2025-12-21T18:04:58Z",
-            "start_time": "2025-12-21T17:08:00Z"
-        },
-        "training_data_size": 55072
-    },
-    {
-        "date": "2025-12-21T17:08:00Z",
-        "experiment_id": "128-64-RELU-SOFTMAX",
-        "network_config": {
-            "batch_size": 32,
-            "layers": [
-                {
-                    "neuron_type": "RELU",
-                    "size": 128,
-                    "type": "hidden"
-                },
-                {
-                    "neuron_type": "RELU",
-                    "size": 64,
-                    "type": "hidden"
-                },
-                {
-                    "neuron_type": "SOFTMAX",
-                    "size": 5,
-                    "type": "output"
-                }
-            ],
-            "learning_rate": 0.005,
-            "num_layers": 3
-        },
-        "notes": "Automated benchmark import",
-        "performance": {
-            "accuracy": 0.7179,
-            "f1_score": 0.7118,
-            "loss": 0.6717,
-            "multithreaded": false,
-            "precision": 0.7153,
-            "recall": 0.7082,
-            "threads_used": 1,
-            "training_duration_sec": 7127
-        },
-        "timestamps": {
-            "end_time": "2025-12-21T19:06:48Z",
-            "start_time": "2025-12-21T17:08:00Z"
-        },
-        "training_data_size": 55072
-    },
-    {
-        "date": "2025-12-21T17:08:00Z",
-        "experiment_id": "128-64-RELU-SOFTMAX",
-        "network_config": {
-            "batch_size": 32,
-            "layers": [
-                {
-                    "neuron_type": "RELU",
-                    "size": 128,
-                    "type": "hidden"
-                },
-                {
-                    "neuron_type": "RELU",
-                    "size": 64,
-                    "type": "hidden"
-                },
-                {
-                    "neuron_type": "SOFTMAX",
-                    "size": 5,
-                    "type": "output"
-                }
-            ],
-            "learning_rate": 0.005,
-            "num_layers": 3
-        },
-        "notes": "Automated benchmark import",
-        "performance": {
-            "accuracy": 0.547,
-            "f1_score": 0.6081,
-            "loss": 1.136,
-            "multithreaded": false,
-            "precision": 0.5507,
-            "recall": 0.6787,
-            "threads_used": 1,
-            "training_duration_sec": 10652
-        },
-        "timestamps": {
-            "end_time": "2025-12-21T20:05:33Z",
-            "start_time": "2025-12-21T17:08:00Z"
-        },
-        "training_data_size": 55072
+        "training_data_size": 55071
     }
 ]
