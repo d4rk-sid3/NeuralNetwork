@@ -36,26 +36,53 @@ Layer& NeuralNetwork::getLayer(size_t index)
     return m_layers[index];
 }
 
+std::vector<float> NeuralNetwork::softmax(const std::vector<float>& z)
+{
+    float max_z = *std::max_element(z.begin(), z.end());
+
+    std::vector<float> result(z.size());
+    float sum = 0.f;
+
+    for (size_t i = 0; i < z.size(); ++i) {
+        result[i] = std::exp(z[i] - max_z);
+        sum += result[i];
+    }
+
+    for (float& v : result)
+        v /= sum;
+
+    return result;
+}
+
 std::vector<float> NeuralNetwork::feedforward(const std::vector<float>& input)
 {
-    std::vector<float> new_inputs;
-    std::vector<float> inputs(input);
-
+    std::vector<float> inputs = input;
 
     for (size_t i = 1; i < m_numLayers; i++)
     {
-        new_inputs.clear();
-        
-        // reference the layer neurons directly
-        std::vector<std::unique_ptr<Neuron>>& layer_neurons = m_layers[i].getNeurons();
-        
-        for (size_t n = 0; n < layer_neurons.size(); n++)
-        {
-            layer_neurons[n]->compute_z(inputs);
-            layer_neurons[n]->compute_activation();
-            new_inputs.push_back(layer_neurons[n]->get_output());
+        auto& neurons = m_layers[i].getNeurons();
+        std::vector<float> z_layer;
+        std::vector<float> a_layer;
+
+        for (auto& neuron : neurons) {
+            z_layer.push_back(neuron->compute_z(inputs));
         }
-        inputs = new_inputs;
+
+        if (i == m_numLayers - 1) {
+            a_layer = softmax(z_layer);
+
+            for (size_t n = 0; n < neurons.size(); ++n) {
+                neurons[n]->setBias(neurons[n]->get_bias());
+                neurons[n]->get_z() = z_layer[n];
+                neurons[n]->compute_z(inputs);
+            }
+        } else {
+            for (size_t n = 0; n < neurons.size(); n++) {
+                neurons[n]->compute_activation();
+                a_layer.push_back(neurons[n]->get_output());
+            }
+        }
+        inputs = a_layer;
     }
     return inputs;
 }
@@ -79,8 +106,6 @@ void NeuralNetwork::SGD(
 
     std::random_device rd;
     std::mt19937 gen(rd());
-
-    std::cout << "Training started" << std::endl;
 
     for (int epoch = 0; epoch < epochs; epoch++) {
 
@@ -229,15 +254,14 @@ NeuralNetwork::backprop(
     auto& output_neurons = m_layers[last].getNeurons();
     std::vector<float> delta(output_neurons.size());
 
-    for (size_t i = 0; i < output_neurons.size(); ++i) {
+    for (size_t i = 0; i < output_neurons.size(); ++i)
+    {
         float a = activations[last][i];
-        float z = zs[last - 1][i];
-        float dC_da = a - y[i];
-        float da_dz = output_neurons[i]->get_activation().derivative(z);
-
-        delta[i] = dC_da * da_dz;
+    
+        delta[i] = a - y[i];
+    
         nabla_b[last][i] = delta[i];
-
+    
         for (size_t j = 0; j < activations[last - 1].size(); j++) {
             nabla_w[last][i][j] = delta[i] * activations[last - 1][j];
         }

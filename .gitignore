@@ -7,3 +7,5 @@ raw_datasets/
 training_data/
 testing_data/
 test_data
+test_data/
+chessboards.txt

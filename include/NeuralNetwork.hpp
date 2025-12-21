@@ -29,6 +29,8 @@ class NeuralNetwork {
     
         EvalMetrics evaluate(const std::vector<TrainingSample>& test_data);
 
+        static std::vector<float> softmax(const std::vector<float>& z);
+
         void save_config(const std::string& name);
 
         void save_weights(const std::string& name);

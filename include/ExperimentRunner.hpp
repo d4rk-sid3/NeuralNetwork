@@ -18,4 +18,5 @@ class ExperimentRunner {
         );
         static void evaluate(NeuralNetwork& network, const std::string& test_file);
         static void predict(NeuralNetwork& network, const std::string& test_file);
+        static void writeBenchmarkData(EvalMetrics metrics, size_t total_samples);
 };

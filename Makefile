@@ -36,13 +36,23 @@ SHELL_SRCS := $(shell find $(SRC_DIR)/shell -name "*.cpp")
 SHELL_OBJS := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SHELL_SRCS))
 SHELL_BIN := $(BIN_DIR)/shell
 
+# Analyzer
+ANALYZER_SRCS := $(shell find $(SRC_DIR)/my_torch_analyzer -name "*.cpp")
+ANALYZER_OBJS := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(ANALYZER_SRCS))
+ANALYZER_BIN := my_torch_analyzer
+
+# Benchmark
+BENCHMARK_SRCS := $(shell find $(SRC_DIR)/benchmark -name "*.cpp")
+BENCHMARK_OBJS := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(BENCHMARK_SRCS))
+BENCHMARK_BIN := $(BIN_DIR)/benchmark
+
 # =========================
 # Targets
 # =========================
 
-.PHONY: all neural_network experiment_runner shell clean re debug
+.PHONY: all neural_network experiment_runner shell analyzer benchmark clean re debug
 
-all: neural_network experiment_runner shell
+all: neural_network experiment_runner shell analyzer benchmark
 
 # -------------------------
 # Neural Network Library
@@ -71,6 +81,22 @@ $(SHELL_BIN): $(SHELL_OBJS) $(NN_LIB) $(ER_LIB)
 	@mkdir -p $(BIN_DIR)
 	$(CXX) -o $@ $^ -ldl -Wl,-rpath,'\$ORIGIN/../librairies'
 
+# -------------------------
+# Analyzer
+# -------------------------
+analyzer: $(ANALYZER_BIN)
+
+$(ANALYZER_BIN): $(ANALYZER_OBJS) $(NN_LIB) $(ER_LIB)
+	$(CXX) -o $@ $^ -ldl -Wl,-rpath,'\$ORIGIN/../librairies'
+
+# -------------------------
+# Benchmark
+# -------------------------
+benchmark: $(BENCHMARK_BIN)
+
+$(BENCHMARK_BIN): $(BENCHMARK_OBJS) $(NN_LIB) $(ER_LIB)
+	$(CXX) -o $@ $^
+
 # =========================
 # Compile object files
 # =========================
@@ -85,7 +111,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 # =========================
 
 clean:
-	rm -rf $(OBJ_DIR) $(LIB_DIR) $(BIN_DIR)
+	rm -rf $(OBJ_DIR) $(LIB_DIR) $(BIN_DIR) $(ANALYZER_BIN)
 
 re: clean all
 

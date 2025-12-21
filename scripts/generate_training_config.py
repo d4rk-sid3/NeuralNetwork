@@ -38,18 +38,24 @@ def main():
 
     # Ask user for output file path
     while True:
-        filename = input("\nPath to save the training config JSON file: ")
-        dir_path = os.path.dirname(os.path.abspath(filename))
-        if not os.path.exists(dir_path):
-            print("Directory does not exist. Please enter a valid path.")
-        else:
-            break
+        modelname = input("\nEnter the name of the model you're building this training config for: ")
+        filename = input("Enter the name of the training config file: ")
+        script_path = os.path.abspath(__file__)
+        current_dir = os.path.dirname(script_path)
+        parent_dir = os.path.dirname(current_dir)
+        dir_path = os.path.join(parent_dir, "NN_Training_Config")
+        final_dir = os.path.join(dir_path, modelname)
+        last_dir = os.path.join(final_dir, filename)
+
+        if not os.path.exists(final_dir):
+            os.makedirs(final_dir)
+        break
 
     # Save JSON
-    with open(filename, "w") as f:
+    with open(last_dir, "w") as f:
         json.dump(config, f, indent=4)
 
-    print(f"\nFile '{filename}' successfully generated!")
+    print(f"\nFile '{last_dir}' successfully generated!")
     print(json.dumps(config, indent=4))
 
 if __name__ == "__main__":
