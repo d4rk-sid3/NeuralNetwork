@@ -9,9 +9,9 @@ protected:
 
 TEST_F(ConvertorTest, GetLineInfoTest) {
 
-    string input = "rnbqkbnr";
-    vector<int> expected_output = { -4, -2, -3, -5, -6, -3, -2, -4 };
-    vector<int> output = convertor.getLineInfo(input);
+    std::string input = "rnbqkbnr";
+    std::vector<int> expected_output = { -4, -2, -3, -5, -6, -3, -2, -4 };
+    std::vector<int> output = convertor.getLineInfo(input);
     EXPECT_EQ(output, expected_output);
 
     input = "8";
@@ -66,9 +66,9 @@ TEST_F(ConvertorTest, GetLineInfoTest) {
 }
 
 TEST_F(ConvertorTest, GetCastlingInfoTest) {
-    string input = "KQkq";
-    vector<int> expected_output = { 6, 5, -6, -5 };
-    vector<int> output = convertor.getCastlingInfo(input);
+    std::string input = "KQkq";
+    std::vector<int> expected_output = { 6, 5, -6, -5 };
+    std::vector<int> output = convertor.getCastlingInfo(input);
     EXPECT_EQ(output, expected_output);
 
     input = "Kk";
@@ -108,9 +108,9 @@ TEST_F(ConvertorTest, GetCastlingInfoTest) {
 }
 
 TEST_F(ConvertorTest, GetEnPassantInfoTest) {
-    string input = "e3";
-    vector<int> expected_output = { 4, 3 };
-    vector<int> output = convertor.getEnPassantInfo(input);
+    std::string input = "e3";
+    std::vector<int> expected_output = { 4, 3 };
+    std::vector<int> output = convertor.getEnPassantInfo(input);
     EXPECT_EQ(output, expected_output);
 
     input = "a6";
@@ -130,8 +130,8 @@ TEST_F(ConvertorTest, GetEnPassantInfoTest) {
 }
 
 TEST_F(ConvertorTest, ParseDataSetLineTest) {
-    string input = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 Check White";
-    vector<int> expected_output = {
+    std::string input = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 Check White";
+    std::vector<int> expected_output = {
         -4, -2, -3, -5, -6, -3, -2, -4,
         -1, -1, -1, -1, -1, -1, -1, -1,
         0, 0, 0, 0, 0, 0, 0, 0,
@@ -146,17 +146,17 @@ TEST_F(ConvertorTest, ParseDataSetLineTest) {
         0, 1,
         1, 0, 0, 0, 0
     };
-    vector<int> output = convertor.parseDataSetLine(input);
+    std::vector<int> output = convertor.parseDataSetLine(input);
     EXPECT_EQ(output, expected_output);
 }
 
 TEST_F(ConvertorTest, ParseDataSetTest) {
-    vector<string> input = {
+    std::vector<std::string> input = {
         "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 Check White",
         "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b KQkq e3 0 1 Check Black"
     };
 
-    vector<vector<int>> expected_output = {
+    std::vector<std::vector<int>> expected_output = {
         {
             -4, -2, -3, -5, -6, -3, -2, -4,
             -1, -1, -1, -1, -1, -1, -1, -1,
@@ -188,6 +188,6 @@ TEST_F(ConvertorTest, ParseDataSetTest) {
             0, 1, 0, 0, 0
         }
     };
-    vector<vector<int>> output = convertor.parseDataSet(input);   
+    std::vector<std::vector<int>> output = convertor.parseDataSet(input);   
     EXPECT_EQ(output, expected_output);
 }
