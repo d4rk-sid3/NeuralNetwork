@@ -195,6 +195,23 @@ void ExperimentRunner::train(
     return;
 }
 
+void ExperimentRunner::writeBenchmarkData(EvalMetrics metrics, size_t total_samples) {
+    std::ofstream file("benchmark_value/benchmark_data.txt", std::ios::app);
+    if (file.is_open()) {
+        file << std::fixed << std::setprecision(4);
+        file << "total_samples: " << total_samples << "\n";
+        file << "accuracy: " << metrics.accuracy << "\n";
+        file << "loss: " << metrics.loss << "\n";
+        file << "precision: " << metrics.precision << "\n";
+        file << "recall: " << metrics.recall << "\n";
+        file << "f1_score: " << metrics.f1_score << "\n";
+        file << "----\n";
+        file.close();
+    } else {
+        std::cerr << "Error: Could not open file for writing" << std::endl;
+    }
+}
+
 void ExperimentRunner::evaluate(NeuralNetwork& network, const std::string& test_file)
 {
     // Load the training dataset
@@ -216,7 +233,8 @@ void ExperimentRunner::evaluate(NeuralNetwork& network, const std::string& test_
     std::cout << "Precision: " << metrics.precision << std::endl;
     std::cout << "Recall: " << metrics.recall << std::endl;
     std::cout << "F1 Score: " << metrics.f1_score << std::endl;
-
+    std::cout << test_file << std::endl;
+    writeBenchmarkData(metrics, n);
     return;
 }
 

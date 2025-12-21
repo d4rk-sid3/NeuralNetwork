@@ -1,10 +1,7 @@
 #ifndef ROBOTSHELL_HPP
 #define ROBOTSHELL_HPP
 
-#include "librairies.hpp"
-#include "DLLoader.hpp"
-#include "NeuralNetwork.hpp"
-#include "ExperimentRunner.hpp"
+#include "Utils.hpp"
 
 class RobotShell {
 private:
@@ -16,8 +13,11 @@ private:
 
     NeuralNetwork *currentNN;
     ExperimentRunner* runner;
+    std::string _nn;
+    
 
     // Utils
+    Utils _utils;
     std::vector<std::string> split(const std::string& str) const;
     void loadBanner();
     void printBanner() const;

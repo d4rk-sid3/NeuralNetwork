@@ -1,0 +1,39 @@
+hey bro j'ai bien vu ce qu'il m'a proposé et je pense que j'aime bien. Mtn la je veux ajouter certaines choses. Je veux que quand on clique sur un point du graphe, c'est à dire à une date donné on puisse voir les informations des paramètres du modèle comme les types de ses hiddens inputs, le size de chacun de ses hiddens inputs, le type de son output, son learning rate et son batch size. Toujours en react js et taiwind et je veux pas d'émoji dans mon code ni de commentaire superflux. Je t'ai passé mon fichier jsx actuelle. propose toujours le prompt à claude pour qu'il me fasse ça propement. Je peux lui passer directement le fichier jsx aussi si tu veux.
+
+
+
+### 🤖 Prompt pour Claude (Mise à jour de l'interactivité et des Détails)
+
+```text
+You are an expert React developer. I am providing you with my current component 'NeuralBenchmarkDashboard.jsx'. I need you to update it to add deep inspection of model hyperparameters when interacting with the charts.
+
+### Objective
+Make the benchmark charts interactive. When a user clicks on a data point (epoch/run), a detailed view must appear showing the specific configuration of the model at that precise moment.
+
+### Requirements & Features to Add:
+
+1.  **Interactivity:**
+    * Update the Recharts components (LineChart/ScatterChart) to handle `onClick` events on data points.
+    * When a point is clicked, store the corresponding model's configuration in a state.
+
+2.  **Hyperparameter Detail View (Modal or Panel):**
+    * Create a clean, technical-looking detail section (using Tailwind CSS) that displays:
+        * **Architecture:** Type and size of each hidden layer (e.g., "Hidden Layer 1: ReLU (128 units)").
+        * **Output:** The type of the output layer.
+        * **Hyperparameters:** The Learning Rate and the Batch Size.
+    * This view must be consistent with the existing dark/stone theme.
+
+3.  **Data Mapping:**
+    * Ensure the details are pulled from the `network_config` object within the `MOCK_DATA`.
+    * If a point represents a specific epoch/run, show the configuration associated with that run.
+
+### Constraints:
+* **Technology:** Continue using React JS and Tailwind CSS.
+* **Style:** No emojis in the code or comments.
+* **Comments:** Keep comments professional, concise, and in English. No superfluous or "chatty" comments.
+* **Code Quality:** Keep the logic simple and modular. Reuse existing state patterns if possible.
+* **Responsiveness:** The detail view must be readable on all screen sizes.
+
+Please provide the full updated 'NeuralBenchmarkDashboard.jsx' file.
+
+```
