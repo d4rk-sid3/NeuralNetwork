@@ -149,7 +149,7 @@ Training is orchestrated through the **ExperimentRunner**.
 
 ## 📊 Evaluation Metrics
 
-RobotAI evaluates models using:
+MyTorch evaluates models using:
 
 - Accuracy
 - Loss
@@ -157,4 +157,114 @@ RobotAI evaluates models using:
 - Recall
 - F1 Score
 - Confusion Matrix
+
+```
+Total samples: 521157
+Accuracy: 0.594059
+Loss: 0.993705
+Precision: 0.609234
+Recall: 0.639403
+F1 Score: 0.623954
+```
+
+## MyTorch Interactive Shell
+
+MyTorch provides a custom interactive shell with AI-themed UX.
+
+### Available Commands
+
+- `GENERATE <json>`
+- `LOAD <network_name>`
+- `SAVE <network_name>`
+- `TRAIN <data> <hyperparams.json>`
+- `EVALUATE <test_file>`
+- `PREDICT <fen_file>`
+- `HELP`
+- Any system command (fallback)
+
+### Dynamic Components
+
+The shell dynamically loads:
+
+- Neural Network library
+- Experiment Runner library
+
+### Active Network Context
+
+All operations are performed on a **current active neural network**.
+
+## ▶️ How to Build & Run
+
+Build Everything:
+```bash
+make re
+```
+
+## Individual Targets:
+
+```bash
+make neural_network
+make experiment_runner
+make shell
+```
+
+## Run the Shell:
+```bash
+./bin/shell
+```
+
+## Benchmarks & Results
+
+The model has been trained on over **1.5 million chess positions**.
+
+### Current Best Configuration
+
+- **Architecture:** 65 → 128 → 64 → 5
+- **Activation Functions:**
+  - RELU (hidden layers)
+  - SOFTMAX (output)
+
+### Achieved
+
+- **Accuracy:** ≈ 59%
+- Stable generalization
+- Strong performance on non-trivial positions
+
+### Benchmark Video
+
+A benchmark video is available demonstrating:
+
+- Training process
+- Evaluation metrics
+- Real-time prediction
+
+[Watch the benchmark video](demo.webm)
+
+## 👥 Contributors
+
+### Project Authors
+
+| Name          | Role                          |
+|---------------|-------------------------------|
+| Aïmane ALASSANE | Neural Network Core           |
+| Oscar GBENOU | Data Conversion & Evaluation  |
+| Jordan AMOUZOUN | Shell & UX & Benchmark                    |
+
+## Final Notes
+
+This project is intentionally **low-level and transparent**:
+
+- No external ML frameworks
+- Full control over every step
+- Designed for learning, experimentation, and performance analysis
+
+MyTorch demonstrates how modern AI concepts can be implemented **from scratch**, using only **C++** and strong engineering principles.
+
+## 📜 License
+
+This project is released for **educational and research purposes**.
+
+Feel free to explore, extend, and experiment.
+
+**MyTorch — From raw chess data to intelligent predictions.**
 
