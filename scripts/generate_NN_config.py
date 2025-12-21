@@ -45,9 +45,9 @@ def main():
         layers.append({"type": "hidden", "size": size, "neuron_type": neuron_type})
 
     # Output layer
-    print("\n--- Output Layer ---")
-    output_activation = get_choice("Activation function:", NEURON_TYPES)
-    layers.append({"type": "output", "size": 5, "neuron_type": output_activation})
+    #print("\n--- Output Layer ---")
+    #output_activation = get_choice("Activation function:", NEURON_TYPES)
+    layers.append({"type": "output", "size": 5, "neuron_type": "SOFTMAX"})
 
     network = {"layers": layers}
 
