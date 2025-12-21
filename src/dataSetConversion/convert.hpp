@@ -6,6 +6,9 @@
 #include <sstream>
 #include <vector>
 #include <map>
+#include <algorithm>
+#include <random>
+#include <chrono>
 
 class Convertor
 {
@@ -57,6 +60,7 @@ public:
     void convertToIntFIle(std::string inputFile, std::string outputFile = "dataSetInt.txt");
     void retrieveBoardInfoTest(std::string inputFile, std::string outputFile = "boardTest.txt");
     static std::vector<float> retrieveBoardInfo(std::string line);
+    void mergeDataSets(std::vector<std::string> inputFiles);
     
 };
 

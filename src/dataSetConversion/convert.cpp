@@ -260,3 +260,26 @@ std::vector<float> Convertor::retrieveBoardInfo(std::string line)
 
     return tab;
 }
+
+void Convertor::mergeDataSets(std::vector<std::string> inputFiles)
+{
+    std::vector<std::string> fileData;
+
+    for (const auto& inputFile : inputFiles) {
+        std::vector<std::string> dataSet = getDataSet(inputFile);
+        fileData.insert(fileData.end(), dataSet.begin(), dataSet.end());
+    }
+
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::shuffle(fileData.begin(), fileData.end(), std::default_random_engine(seed));
+
+    std::shuffle(fileData.begin(), fileData.end(), std::default_random_engine(seed));
+
+    for (size_t i = 0; i < 4; ++i) {
+        std::string outputFile = "merged_many_pieces" + std::to_string(i) + "_.txt";
+        std::ofstream out(outputFile, std::ios::app);
+        for (size_t j = i; j < fileData.size(); j += 4) {
+            out << fileData[j] << std::endl;
+        }
+    }
+}
