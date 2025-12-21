@@ -11,7 +11,7 @@ MyTorchAnalyzer::MyTorchAnalyzer(const std::string& nnLibraryPath,
     currentNN = nullptr;
     runner = runnerLoader->getInstance();
 
-    currentNN = new NeuralNetwork(runner->loadNetwork("128-64-RELU-SIGMOID"));
+    currentNN = new NeuralNetwork(runner->loadNetwork("128-64-RELU-SOFTMAX"));
 }
 
 MyTorchAnalyzer::~MyTorchAnalyzer()

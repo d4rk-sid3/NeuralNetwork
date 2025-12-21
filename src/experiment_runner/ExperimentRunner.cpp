@@ -49,8 +49,8 @@ NeuralNetwork ExperimentRunner::generate(const std::string& config_file)
     }
 
     // --- Create output layer with 5 neurons ---
-    const auto& layer = layers_json.back(); // output layer
-    std::string neuron_type = layer.at("neuron_type").get<std::string>();
+    //const auto& layer = layers_json.back(); // output layer
+    std::string neuron_type = "SIGMOID";
     size_t output_size = 5;
 
     std::vector<std::unique_ptr<Neuron>> output_neurons;
@@ -195,7 +195,8 @@ void ExperimentRunner::train(
     return;
 }
 
-void ExperimentRunner::writeBenchmarkData(EvalMetrics metrics, size_t total_samples) {
+void ExperimentRunner::writeBenchmarkData(EvalMetrics metrics, size_t total_samples)
+{
     std::ofstream file("benchmark_value/benchmark_data.txt", std::ios::app);
     if (file.is_open()) {
         file << std::fixed << std::setprecision(4);

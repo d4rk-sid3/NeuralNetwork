@@ -13,7 +13,7 @@
     {
       "type": "output",
       "size": 5,
-      "neuron_type": "SIGMOID"
+      "neuron_type": "SOFTMAX"
     }
   ]
 }
