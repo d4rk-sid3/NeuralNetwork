@@ -1,161 +1,28 @@
-Neural_Network: 128-64-RELU-SOFTMAX
-start_time: 2025-12-21T16:34:04Z
-end_time: 2025-12-21T16:56:11Z
-training_duration_sec: 1327
+Neural_Network: 
+start_time: 2025-12-21T20:33:32Z
+end_time: 2025-12-21T21:13:46Z
+training_duration_sec: 2414
 multithreaded: false
 threads_used: 1
-training_config: NN_Training_Config/128-64-RELU-SOFTMAX/training3.json
+training_config: NN_Training_Config/256-128-64-RELU-SOFTMAX1/training0.json
 total_samples: 55072
-accuracy: 0.4281
-loss: 1.6755
-precision: 0.5083
-recall: 0.5457
-f1_score: 0.5263
-----
-total_samples: 55071
-accuracy: 0.4346
-loss: 1.6527
-precision: 0.5121
-recall: 0.5479
-f1_score: 0.5294
-----
-Neural_Network: 128-64-RELU-SOFTMAX
-start_time: 2025-12-21T17:08:00Z
-end_time: 2025-12-21T17:23:00Z
-training_duration_sec: 900
-multithreaded: false
-threads_used: 1
-training_config: NN_Training_Config/128-64-RELU-SOFTMAX/training3.json
-total_samples: 55072
-accuracy: 0.5968
-loss: 3.7193
-precision: 0.3353
-recall: 0.4463
-f1_score: 0.3829
-----
-Neural_Network: 128-64-RELU-SOFTMAX
-start_time: 2025-12-21T17:08:00Z
-end_time: 2025-12-21T17:35:21Z
-training_duration_sec: 1640
-multithreaded: false
-threads_used: 1
-training_config: NN_Training_Config/128-64-RELU-SOFTMAX/training3.json
-total_samples: 55072
-accuracy: 0.4570
-loss: 8.7472
-precision: 0.2914
-recall: 0.2000
-f1_score: 0.2372
-----
-total_samples: 100000
-accuracy: 1.0000
-loss: 0.0000
-precision: 0.2000
-recall: 0.2000
-f1_score: 0.2000
-----
-Neural_Network: 128-64-RELU-SOFTMAX
-start_time: 2025-12-21T17:08:00Z
-end_time: 2025-12-21T18:04:58Z
-training_duration_sec: 3417
-multithreaded: false
-threads_used: 1
-training_config: NN_Training_Config/128-64-RELU-SOFTMAX/training1.json
-total_samples: 55072
-accuracy: 0.4865
-loss: 3.4911
-precision: 0.4958
-recall: 0.5688
-f1_score: 0.5298
-----
-Neural_Network: 128-64-RELU-SOFTMAX
-start_time: 2025-12-21T17:08:00Z
-end_time: 2025-12-21T19:06:48Z
-training_duration_sec: 7127
-multithreaded: false
-threads_used: 1
-training_config: NN_Training_Config/128-64-RELU-SOFTMAX/training1.json
-total_samples: 55072
-accuracy: 0.7179
-loss: 0.6717
-precision: 0.7153
-recall: 0.7082
-f1_score: 0.7118
-----
-total_samples: 55071
-accuracy: 0.7149
-loss: 0.6796
-precision: 0.7145
-recall: 0.7057
-f1_score: 0.7101
-----
-total_samples: 55071
-accuracy: 0.7184
-loss: 0.6711
-precision: 0.7165
-recall: 0.7111
-f1_score: 0.7138
-----
-total_samples: 55071
-accuracy: 0.7187
-loss: 0.6681
-precision: 0.7175
-recall: 0.7112
-f1_score: 0.7143
-----
-total_samples: 75000
-accuracy: 0.6379
-loss: 0.8552
-precision: 0.6301
-recall: 0.6429
-f1_score: 0.6364
-----
-total_samples: 75000
-accuracy: 0.6374
-loss: 0.8519
-precision: 0.6287
-recall: 0.6407
-f1_score: 0.6346
-----
-total_samples: 75000
-accuracy: 0.6371
-loss: 0.8520
-precision: 0.6292
-recall: 0.6419
-f1_score: 0.6354
-----
-total_samples: 75000
-accuracy: 0.6380
-loss: 0.8510
-precision: 0.6307
-recall: 0.6424
-f1_score: 0.6365
-----
-total_samples: 276368
-accuracy: 0.5750
-loss: 1.1638
-precision: 0.5848
-recall: 0.5928
-f1_score: 0.5887
-----
-Neural_Network: 128-64-RELU-SOFTMAX
-start_time: 2025-12-21T17:08:00Z
-end_time: 2025-12-21T20:05:33Z
-training_duration_sec: 10652
-multithreaded: false
-threads_used: 1
-training_config: NN_Training_Config/128-64-RELU-SOFTMAX/training1.json
-total_samples: 55072
-accuracy: 0.5470
-loss: 1.1360
-precision: 0.5507
-recall: 0.6787
-f1_score: 0.6081
+accuracy: 0.4216
+loss: 1.7864
+precision: 0.3520
+recall: 0.2603
+f1_score: 0.2993
 ----
 total_samples: 521157
-accuracy: 0.5941
-loss: 0.9937
-precision: 0.6092
-recall: 0.6394
-f1_score: 0.6240
+accuracy: 0.3408
+loss: 2.1751
+precision: 0.3239
+recall: 0.2655
+f1_score: 0.2918
+----
+total_samples: 55072
+accuracy: 0.6151
+loss: 1.3257
+precision: 0.6069
+recall: 0.5532
+f1_score: 0.5788
 ----

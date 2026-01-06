@@ -356,11 +356,16 @@
         "training_data_size": 55072
     },
     {
-        "date": "2025-12-21T06:19:54Z",
-        "experiment_id": "128-64-RELU-SOFTMAX",
+        "date": "2025-12-20T17:47:05Z",
+        "experiment_id": "256-128-64-RELU-SIGMOID",
         "network_config": {
             "batch_size": 32,
             "layers": [
+                {
+                    "neuron_type": "RELU",
+                    "size": 256,
+                    "type": "hidden"
+                },
                 {
                     "neuron_type": "RELU",
                     "size": 128,
@@ -436,6 +441,53 @@
         "timestamps": {
             "end_time": "2025-12-21T12:24:05Z",
             "start_time": "2025-12-21T06:19:54Z"
+        },
+        "training_data_size": 55072
+    },
+    {
+        "date": "2025-12-21T12:44:16Z",
+        "experiment_id": "256-128-64-RELU-SOFTMAX",
+        "network_config": {
+            "batch_size": 50,
+            "layers": [
+                {
+                    "neuron_type": "RELU",
+                    "size": 256,
+                    "type": "hidden"
+                },
+                {
+                    "neuron_type": "RELU",
+                     "size": 128,
+                    "type": "hidden"
+                },
+                {
+                    "neuron_type": "RELU",
+                    "size": 64,
+                    "type": "hidden"
+                },
+                {
+                    "neuron_type": "SOFTMAX",
+                    "size": 5,
+                    "type": "output"
+                }
+            ],
+            "learning_rate": 0.01,
+            "num_layers": 4
+        },
+        "notes": "Automated benchmark import",
+        "performance": {
+            "accuracy": 0.6123,
+            "f1_score": 0.6078,
+            "loss": 0.767,
+            "multithreaded": false,
+            "precision": 0.706,
+            "recall": 0.5336,
+            "threads_used": 1,
+            "training_duration_sec": 8522
+        },
+        "timestamps": {
+            "end_time": "2025-12-21T15:06:19Z",
+            "start_time": "2025-12-21T12:44:16Z"
         },
         "training_data_size": 55072
     },
@@ -630,23 +682,117 @@
                 }
             ],
             "learning_rate": 0.01,
-            "num_layers": 3
+            "num_layers": 4
         },
         "notes": "Automated benchmark import",
         "performance": {
-            "accuracy": 0.4636,
-            "f1_score": 0.588,
-            "loss": 1.3667,
+            "accuracy": 0.6167,
+            "f1_score": 0.6113,
+            "loss": 0.7454,
             "multithreaded": false,
-            "precision": 0.5298,
-            "recall": 0.6605,
+            "precision": 0.685,
+            "recall": 0.552,
             "threads_used": 1,
-            "training_duration_sec": 35300
+            "training_duration_sec": 28613
         },
         "timestamps": {
-            "end_time": "2025-12-21T16:08:14Z",
-            "start_time": "2025-12-21T06:19:54Z"
+            "end_time": "2025-12-21T20:41:09Z",
+            "start_time": "2025-12-21T12:44:16Z"
         },
-        "training_data_size": 55072
+        "training_data_size": 55071
+    },
+    {
+        "date": "2025-12-21T20:46:08Z",
+        "experiment_id": "256-128-64-RELU-SOFTMAX",
+        "network_config": {
+            "batch_size": 100,
+            "layers": [
+                {
+                    "neuron_type": "RELU",
+                    "size": 256,
+                    "type": "hidden"
+                },
+                {
+                    "neuron_type": "RELU",
+                    "size": 128,
+                    "type": "hidden"
+                },
+                {
+                    "neuron_type": "RELU",
+                    "size": 64,
+                    "type": "hidden"
+                },
+                {
+                    "neuron_type": "SOFTMAX",
+                    "size": 5,
+                    "type": "output"
+                }
+            ],
+            "learning_rate": 0.1,
+            "num_layers": 4
+        },
+        "notes": "Automated benchmark import",
+        "performance": {
+            "accuracy": 0.6908,
+            "f1_score": 0.6806,
+            "loss": 0.7191,
+            "multithreaded": false,
+            "precision": 0.695,
+            "recall": 0.6668,
+            "threads_used": 1,
+            "training_duration_sec": 1080
+        },
+        "timestamps": {
+            "end_time": "2025-12-21T21:04:09Z",
+            "start_time": "2025-12-21T20:46:08Z"
+        },
+        "training_data_size": 55071
+    },
+    {
+        "date": "2025-12-21T20:46:08Z",
+        "experiment_id": "256-128-64-RELU-SOFTMAX",
+        "network_config": {
+            "batch_size": 100,
+            "layers": [
+                {
+                    "neuron_type": "RELU",
+                    "size": 256,
+                    "type": "hidden"
+                },
+                {
+                    "neuron_type": "RELU",
+                    "size": 128,
+                    "type": "hidden"
+                },
+                {
+                    "neuron_type": "RELU",
+                    "size": 64,
+                    "type": "hidden"
+                },
+                {
+                    "neuron_type": "SOFTMAX",
+                    "size": 5,
+                    "type": "output"
+                }
+            ],
+            "learning_rate": 0.1,
+            "num_layers": 4
+        },
+        "notes": "Automated benchmark import",
+        "performance": {
+            "accuracy": 0.7291,
+            "f1_score": 0.7058,
+            "loss": 0.5414,
+            "multithreaded": false,
+            "precision": 0.726,
+            "recall": 0.6866,
+            "threads_used": 1,
+            "training_duration_sec": 3141
+        },
+        "timestamps": {
+            "end_time": "2025-12-21T21:38:30Z",
+            "start_time": "2025-12-21T20:46:08Z"
+        },
+        "training_data_size": 55071
     }
 ]

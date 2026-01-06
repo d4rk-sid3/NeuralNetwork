@@ -14,18 +14,12 @@
             "number": 128
         },
         {
-            "activation": "RELU",
-            "index": 3,
-            "layer_type": "HIDDEN",
-            "number": 64
-        },
-        {
             "activation": "SIGMOID",
-            "index": 4,
+            "index": 3,
             "layer_type": "OUTPUT",
             "number": 5
         }
     ],
-    "learning_rate": 0.20000000298023224,
+    "learning_rate": 0.009999999776482582,
     "mini_batch_size": 50
 }
