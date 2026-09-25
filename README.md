@@ -7,6 +7,24 @@ This repository is both:
 - an **engineering project** (C++, shared libraries, dynamic loading, CLI shell)
 - a **machine learning project** (custom neural network implementation, training pipeline, evaluation metrics)
 
+<p align="center">
+  <img src="docs/media/benchmark-dashboard.jpg" alt="MyTorch benchmark dashboard comparing trained topologies" width="760" />
+  <br/><em>The benchmark dashboard (React + Recharts) comparing the accuracy, loss and F1 score of each trained topology.</em>
+</p>
+
+### Quick start
+
+```text
+$ make re && ./bin/shell
+[RobotAI]> LOAD 128-64-RELU-SOFTMAX
+[RobotAI]> EVALUATE <test_dataset>
+[RobotAI]> GENERATE NN_Config/256-128-RELU-SOFTMAX.json
+[RobotAI]> TRAIN NN_Training_Config/256-128-RELU-SOFTMAX/training0.json <training_dataset>
+[RobotAI]> SAVE my-network          # written to Neural_Networks/my-network/
+```
+
+Datasets are not versioned (see `.gitignore`); convert raw FEN files with the tool in `src/dataSetConversion/` first.
+
 ---
 
 ## 🧠 Technologies Used
