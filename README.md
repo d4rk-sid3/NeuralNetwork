@@ -176,10 +176,11 @@ MyTorch provides a custom interactive shell with AI-themed UX.
 - `GENERATE <json>`
 - `LOAD <network_name>`
 - `SAVE <network_name>`
-- `TRAIN <data> <hyperparams.json>`
+- `TRAIN <hyperparams.json> <training_data>`
 - `EVALUATE <test_file>`
 - `PREDICT <fen_file>`
 - `HELP`
+- `EXIT` / `QUIT`
 - Any system command (fallback)
 
 ### Dynamic Components
