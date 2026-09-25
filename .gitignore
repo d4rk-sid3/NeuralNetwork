@@ -9,3 +9,17 @@ testing_data/
 test_data
 test_data/
 chessboards.txt
+
+# Build outputs
+*.o
+build/
+bin/
+librairies/
+/my_torch_analyzer
+/benchmark
+src/dataSetConversion/converter
+src/dataSetConversion/test_converter
+
+# Dashboard
+node_modules/
+dist/
